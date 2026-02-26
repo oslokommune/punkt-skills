@@ -1,0 +1,9 @@
+{
+  "name": "punkt-designsystem",
+  "description": "Skills for using and developing the Punkt design system by Oslo kommune. Covers Punkt Elements (web components), Punkt React, and Punkt CSS.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Team Designsystem, Digitaliseringsetaten, Oslo kommune",
+    "email": "punkt@dig.oslo.kommune.no"
+  }
+}

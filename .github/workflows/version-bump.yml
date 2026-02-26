@@ -1,0 +1,97 @@
+name: Version Bump
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  version-bump:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get latest tag
+        id: latest_tag
+        run: |
+          tag=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          if [ -z "$tag" ]; then
+            tag="v0.0.0"
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Determine version bump from commits
+        id: bump
+        run: |
+          TAG="${{ steps.latest_tag.outputs.tag }}"
+
+          if [ "$TAG" = "v0.0.0" ]; then
+            COMMITS=$(git log --all --pretty=format:"%s")
+          else
+            COMMITS=$(git log "${TAG}..HEAD" --pretty=format:"%s")
+          fi
+
+          if [ -z "$COMMITS" ]; then
+            echo "bump=none" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          BUMP="none"
+
+          while IFS= read -r msg; do
+            # Breaking change → major
+            if echo "$msg" | grep -qE '^[a-z]+(\(.+\))?!:'; then
+              BUMP="major"
+              break
+            fi
+
+            case "$msg" in
+              feat:*|feat\(*)
+                [ "$BUMP" != "major" ] && BUMP="minor" ;;
+              fix:*|fix\(*|docs:*|docs\(*|style:*|style\(*|refactor:*|refactor\(*|perf:*|perf\(*|test:*|test\(*|chore:*|chore\(*|ci:*|ci\(*|build:*|build\(*)
+                [ "$BUMP" = "none" ] && BUMP="patch" ;;
+            esac
+          done <<< "$COMMITS"
+
+          echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
+
+      - name: Bump version
+        if: steps.bump.outputs.bump != 'none'
+        id: new_version
+        run: |
+          TAG="${{ steps.latest_tag.outputs.tag }}"
+          VERSION="${TAG#v}"
+          BUMP="${{ steps.bump.outputs.bump }}"
+
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+
+          case "$BUMP" in
+            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
+            patch) PATCH=$((PATCH + 1)) ;;
+          esac
+
+          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Update plugin.json and tag
+        if: steps.bump.outputs.bump != 'none'
+        run: |
+          NEW_VERSION="${{ steps.new_version.outputs.version }}"
+
+          # Update version in plugin.json
+          jq --arg v "$NEW_VERSION" '.version = $v' .claude-plugin/plugin.json > tmp.json
+          mv tmp.json .claude-plugin/plugin.json
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .claude-plugin/plugin.json
+          git commit -m "chore: bump version to ${NEW_VERSION}"
+          git tag "v${NEW_VERSION}"
+          git push
+          git push --tags
