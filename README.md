@@ -15,8 +15,10 @@ Claude Code plugin with skills for using and developing the [Punkt design system
 ## Installation
 
 ```
-/plugin install punkt-designsystem
+/plugin install punkt-designsystem@dig
 ```
+
+(Requires access to the Claude marketplace for Digitaliseringsdirektoratet, Oslo kommune)
 
 ## Usage
 
@@ -30,14 +32,14 @@ Skills are activated automatically by Claude when your request matches what they
 
 The plugin version is bumped automatically on push to `main` based on [Conventional Commits](https://www.conventionalcommits.org/).
 
-| Commit prefix | Bump  | Example                                    |
-| :------------ | :---- | :----------------------------------------- |
-| `feat:`       | minor | `feat: add tooltip component skill`        |
-| `fix:`        | patch | `fix: correct accordion example`           |
-| `docs:`       | patch | `docs: update README`                      |
-| `refactor:`   | patch | `refactor: reorganize css skill sections`  |
-| `chore:`      | patch | `chore: update metadata`                   |
-| `feat!:`      | major | `feat!: rename all skill directories`      |
+| Commit prefix | Bump  | Example                                   |
+| :------------ | :---- | :---------------------------------------- |
+| `feat:`       | minor | `feat: add tooltip component skill`       |
+| `fix:`        | patch | `fix: correct accordion example`          |
+| `docs:`       | patch | `docs: update README`                     |
+| `refactor:`   | patch | `refactor: reorganize css skill sections` |
+| `chore:`      | patch | `chore: update metadata`                  |
+| `feat!:`      | major | `feat!: rename all skill directories`     |
 
 A `!` after any prefix (e.g. `feat!:`, `fix!:`) triggers a **major** bump.
 
