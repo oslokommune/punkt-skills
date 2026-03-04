@@ -2,6 +2,8 @@
 
 Claude Code plugin with skills for using and developing the [Punkt design system](https://punkt.oslo.kommune.no/) by Oslo kommune.
 
+Disclaimer: This plugin is somewhat experimental. Use it with care, and always check the generated output manually. AI agents are unpredictable, and errors might occur.
+
 ## Skills
 
 | Skill                  | Description                                                                                           |
