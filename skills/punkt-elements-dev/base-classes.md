@@ -53,15 +53,38 @@ export class PktElement<T = {}> extends PktShadowElement<T> {
 }
 ```
 
-**When to use:** For all components that need access to global CSS classes (the vast majority). This is the default choice.
+**When to use:** For light DOM components that do NOT accept slot content (e.g., icon, checkbox, radiobutton, progressbar, calendar, consent, backlink).
+
+## PktElementWithSlot
+
+**File:** `src/base-elements/element.ts`
+**Extends:** `PktElement`
+**DOM:** Light DOM
+
+Extends `PktElement` with slot content support. Pre-collects children in `connectedCallback()` before Lit's first render clears them, and provides `hasSlotContent()`. Only components that use the `slotContent` directive should extend this class — components without slots use plain `PktElement` to avoid unnecessary overhead.
+
+```typescript
+export class PktElementWithSlot<T = {}> extends PktElement<T> {
+  override connectedCallback(): void {
+    getSlotManager(this).collectNodes()
+    super.connectedCallback()
+  }
+
+  hasSlotContent(slotName?: string): boolean {
+    return getSlotManager(this).hasContent(slotName)
+  }
+}
+```
+
+**When to use:** For components whose template uses `slotContent(this)` or `slotContent(this, 'name')`. Used by alert, button, card, link, tag, accordion-item, tab-item, tabs, header, modal, loader, messagebox, helptext, input-wrapper, linkcard.
 
 ## PktInputElement
 
 **File:** `src/base-elements/input-element.ts`
-**Extends:** `PktElement`
+**Extends:** `PktElementWithSlot`
 **DOM:** Light DOM
 
-Base class for all form input components. Provides full form participation via `ElementInternals`. See [Form Integration](form-integration.md) for detailed documentation.
+Base class for all form input components. Provides full form participation via `ElementInternals`. Extends `PktElementWithSlot` because most input components forward helptext slot content. See [Form Integration](form-integration.md) for detailed documentation.
 
 **When to use:** For any component that participates in HTML forms (text inputs, checkboxes, radio buttons, textareas).
 
@@ -79,7 +102,8 @@ Base class for inputs with selectable options. Manages option state from both pr
 
 | Scenario | Base Class |
 |---|---|
-| Display component (alert, card, link, tag, etc.) | `PktElement` |
+| Display component with slot content (alert, card, link, tag, etc.) | `PktElementWithSlot` |
+| Display component without slot content (icon, progressbar, etc.) | `PktElement` |
 | Component needing Shadow DOM encapsulation | `PktShadowElement` |
 | Text input, checkbox, radio, textarea | `PktInputElement` |
 | Select, combobox, listbox | `PktOptionsInputElement` |
@@ -90,7 +114,7 @@ All base classes accept a generic `<T>` parameter used for the `$props` typing (
 
 ```typescript
 @customElement('pkt-button')
-export class PktButton extends PktElement<IPktButton> implements IPktButton {
+export class PktButton extends PktElementWithSlot<IPktButton> implements IPktButton {
   // ...
 }
 ```

@@ -1,4 +1,4 @@
-# Light DOM & Slot Controllers
+# Light DOM & Slot Content Distribution
 
 ## Light DOM rendering
 
@@ -7,45 +7,43 @@ Most Punkt elements render in **light DOM** by extending `PktElement`, which ove
 - Component output is rendered directly into the host element (no shadow root)
 - Global CSS classes from `@oslokommune/punkt-css` apply naturally
 - Native Shadow DOM `<slot>` elements are **not available**
-- Content distribution must be handled by `PktSlotController`
+- Content distribution is handled by the `slotContent` directive
 
-## PktSlotController
+## slotContent directive
 
-**File:** `src/controllers/pkt-slot-controller.ts`
+**File:** `src/directives/slot-content.ts`
 
-A Lit reactive controller that provides slot-like content distribution without Shadow DOM. It watches the host's children and moves them into designated container elements based on their `slot` attribute.
+A Lit `AsyncDirective` that provides declarative slot-like content distribution without Shadow DOM. It collects the host element's children before Lit's first render and distributes them into designated positions in the template.
 
 ### How it works
 
-1. The component creates `Ref<HTMLElement>` objects for each "slot container"
-2. `PktSlotController` is instantiated with references to these containers
-3. On connect, the controller collects all child nodes of the host
-4. It distributes nodes to matching containers based on `slot` attribute
-5. A `MutationObserver` watches for child changes and re-distributes
+1. Components that use slots extend `PktElementWithSlot` (instead of `PktElement`)
+2. `PktElementWithSlot.connectedCallback()` calls `SlotManager.collectNodes()` to capture children before Lit renders
+3. The component's template uses `${slotContent(this)}` to place default slot content
+4. Named slots use `${slotContent(this, 'slotName')}`
+5. A `MutationObserver` watches for dynamic child changes and re-distributes
+6. The directive uses a generation counter to avoid unnecessary DOM updates
+
+### Architecture
+
+- **`SlotManager`** — Per-host singleton (stored in a `WeakMap`). Collects and categorizes children by `slot` attribute, observes mutations, notifies registered directives.
+- **`SlotContentDirective`** — `AsyncDirective` that renders collected nodes at its position. Returns `noChange` when content hasn't changed.
+- **`getSlotManager(host)`** — Returns or creates the SlotManager for a host element.
 
 ### Basic usage (single default slot)
 
 ```typescript
-import { PktElement } from '@/base-elements/element'
-import { PktSlotController } from '@/controllers/pkt-slot-controller'
+import { PktElementWithSlot } from '@/base-elements/element'
+import { slotContent } from '@/directives/slot-content'
 import { html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { createRef, Ref, ref } from 'lit/directives/ref.js'
 
 @customElement('pkt-example')
-export class PktExample extends PktElement<IPktExample> {
-  defaultSlot: Ref<HTMLElement> = createRef()
-  slotController: PktSlotController
-
-  constructor() {
-    super()
-    this.slotController = new PktSlotController(this, this.defaultSlot)
-  }
-
+export class PktExample extends PktElementWithSlot<IPktExample> {
   render() {
     return html`
       <div class="pkt-example">
-        <span ${ref(this.defaultSlot)}></span>
+        <span>${slotContent(this)}</span>
       </div>
     `
   }
@@ -55,28 +53,19 @@ export class PktExample extends PktElement<IPktExample> {
 Consumer HTML:
 ```html
 <pkt-example>Hello world</pkt-example>
-<!-- "Hello world" is moved into the <span> -->
+<!-- "Hello world" is placed into the <span> -->
 ```
 
 ### Multiple named slots
 
 ```typescript
 @customElement('pkt-card')
-export class PktCard extends PktElement<IPktCard> {
-  defaultSlot: Ref<HTMLElement> = createRef()
-  headerSlot: Ref<HTMLElement> = createRef()
-  slotController: PktSlotController
-
-  constructor() {
-    super()
-    this.slotController = new PktSlotController(this, this.defaultSlot, this.headerSlot)
-  }
-
+export class PktCard extends PktElementWithSlot<IPktCard> {
   render() {
     return html`
       <div class="pkt-card">
-        <div class="pkt-card__header" ${ref(this.headerSlot)} name="header"></div>
-        <div class="pkt-card__body" ${ref(this.defaultSlot)}></div>
+        <div class="pkt-card__header">${slotContent(this, 'header')}</div>
+        <div class="pkt-card__body">${slotContent(this)}</div>
       </div>
     `
   }
@@ -91,45 +80,73 @@ Consumer HTML:
 </pkt-card>
 ```
 
-### Tracking filled slots
+### Checking if a slot has content
 
-The controller maintains a `filledSlots` Set that tracks which slots currently have content. If the host implements an `updateSlots(filledSlots)` method, it will be called whenever slots change:
+Use the `hasSlotContent()` method on `PktElementWithSlot` to conditionally render based on whether a slot has content:
 
 ```typescript
-updateSlots(filledSlots: Set<string | null | undefined>) {
-  this.hasHeader = filledSlots.has('header')
-  this.requestUpdate()
+render() {
+  const classes = classMap({
+    'pkt-inputwrapper__has-helptext':
+      this.helptext || this.helptextDropdown || this.hasSlotContent(),
+  })
+  // ...
 }
 ```
 
-### skipOptions flag
+### Forwarding helptext slots through component layers
 
-For input components that accept both slotted content **and** `<option>` children, set `skipOptions = true` so the slot controller ignores `<option>` elements (they are handled by `PktOptionsSlotController` instead):
+Several input components (textinput, textarea, datepicker, select, combobox) forward a `helptext` named slot through to `pkt-input-wrapper`, which in turn forwards it to `pkt-helptext`. The pattern is:
 
 ```typescript
-constructor() {
-  super()
-  this.optionsController = new PktOptionsSlotController(this)
-  this.slotController = new PktSlotController(this, this.helptextSlot)
-  this.slotController.skipOptions = true
+// In textinput/textarea/etc:
+render() {
+  return html`
+    <pkt-input-wrapper ...>
+      <div class="pkt-contents" slot="helptext">${slotContent(this, 'helptext')}</div>
+      <!-- other content -->
+    </pkt-input-wrapper>
+  `
+}
+```
+
+```typescript
+// In input-wrapper:
+const helptextElement = () => {
+  return html`
+    <pkt-helptext ...>${slotContent(this, 'helptext')}</pkt-helptext>
+  `
 }
 ```
 
 ## Slot content reactivity
 
-Slot content is distributed once and is **not reactive** to Lit property changes by default. If slot content needs to update when the component's state changes, it must be wrapped in a container element so Lit can re-render the content in place. The recommended pattern uses a `<div class="pkt-contents">` wrapper:
+Slot content wrapped in a container element (div/span) maintains Lit template bindings when moved by the directive. **Always wrap reactive slot content in a container element:**
 
 ```html
-<pkt-card>
-  <div class="pkt-contents">
-    <h2>{responsiveTitle}</h2>
-    <p>{responsiveContent}</p>
-    {metaSection}
-  </div>
-</pkt-card>
+<!-- Good: wrapper div preserves Lit's template reference -->
+<pkt-alert>
+  <div>${dynamicContent}</div>
+</pkt-alert>
+
+<!-- Bad: bare text/expressions lose their binding when moved -->
+<pkt-alert>
+  ${dynamicContent}
+</pkt-alert>
 ```
 
-Without a wrapper, individual text nodes or elements passed as slot children are moved by the slot controller and lose their binding to the parent component's render cycle.
+Without a wrapper, Lit loses track of the template parts when nodes are moved, and subsequent re-renders may duplicate or fail to update content.
+
+## Automatic filtering
+
+The `slotContent` directive **always** filters out:
+
+- `<option>` and `<data>` elements (handled by `PktOptionsSlotController`)
+- Elements with the `data-skip` attribute
+- Elements injected by the dialog polyfill (`_dialog_overlay`, `backdrop`)
+- Empty/whitespace-only text nodes
+
+This means components that accept both slot content and `<option>` children (like `pkt-select` and `pkt-combobox`) do not need any special configuration.
 
 ## PktOptionsSlotController
 
@@ -148,24 +165,28 @@ A reactive controller for components that accept `<option>` or `<data>` elements
 ### Usage
 
 ```typescript
-import { PktOptionsInputElement } from '@/base-elements/options-input-element'
 import { PktOptionsSlotController } from '@/controllers/pkt-options-controller'
-import { PktSlotController } from '@/controllers/pkt-slot-controller'
+import { slotContent } from '@/directives/slot-content'
 
 @customElement('pkt-select')
 export class PktSelect extends PktOptionsInputElement<{}, TSelectOption> {
-  private helptextSlot: Ref<HTMLElement> = createRef()
-
   constructor() {
     super()
     this.optionsController = new PktOptionsSlotController(this)
-    this.slotController = new PktSlotController(this, this.helptextSlot)
-    this.slotController.skipOptions = true
   }
 
   connectedCallback(): void {
     super.connectedCallback()
-    this.parseOptions()  // Inherited from PktOptionsInputElement
+    this.parseOptions()
+  }
+
+  render() {
+    return html`
+      <pkt-input-wrapper ...>
+        <div class="pkt-contents" slot="helptext">${slotContent(this, 'helptext')}</div>
+        <!-- select UI -->
+      </pkt-input-wrapper>
+    `
   }
 }
 ```
@@ -177,15 +198,6 @@ Consumer HTML:
   <option value="se">Sverige</option>
   <option value="dk">Danmark</option>
 </pkt-select>
-```
-
-The `<option>` elements are hidden and converted to:
-```json
-[
-  { "value": "no", "label": "Norge", "selected": true },
-  { "value": "se", "label": "Sverige" },
-  { "value": "dk", "label": "Danmark" }
-]
 ```
 
 ### Option type
@@ -204,12 +216,10 @@ type TOption = {
 
 **File:** `src/controllers/pkt-slot-utils.ts`
 
-Helper functions used internally by the controllers:
+Helper functions used internally by the directive and options controller:
 
 | Function | Purpose |
 |---|---|
 | `shouldSkip(element)` | Whether to skip element (dialog polyfill, `data-skip`) |
 | `isOptionElement(element)` | Is `<option>` or `<data>` |
-| `isSlotElement(element, slots)` | Is the element a slot container |
-| `isNodeAndNotSlot(element, slots)` | Is a distributable content node |
 | `isTextNodeAndNotEmpty(element)` | Is a non-empty text node |
