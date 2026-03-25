@@ -35,17 +35,46 @@ Dark mode: Yes
 
 ## Props / Attributes
 
-| Prop (React) | Attribute (Elements) | Type   | Default                         | Description                                     |
-| ------------ | -------------------- | ------ | ------------------------------- | ----------------------------------------------- |
-| `href`       | `href`               | string | `"/"`                           | URL the link points to                          |
-| `text`       | `text`               | string | `"Forsiden"`                    | Text displayed in the back link                 |
-| `ariaLabel`  | `ariaLabel`          | string | `"Gå tilbake til forrige side"` | Text read by screen readers for the nav element |
+| Prop (React)  | Attribute (Elements) | Type     | Default                         | Description                                     |
+| ------------- | -------------------- | -------- | ------------------------------- | ----------------------------------------------- |
+| `href`        | `href`               | string   | `"/"`                           | URL the link points to                          |
+| `text`        | `text`               | string   | `"Forsiden"`                    | Text displayed in the back link                 |
+| `ariaLabel`   | `ariaLabel`          | string   | `"Gå tilbake til forrige side"` | Text read by screen readers for the nav element |
+| `renderLink`  | —                    | function | plain `<a>`                     | React only: custom link renderer (see below)    |
 
 ## Events
 
 | Event (React) | Event (Elements) | Description                         |
 | ------------- | ---------------- | ----------------------------------- |
 | `onClick`     | —                | Fires when the back link is clicked |
+
+## Custom link renderer (React only)
+
+Use `renderLink` to integrate with client-side routers without adding a router dependency to Punkt. The function receives `{ href, className, children, props }` and should return a React node.
+
+```jsx
+// Next.js
+import Link from 'next/link'
+<PktBackLink
+  href="/overview"
+  text="Back to overview"
+  renderLink={({ href, className, children }) => (
+    <Link href={href} className={className}>{children}</Link>
+  )}
+/>
+
+// React Router
+import { Link } from 'react-router-dom'
+<PktBackLink
+  href="/overview"
+  text="Back to overview"
+  renderLink={({ href, className, children }) => (
+    <Link to={href} className={className}>{children}</Link>
+  )}
+/>
+```
+
+If `renderLink` is not provided, a plain `<a>` element is used.
 
 ## Accessibility
 
