@@ -79,7 +79,7 @@ Landscape cards automatically scale down to portrait on small screens.
 | `metaLead`         | `metaLead`           | string                                                                               | —            | Bold metadata text (e.g. author)                                    |
 | `metaTrail`        | `metaTrail`          | string                                                                               | —            | Normal-weight metadata text (e.g. date)                             |
 | `tagPosition`      | `tagPosition`        | `"top"` \| `"bottom"`                                                                | `"top"`      | Position of tags in the card                                        |
-| `clickCardlink`    | `clickCardlink`      | string                                                                               | —            | URL to make the entire card clickable. Heading is used as link text |
+| `clickCardLink`    | `clickCardLink`      | string                                                                               | —            | URL to make the entire card clickable. Heading is used as link text |
 | `openLinkInNewTab` | `openLinkInNewTab`   | boolean                                                                              | `false`      | Open the card link in a new tab                                     |
 | `borderOnHover`    | `borderOnHover`      | boolean                                                                              | `true`       | Show border on hover for clickable cards                            |
 | `image`            | `image`              | `{ src: string, alt?: string }`                                                      | —            | Card image. Only set `alt` for non-decorative images                |
@@ -121,7 +121,7 @@ import { PktCard } from '@oslokommune/punkt-react'
 }
 ;<PktCard
   heading="Service name"
-  clickCardlink="/services/detail"
+  clickCardLink="/services/detail"
   image={{ src: '/images/service.jpg', alt: 'Service illustration' }}
   skin="blue"
   tags={[{ text: 'New', skin: 'green' }]}
@@ -148,7 +148,7 @@ import { PktCard } from '@oslokommune/punkt-react'
   <p>Card content goes here.</p>
 </pkt-card>
 
-<pkt-card heading="Service name" clickCardlink="/services/detail" skin="blue"> </pkt-card>
+<pkt-card heading="Service name" clickCardLink="/services/detail" skin="blue"> </pkt-card>
 
 <pkt-card heading="Article title" layout="horizontal">
   <p>Article summary text.</p>
