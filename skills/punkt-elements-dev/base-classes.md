@@ -100,22 +100,27 @@ Base class for inputs with selectable options. Manages option state from both pr
 
 ## Choosing the right base class
 
-| Scenario | Base Class |
-|---|---|
-| Display component with slot content (alert, card, link, tag, etc.) | `PktElementWithSlot` |
-| Display component without slot content (icon, progressbar, etc.) | `PktElement` |
-| Component needing Shadow DOM encapsulation | `PktShadowElement` |
-| Text input, checkbox, radio, textarea | `PktInputElement` |
-| Select, combobox, listbox | `PktOptionsInputElement` |
+| Scenario                                                           | Base Class               |
+| ------------------------------------------------------------------ | ------------------------ |
+| Display component with slot content (alert, card, link, tag, etc.) | `PktElementWithSlot`     |
+| Display component without slot content (icon, progressbar, etc.)   | `PktElement`             |
+| Component needing Shadow DOM encapsulation                         | `PktShadowElement`       |
+| Text input, checkbox, radio, textarea                              | `PktInputElement`        |
+| Select, combobox, listbox                                          | `PktOptionsInputElement` |
 
 ## Generic type parameter
 
 All base classes accept a generic `<T>` parameter used for the `$props` typing (Vue integration):
 
 ```typescript
-@customElement('pkt-button')
 export class PktButton extends PktElementWithSlot<IPktButton> implements IPktButton {
   // ...
+}
+
+try {
+  customElement('pkt-button')(PktButton)
+} catch (e) {
+  console.warn('Forsøker å definere <pkt-button>, men den er allerede definert')
 }
 ```
 

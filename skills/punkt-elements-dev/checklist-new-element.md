@@ -9,13 +9,13 @@
 3. Create the component directory: `src/components/{name}/`.
 4. Create the implementation file `{name}.ts`:
    - Define types and interface (`IPkt*`, `T*`)
-   - Use `@customElement('pkt-{name}')` decorator
    - Extend the correct base class with `<Interface>` and `implements Interface`
    - Initialize `PktSlotController` in constructor if the component accepts children
    - Initialize `PktOptionsSlotController` if the component accepts `<option>` children (set `slotController.skipOptions = true`)
    - Use `classMap()` for dynamic CSS classes
    - Use `ref()` for DOM references
    - Add `export default` at the bottom
+   - Add safe custom element registration after the class: `try { customElement('pkt-{name}')(PktClassName) } catch (e) { console.warn('Forsøker å definere <pkt-{name}>, men den er allerede definert') }`
 5. Create `index.ts`:
    - Import the class
    - Re-export the class + all types

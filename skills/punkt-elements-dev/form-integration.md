@@ -261,7 +261,6 @@ import { PktInputElement } from '@/base-elements/input-element'
 import { PktSlotController } from '@/controllers/pkt-slot-controller'
 import '@/components/input-wrapper'
 
-@customElement('pkt-textinput')
 export class PktTextinput extends PktInputElement<Props> {
   inputRef: Ref<HTMLInputElement> = createRef()
   private helptextSlot: Ref<HTMLElement> = createRef()

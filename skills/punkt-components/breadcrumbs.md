@@ -6,9 +6,9 @@ Breadcrumbs show the user where they are in the structure and make it possible t
 
 | Package        | Available | Tag / Import                                                                     |
 | -------------- | --------- | -------------------------------------------------------------------------------- |
-| React          | Yes       | `<PktBreadcrumbs>` — `import { PktBreadcrumbs } from '@oslokommune/punkt-react'` |
-| Elements       | No        | —                                                                                |
-| Elements (CDN) | No        | —                                                                                |
+| React          | Yes       | `<PktBreadcrumbs>` — `import { PktBreadcrumbs } from '@oslokommune/punkt-react'`                          |
+| Elements       | Yes       | `<pkt-breadcrumbs>` — `import '@oslokommune/punkt-elements/dist/pkt-breadcrumbs.js'`                      |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-breadcrumbs.js" type="module">`       |
 
 Dark mode: Yes
 
@@ -36,11 +36,50 @@ Dark mode: Yes
 
 ## Props / Attributes
 
-| Prop (React)     | Type                                                                                                         | Default        | Description                                                                                                          |
-| ---------------- | ------------------------------------------------------------------------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `breadcrumbs`    | `Array<{ text: string, href?: string }>`                                                                     | **(required)** | List of breadcrumb items. Each item needs `text`; `href` is optional (last item is typically the current page)       |
-| `navigationType` | `"router"` \| `"anchor"`                                                                                     | `"anchor"`     | Navigation method — `"anchor"` for standard links, `"router"` for client-side routing                                |
-| `renderLink`     | `(args: { href: string, className: string, children: ReactNode, props: AnchorHTMLAttributes }) => ReactNode` | —              | Custom link component (e.g. Next.js Link, Tanstack Router Link). When set, `navigationType` is implicitly `"router"` |
+| Prop (React)     | Attribute (Elements) | Type                                                                                                         | Default        | Description                                                                                                          |
+| ---------------- | -------------------- | ------------------------------------------------------------------------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `breadcrumbs`    | `breadcrumbs`        | `Array<{ text: string, href: string }>`                                                                      | **(required)** | List of breadcrumb items                                                                                             |
+| `navigationType` | —                    | `"router"` \| `"anchor"`                                                                                     | `"anchor"`     | React only. Navigation method — `"anchor"` for standard links, `"router"` for client-side routing                    |
+| `renderLink`     | —                    | `(args: { href: string, className: string, children: ReactNode, props: AnchorHTMLAttributes }) => ReactNode` | —              | React only. Custom link component (e.g. Next.js Link). When set, `navigationType` is implicitly `"router"`           |
+
+## Events
+
+| Event (React) | Event (Elements) | Description                                                                                              |
+| ------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
+| —             | `navigate`       | Elements only. Fires when a breadcrumb link is clicked. Detail: `{ item, index, originalEvent }`. Call `event.preventDefault()` to prevent navigation |
+
+## React vs Elements: custom navigation
+
+React and Elements handle custom navigation (SPA routers) differently:
+
+**React** uses `renderLink` to replace the link component:
+```jsx
+<PktBreadcrumbs
+  breadcrumbs={crumbs}
+  renderLink={({ href, className, children }) => (
+    <Link to={href} className={className}>{children}</Link>
+  )}
+/>
+```
+
+**Elements** uses the `navigate` event. Call `preventDefault()` to stop the browser from navigating, then handle routing yourself:
+```html
+<pkt-breadcrumbs id="crumbs"></pkt-breadcrumbs>
+<script>
+  const el = document.querySelector('#crumbs')
+  el.breadcrumbs = [
+    { text: 'Hjem', href: '/' },
+    { text: 'Tjenester', href: '/tjenester' },
+    { text: 'Denne siden', href: '/tjenester/denne' },
+  ]
+  el.addEventListener('navigate', (e) => {
+    e.preventDefault()
+    myRouter.push(e.detail.item.href)
+  })
+</script>
+```
+
+If you don't listen to the `navigate` event, links work as normal `<a>` elements with full page navigation.
 
 ## Accessibility
 
@@ -85,58 +124,20 @@ import { PktBreadcrumbs } from '@oslokommune/punkt-react'
 />
 ```
 
-### HTML (with pkt-icon)
-
-Breadcrumbs has no Elements/Web Component version, but you can build it with plain HTML using the CSS classes and `<pkt-icon>` for the separator icons. The component renders two views: a desktop list and a mobile back-link (CSS controls which is visible).
+### Elements / HTML
 
 ```html
-<nav aria-label="brødsmulemeny" class="pkt-breadcrumbs">
-  <!-- Desktop: full breadcrumb trail -->
-  <ol class="pkt-breadcrumbs__list pkt-breadcrumbs--desktop">
-    <li class="pkt-breadcrumbs__item">
-      <a
-        href="/"
-        class="pkt-link pkt-link--icon-right pkt-breadcrumbs__label pkt-breadcrumbs__link"
-      >
-        <pkt-icon
-          class="pkt-icon pkt-breadcrumbs__icon pkt-link__icon"
-          name="chevron-thin-right"
-        ></pkt-icon>
-        <span class="pkt-breadcrumbs__text">Home</span>
-      </a>
-    </li>
-    <li class="pkt-breadcrumbs__item">
-      <a
-        href="/services"
-        class="pkt-link pkt-link--icon-right pkt-breadcrumbs__label pkt-breadcrumbs__link"
-      >
-        <pkt-icon
-          class="pkt-icon pkt-breadcrumbs__icon pkt-link__icon"
-          name="chevron-thin-right"
-        ></pkt-icon>
-        <span class="pkt-breadcrumbs__text">Services</span>
-      </a>
-    </li>
-    <li class="pkt-breadcrumbs__item">
-      <span class="pkt-breadcrumbs__label" aria-current="true">
-        <span class="pkt-breadcrumbs__text">Current page</span>
-      </span>
-    </li>
-  </ol>
-
-  <!-- Mobile: back link to previous level -->
-  <a href="/services" class="pkt-link pkt-link--icon-left pkt-breadcrumbs--mobile">
-    <pkt-icon
-      class="pkt-back-link__icon pkt-icon pkt-link__icon"
-      name="chevron-thin-left"
-    ></pkt-icon>
-    <span class="pkt-breadcrumbs__text">Services</span>
-  </a>
-</nav>
+<pkt-breadcrumbs id="crumbs"></pkt-breadcrumbs>
+<script>
+  document.querySelector('#crumbs').breadcrumbs = [
+    { text: 'Hjem', href: '/' },
+    { text: 'Tjenester', href: '/tjenester' },
+    { text: 'Denne siden', href: '/tjenester/denne' },
+  ]
+</script>
 ```
 
-Key points:
-
-- The last item in the desktop list is a `<span>` with `aria-current="true"` (not a link)
-- The mobile back-link points to the second-to-last item in the trail
-- The icon is `chevron-thin-right` for desktop separators and `chevron-thin-left` for the mobile back-link
+Or set breadcrumbs as a JSON attribute:
+```html
+<pkt-breadcrumbs breadcrumbs='[{"text":"Hjem","href":"/"},{"text":"Tjenester","href":"/tjenester"},{"text":"Denne siden","href":"/tjenester/denne"}]'></pkt-breadcrumbs>
+```

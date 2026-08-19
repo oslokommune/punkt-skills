@@ -27,7 +27,6 @@ export interface IPktExample {
   label?: string
 }
 
-@customElement('pkt-example')
 export class PktExample extends PktElement<IPktExample> implements IPktExample {
   defaultSlot: Ref<HTMLElement> = createRef()
   slotController: PktSlotController
@@ -56,11 +55,17 @@ export class PktExample extends PktElement<IPktExample> implements IPktExample {
 }
 
 export default PktExample
+
+try {
+  customElement('pkt-example')(PktExample)
+} catch (e) {
+  console.warn('Forsøker å definere <pkt-example>, men den er allerede definert')
+}
 ```
 
 ## Required patterns
 
-1. **`@customElement('pkt-*')`** decorator on every component class.
+1. **Conditional custom element registration** after the class definition — wrap `customElement('pkt-*')(ClassName)` in a `try/catch` to prevent duplicate registration errors and handle SSR environments gracefully.
 2. **Extend the correct base class** — `PktElement` for display, `PktInputElement` for form inputs, `PktOptionsInputElement` for option-based inputs.
 3. **`implements IPkt*`** — implement the component's public interface for type safety.
 4. **Generic type parameter** — pass the interface as `<IPktExample>` to the base class.
@@ -71,10 +76,20 @@ export default PktExample
 
 ## Decorators
 
-### `@customElement('pkt-*')`
-Registers the class as a custom element. Used on every component.
+### `customElement('pkt-*')`
+
+Registers the class as a custom element. **Not used as a decorator** — instead called as a function after the class definition with a guard to prevent duplicate registration:
+
+```typescript
+try {
+  customElement('pkt-example')(PktExample)
+} catch (e) {
+  console.warn('Forsøker å definere <pkt-example>, men den er allerede definert')
+}
+```
 
 ### `@property()`
+
 Reactive property that can be set via HTML attribute or JavaScript.
 
 ```typescript
@@ -105,6 +120,7 @@ Reactive property that can be set via HTML attribute or JavaScript.
 ```
 
 ### `@state()`
+
 Internal reactive state. Not exposed as an attribute. Triggers re-render on change.
 
 ```typescript
@@ -113,6 +129,7 @@ Internal reactive state. Not exposed as an attribute. Triggers re-render on chan
 ```
 
 ### `@query()` / `@queryAll()`
+
 Query elements from the rendered output. Rarely used — prefer `Ref` with `ref()` directive.
 
 ## Lifecycle methods
@@ -164,6 +181,7 @@ attributeChangedCallback(name: string, _old: string | null, value: string | null
 ## Render patterns
 
 ### Single render method (simple components)
+
 ```typescript
 render() {
   const classes = { 'pkt-tag': true, [`pkt-tag--${this.skin}`]: !!this.skin }
@@ -172,6 +190,7 @@ render() {
 ```
 
 ### Decomposed render helpers (complex components)
+
 ```typescript
 render() {
   return html`
@@ -190,6 +209,7 @@ private renderImage() {
 ```
 
 ### Conditional rendering
+
 ```typescript
 ${this.isLoading ? html`<pkt-icon name="spinner"></pkt-icon>` : nothing}
 ${this.items.length > 0 ? html`<ul>...</ul>` : html`<p>No items</p>`}

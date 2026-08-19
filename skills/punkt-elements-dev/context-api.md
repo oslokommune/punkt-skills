@@ -29,9 +29,7 @@ Use `Symbol()` to create a unique context key.
 import { provide } from '@lit/context'
 import { tabsContext, type TabsContext } from './tabs-context'
 
-@customElement('pkt-tabs')
 export class PktTabs extends PktElement<IPktTabs> {
-
   @provide({ context: tabsContext })
   @state()
   private context: TabsContext = {
@@ -51,9 +49,16 @@ export class PktTabs extends PktElement<IPktTabs> {
     }
   }
 }
+
+try {
+  customElement('pkt-tabs')(PktTabs)
+} catch (e) {
+  console.warn('Forsøker å definere <pkt-tabs>, men den er allerede definert')
+}
 ```
 
 Key patterns:
+
 - Use **`@provide()`** decorator with `@state()` (context must be reactive)
 - **Bind methods** with `.bind(this)` in the context object
 - **Spread and update** the context object when properties change (creates new reference to trigger consumers)
@@ -64,9 +69,7 @@ Key patterns:
 import { consume } from '@lit/context'
 import { tabsContext, type TabsContext } from './tabs-context'
 
-@customElement('pkt-tab-item')
 export class PktTabItem extends PktElement<IPktTabItem> {
-
   @consume({ context: tabsContext, subscribe: true })
   @property({ attribute: false })
   context?: TabsContext
@@ -84,9 +87,16 @@ export class PktTabItem extends PktElement<IPktTabItem> {
     this.context?.handleClick(this.index)
   }
 }
+
+try {
+  customElement('pkt-tab-item')(PktTabItem)
+} catch (e) {
+  console.warn('Forsøker å definere <pkt-tab-item>, men den er allerede definert')
+}
 ```
 
 Key patterns:
+
 - Use **`@consume()`** with `subscribe: true` to get reactive updates
 - Combine with `@property({ attribute: false })` — not exposed as HTML attribute
 - **Optional type** (`context?`) — the consumer might render before context is available

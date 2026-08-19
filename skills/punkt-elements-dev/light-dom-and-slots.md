@@ -38,7 +38,6 @@ import { slotContent } from '@/directives/slot-content'
 import { html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-@customElement('pkt-example')
 export class PktExample extends PktElementWithSlot<IPktExample> {
   render() {
     return html`
@@ -48,9 +47,16 @@ export class PktExample extends PktElementWithSlot<IPktExample> {
     `
   }
 }
+
+try {
+  customElement('pkt-example')(PktExample)
+} catch (e) {
+  console.warn('Forsøker å definere <pkt-example>, men den er allerede definert')
+}
 ```
 
 Consumer HTML:
+
 ```html
 <pkt-example>Hello world</pkt-example>
 <!-- "Hello world" is placed into the <span> -->
@@ -59,7 +65,6 @@ Consumer HTML:
 ### Multiple named slots
 
 ```typescript
-@customElement('pkt-card')
 export class PktCard extends PktElementWithSlot<IPktCard> {
   render() {
     return html`
@@ -73,6 +78,7 @@ export class PktCard extends PktElementWithSlot<IPktCard> {
 ```
 
 Consumer HTML:
+
 ```html
 <pkt-card>
   <h2 slot="header">Card Title</h2>
@@ -113,9 +119,7 @@ render() {
 ```typescript
 // In input-wrapper:
 const helptextElement = () => {
-  return html`
-    <pkt-helptext ...>${slotContent(this, 'helptext')}</pkt-helptext>
-  `
+  return html` <pkt-helptext ...>${slotContent(this, 'helptext')}</pkt-helptext> `
 }
 ```
 
@@ -130,9 +134,7 @@ Slot content wrapped in a container element (div/span) maintains Lit template bi
 </pkt-alert>
 
 <!-- Bad: bare text/expressions lose their binding when moved -->
-<pkt-alert>
-  ${dynamicContent}
-</pkt-alert>
+<pkt-alert> ${dynamicContent} </pkt-alert>
 ```
 
 Without a wrapper, Lit loses track of the template parts when nodes are moved, and subsequent re-renders may duplicate or fail to update content.
@@ -168,7 +170,6 @@ A reactive controller for components that accept `<option>` or `<data>` elements
 import { PktOptionsSlotController } from '@/controllers/pkt-options-controller'
 import { slotContent } from '@/directives/slot-content'
 
-@customElement('pkt-select')
 export class PktSelect extends PktOptionsInputElement<{}, TSelectOption> {
   constructor() {
     super()
@@ -192,6 +193,7 @@ export class PktSelect extends PktOptionsInputElement<{}, TSelectOption> {
 ```
 
 Consumer HTML:
+
 ```html
 <pkt-select label="Choose country">
   <option value="no" selected>Norge</option>
@@ -208,7 +210,7 @@ type TOption = {
   label: string
   selected?: boolean
   disabled?: boolean
-  hidden?: boolean  // preserved from data-hidden attribute
+  hidden?: boolean // preserved from data-hidden attribute
 }
 ```
 
@@ -218,8 +220,8 @@ type TOption = {
 
 Helper functions used internally by the directive and options controller:
 
-| Function | Purpose |
-|---|---|
-| `shouldSkip(element)` | Whether to skip element (dialog polyfill, `data-skip`) |
-| `isOptionElement(element)` | Is `<option>` or `<data>` |
-| `isTextNodeAndNotEmpty(element)` | Is a non-empty text node |
+| Function                         | Purpose                                                |
+| -------------------------------- | ------------------------------------------------------ |
+| `shouldSkip(element)`            | Whether to skip element (dialog polyfill, `data-skip`) |
+| `isOptionElement(element)`       | Is `<option>` or `<data>`                              |
+| `isTextNodeAndNotEmpty(element)` | Is a non-empty text node                               |
