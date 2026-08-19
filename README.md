@@ -25,7 +25,7 @@ Disclaimer: This plugin is somewhat experimental. Use it with care, and always c
 /plugin install punkt-designsystem@dig
 ```
 
-(Requires access to the Claude marketplace for Digitaliseringsdirektoratet, Oslo kommune)
+(Requires access to the Claude marketplace for Digitaliseringsetaten, Oslo kommune)
 
 ## Usage
 
