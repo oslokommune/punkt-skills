@@ -2,7 +2,10 @@
 
 Claude Code plugin with skills for using and developing the [Punkt design system](https://punkt.oslo.kommune.no/) by Oslo kommune.
 
-Beware, this repo is a mirror of the `skills` directory in the Punkt monorepo, and nothing should be pushed in here.
+> **This repository is generated — please don't push to it.**
+> The `skills/` directory is mirrored automatically from [`skills/` in oslokommune/punkt](https://github.com/oslokommune/punkt/tree/main/skills) on every push to that repository's `main`. Anything committed here is overwritten by the next sync.
+>
+> To change a skill, open a pull request against the monorepo instead. Pull requests opened here are closed automatically.
 
 Disclaimer: This plugin is somewhat experimental. Use it with care, and always check the generated output manually. AI agents are unpredictable, and errors might occur.
 
@@ -34,7 +37,7 @@ Skills are activated automatically by Claude when your request matches what they
 
 ## Versioning
 
-The plugin version is bumped automatically on push to `main` based on [Conventional Commits](https://www.conventionalcommits.org/).
+The plugin version is bumped automatically on push to `main` based on [Conventional Commits](https://www.conventionalcommits.org/). Since pushes come from the mirror, the commit message that drives the bump is the one made in the monorepo.
 
 | Commit prefix | Bump  | Example                                   |
 | :------------ | :---- | :---------------------------------------- |

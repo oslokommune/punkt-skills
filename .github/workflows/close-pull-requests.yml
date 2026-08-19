@@ -1,0 +1,40 @@
+name: Close Pull Requests
+
+# This repository is generated. Its skills/ directory is mirrored from
+# oslokommune/punkt on every push to that repo's main branch, so anything
+# merged here would be overwritten by the next mirror run.
+#
+# Any pull request is therefore closed automatically with a pointer to the
+# right place to contribute. Forking cannot be disabled on a public
+# repository, so PRs can still be opened — we just don't accept them.
+#
+# pull_request_target is used so the job also has write access for pull
+# requests opened from forks. Nothing from the pull request is checked out
+# or executed, so this is safe.
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  close:
+    name: Close and explain
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Close the pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr comment "$PR" --body "Thanks for the contribution!
+
+          This repository is generated: the \`skills/\` directory is mirrored automatically from [oslokommune/punkt](https://github.com/oslokommune/punkt), so changes merged here would be overwritten by the next sync.
+
+          To propose a change, open a pull request against [\`skills/\`](https://github.com/oslokommune/punkt/tree/main/skills) in that repository instead. It will appear here once it is merged and mirrored.
+
+          Closing this automatically — nothing wrong with your change, it just needs to go somewhere else."
+
+          gh pr close "$PR"
