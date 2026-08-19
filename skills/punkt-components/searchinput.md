@@ -6,11 +6,11 @@ Search Input provides a search field with optional autocomplete suggestions. It 
 
 ## Availability
 
-| Package        | Available | Tag / Import                                                                     |
-| -------------- | --------- | -------------------------------------------------------------------------------- |
-| React          | Yes       | `<PktSearchInput>` — `import { PktSearchInput } from '@oslokommune/punkt-react'` |
-| Elements       | No        | —                                                                                |
-| Elements (CDN) | No        | —                                                                                |
+| Package        | Available | Tag / Import                                                                                       |
+| -------------- | --------- | ---------------------------------------------------------------------------------------------------- |
+| React          | Yes       | `<PktSearchInput>` — `import { PktSearchInput } from '@oslokommune/punkt-react'`                   |
+| Elements       | Yes       | `<pkt-searchinput>` — `import '@oslokommune/punkt-elements/dist/pkt-searchinput.js'`               |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-searchinput.js" type="module">` |
 
 Dark mode: No
 
@@ -34,16 +34,21 @@ Dark mode: No
 | `label`       | string                                                   | —              | Label for the search field                       |
 | `disabled`    | boolean                                                  | `false`        | Disables the field                               |
 | `fullwidth`   | boolean                                                  | `false`        | Field takes full width                           |
+| `inputSize`   | `"xsmall"` \| `"small"` \| `"medium"`                    | `"medium"`     | Field height                                     |
 | `action`      | string                                                   | —              | Form action URL                                  |
 | `suggestions` | `Array<{ title: string, text?: string, href?: string }>` | `[]`           | Autocomplete suggestions displayed in a dropdown |
 
+In Elements the attributes carry the same names, except `inputSize` which is `input-size`. Elements additionally has a `method` attribute for the form method. Pass `suggestions` as a JavaScript property.
+
 ## Events
 
-| Event (React)       | Description                                    |
-| ------------------- | ---------------------------------------------- |
-| `onChange`          | Fires when the search value changes            |
-| `onSearch`          | Fires when the user submits the search (Enter) |
-| `onSuggestionClick` | Fires when a suggestion is clicked             |
+| Event (React)       | Event (Elements)        | Description                                    |
+| ------------------- | ----------------------- | ---------------------------------------------- |
+| `onChange`          | —                       | Fires when the search value changes            |
+| `onSearch`          | `pkt-search`            | Fires when the user submits the search (Enter) |
+| `onSuggestionClick` | `pkt-suggestion-click`  | Fires when a suggestion is clicked             |
+
+Note the `pkt-` prefix on the Elements events here — most Punkt elements emit unprefixed names.
 
 ## Examples
 

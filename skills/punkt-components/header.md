@@ -239,6 +239,24 @@ Note the breakpoint defaults differ from the service header, where `tabletBreakp
 
 There is no navigation slot — the menu is built from the payload, so `children` are not used.
 
+### Content Security Policy
+
+The global header needs more than the standard Punkt CSP, because it fetches menu data from a **different** domain than the rest of Punkt — `cdn.web.oslo.kommune.no`, not `punkt-cdn.oslo.kommune.no`:
+
+```
+connect-src 'self' https://punkt-cdn.oslo.kommune.no/ https://cdn.web.oslo.kommune.no/;
+```
+
+If you set your own `dataUrl`, allow that URL instead. The global footer uses the same endpoint, so this one permission covers both.
+
+The search field submits a plain `GET` form to the search target from the payload. If you use the `form-action` directive, allow it too:
+
+```
+form-action 'self' https://www.oslo.kommune.no/;
+```
+
+Two ways out if you cannot allow the endpoint: fetch the payload server-side and pass it as `data`, in which case the browser never contacts the endpoint at all, or use the service header instead.
+
 ### Examples
 
 ```jsx

@@ -37,6 +37,27 @@ Dark mode: Yes
 | `target`       | `target`             | `"_blank"` \| `"_self"` \| `"_parent"` \| `"_top"` | `"_self"` | Link target                          |
 | `iconName`     | `iconName`           | string (icon name)                                 | —         | Icon displayed next to the link text |
 | `iconPosition` | `iconPosition`       | `"left"` \| `"right"`                              | —         | Position of the icon                 |
+| `external`     | `external`           | boolean                                            | `false`   | Style the link as pointing off-site  |
+| `renderLink`   | —                    | function (React only)                              | plain `<a>` | Custom link renderer (see below)    |
+
+## Custom link rendering (React)
+
+Use `renderLink` to plug in a client-side router's link component without Punkt taking a router dependency. The function receives `{ href, className, children, props }` and returns a React node.
+
+```jsx
+<PktLink
+  href="/dashboard"
+  renderLink={({ href, className, children, props }) => (
+    <Link to={href} className={className} {...props}>
+      {children}
+    </Link>
+  )}
+>
+  Dashboard
+</PktLink>
+```
+
+Without `renderLink`, a plain `<a>` is rendered. Note that `className` already contains the Punkt classes — pass it through, or the link loses its styling.
 
 ## Slots
 

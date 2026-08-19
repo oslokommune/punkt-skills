@@ -12,7 +12,7 @@
 
 1. **Component-level**: Interface defined and exported in the component file itself.
 2. **Shared types**: Cross-package types in `shared-types/` at monorepo root.
-3. **Package interfaces**: `src/interfaces/` for Lit wrapper types (e.g., `IPktElements.tsx`).
+3. **Package interfaces**: `src/interfaces/` for component spec types (e.g., `IButtonSpec.tsx`, `IModalSpec.tsx`).
 
 ## Common Type Patterns
 

@@ -58,7 +58,7 @@ Dark mode: No
 | `hideCloseButton`      | `hideCloseButton`      | boolean                              | `false`    | Hides the close button — provide an alternative way to close |
 | `closeOnBackdropClick` | `closeOnBackdropClick` | boolean                              | `false`    | Close modal when clicking the backdrop                       |
 | `closeButtonSkin`      | `closeButtonSkin`      | `"blue"` \| `"yellow-filled"`        | `"blue"`   | Style of the close button                                    |
-| `size`                 | `size`                 | `"small"` \| `"medium"` \| `"large"` | `"medium"` | Modal size                                                   |
+| `size`                 | `size`                 | `"small"` \| `"medium"` \| `"large"` \| `"fit-content"` | `"medium"` | Modal size. `"fit-content"` shrinks the modal to its content |
 | `variant`              | `variant`              | `"dialog"` \| `"drawer"`             | `"dialog"` | Modal type                                                   |
 | `drawerPosition`       | `drawerPosition`       | `"left"` \| `"right"`                | `"right"`  | Position of the drawer (when variant is `"drawer"`)          |
 | `transparentBackdrop`  | `transparentBackdrop`  | boolean                              | `false`    | Make the backdrop transparent                                |

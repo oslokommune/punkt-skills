@@ -27,6 +27,8 @@ The slot-based approach is recommended for new code.
 | ----------------- | -------------------- | ------------------ | ------- | --------------------------------------------------------------------------------------- |
 | `arrowNav`        | `arrow-nav`          | boolean            | `true`  | Enable arrow key navigation between tabs. Also enables `role="tab"` and `aria-selected` |
 | `disableArrowNav` | `disable-arrow-nav`  | boolean            | `false` | Disable arrow navigation (e.g. for pure navigation menus). Overrides `arrowNav`         |
+| `separatorIconName` | `separator-icon-name` | string (icon name) | `""`   | Icon rendered as a separator between tabs                                               |
+| `separatorIconPath` | `separator-icon-path` | string           | `""`    | Override the CDN path for the separator icon                                            |
 | `tabs`            | `tabs`               | `Array<TabObject>` | —       | Legacy: array of tab definitions (prefer using PktTabItem instead)                      |
 
 ### TabObject shape (legacy `tabs` prop)
@@ -54,6 +56,7 @@ The slot-based approach is recommended for new code.
 | `tagSkin`    | `tag-skin`           | `"blue"` \| `"green"` \| `"red"` \| `"beige"` \| `"yellow"` \| `"gray"` \| `"blue-light"` | `"blue"` | Badge tag color                                 |
 | `index`      | `index`              | number                                                                                    | `0`      | Tab index — must be set explicitly when mapping |
 | `controls`   | `controls`           | string                                                                                    | —        | `aria-controls` ID for the tab panel            |
+| `disabled`   | `disabled`           | boolean                                                                                   | `false`  | Disables the tab — not clickable, skipped by arrow navigation |
 
 ## Events
 

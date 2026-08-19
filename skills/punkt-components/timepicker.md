@@ -61,6 +61,7 @@ Dark mode: Yes
 | `disabled`               | `disabled`                 | boolean            | `false`          | Disables the timepicker                                  |
 | `required`               | `required`                 | boolean            | `false`          | Field is required                                        |
 | `fullwidth`              | `fullwidth`                | boolean            | `false`          | Field takes full width                                   |
+| `inputSize`              | `input-size`               | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`       | Field height                                             |
 | `hasError`               | `hasError`                 | boolean            | `false`          | Shows error state                                        |
 | `errorMessage`           | `errorMessage`             | string             | —                | Error message shown below the field                      |
 | `requiredTag`            | `requiredTag`              | boolean            | `false`          | Show "Required" tag next to label                        |

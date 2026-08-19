@@ -14,7 +14,10 @@ Punkt is a monorepo design system by Oslo kommune. The React package provides co
 | `shared-utils`                | `shared-utils/`      | Shared utility functions (date, device, value helpers) |
 | Component specs               | `component-specs/`   | JSON API specifications (source of truth)              |
 
-## Two Component Patterns
+## Everything is pure React
 
-1. **Pure React components** (`isPureReact: true` in spec) — native React implementations. Most components.
-2. **Lit wrappers** — React wrappers around web components from `punkt-elements`, using `@lit/react`'s `createComponent`.
+Every component is a native React implementation. The package has no runtime dependency on `@oslokommune/punkt-elements`, `lit` or `@lit/react` — check `packages/react/package.json` and you will not find them.
+
+Punkt React used to wrap some web components with `@lit/react`'s `createComponent`. That is gone; the last wrappers (including `PktIcon`) were rewritten as React components. Do not add new Lit wrappers, and treat any tutorial or older code showing `createComponent` as out of date.
+
+React and Elements are now two independent implementations that share `shared-types`, `shared-utils` and the component specs.

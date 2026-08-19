@@ -29,7 +29,7 @@ import { PktButton } from '@oslokommune/punkt-react';
 
 Punkt components load icons, SVGs, and other resources from the CDN. If your project uses a Content Security Policy (CSP), you must configure it to allow resources from `https://punkt-cdn.oslo.kommune.no/`. See the [CSP section](#content-security-policy-csp) below.
 
-If you have unit tests, components that wrap Elements may need special setup — see individual component docs.
+Punkt React components are pure React — they do not wrap web components, and the package has no runtime dependency on `@oslokommune/punkt-elements`. You can pick React or Elements independently; nothing forces you to ship both.
 
 ### Elements (NPM)
 
@@ -60,6 +60,28 @@ No build step required. Include CSS and component scripts directly:
 
 If using CSP, see the [CSP section](#content-security-policy-csp) below.
 
+## Form field sizes
+
+Form fields accept an `inputSize` prop (`input-size` attribute in Elements) with three values:
+
+| Value      | Use                                                                    |
+| ---------- | ---------------------------------------------------------------------- |
+| `"medium"` | Default. Standard forms — the right choice unless you have a reason     |
+| `"small"`  | Dense interfaces such as toolbars, filter bars and table rows           |
+| `"xsmall"` | Very tight spaces where a small field is still too tall                 |
+
+Supported by: combobox, datepicker, searchinput, select, textarea, textinput and timepicker.
+
+```jsx
+<PktTextinput label="Search" id="q" inputSize="small" />
+```
+
+```html
+<pkt-textinput label="Search" id="q" input-size="small"></pkt-textinput>
+```
+
+Keep the size consistent across fields that sit next to each other — mixing sizes in one form makes the fields look misaligned. Smaller fields also mean smaller touch targets, so prefer `"medium"` on touch-first interfaces.
+
 ## Content Security Policy (CSP)
 
 Punkt components load fonts, icons (SVG), and other resources from `https://punkt-cdn.oslo.kommune.no/`. If the application uses a Content Security Policy, the CSP must allow this origin. This applies to all setup methods (NPM and CDN).
@@ -80,6 +102,18 @@ Content-Security-Policy:
 
 > **Important:** Always instruct users to configure CSP when setting up Punkt components. Missing CSP configuration is a common cause of broken fonts, missing icons, and invisible components.
 
+### Components needing a second domain
+
+`PktHeader type="global"`, `PktFooter` / `PktFooterSimple`, `PktHeaderMenu`, and `PktConsent` also reach `https://cdn.web.oslo.kommune.no/` — a **different** domain from the one above. The directives above are not enough for them:
+
+| Component                          | Extra directive                                            | Why                                      |
+| ---------------------------------- | ---------------------------------------------------------- | ---------------------------------------- |
+| Global header, footer, header menu | `connect-src https://cdn.web.oslo.kommune.no/`             | Fetches the shared header/footer payload |
+| Consent                            | `script-src` + `style-src` for the same domain             | Loads a script and stylesheet from it    |
+| Global header search field         | `form-action https://www.oslo.kommune.no/`                 | Submits a `GET` form to the search target |
+
+They share the endpoint, so one `connect-src` entry covers all three. See [header.md](header.md), [footer.md](footer.md), [header-menu.md](header-menu.md) and [consent.md](consent.md) for details and for the server-side `data` workaround.
+
 ## Components
 
 1. [Accordion](accordion.md)
@@ -92,24 +126,26 @@ Content-Security-Policy:
 8. [Combobox](combobox.md)
 9. [Consent](consent.md)
 10. [Datepicker](datepicker.md)
-11. [Footer](footer.md)
-12. [Header](header.md)
-13. [Icon](icon.md)
-14. [Input Wrapper](input-wrapper.md)
-15. [Link](link.md)
-16. [LinkCard](linkcard.md)
-17. [Loader](loader.md)
-18. [Messagebox](messagebox.md)
-19. [Modal](modal.md)
-20. [Progressbar](progressbar.md)
-21. [Radio Button](radiobutton.md)
-22. [Search Input](searchinput.md)
-23. [Select](select.md)
-24. [Steps](steps.md)
-25. [Switch](switch.md)
-26. [Table](table.md)
-27. [Tabs](tabs.md)
-28. [Tag](tag.md)
-29. [Textarea](textarea.md)
-30. [Text Input](textinput.md)
-31. [Timepicker](timepicker.md)
+11. [File Upload](fileupload.md)
+12. [Footer](footer.md)
+13. [Header Menu](header-menu.md)
+14. [Header](header.md)
+15. [Icon](icon.md)
+16. [Input Wrapper](input-wrapper.md)
+17. [Link](link.md)
+18. [LinkCard](linkcard.md)
+19. [Loader](loader.md)
+20. [Messagebox](messagebox.md)
+21. [Modal](modal.md)
+22. [Progressbar](progressbar.md)
+23. [Radio Button](radiobutton.md)
+24. [Search Input](searchinput.md)
+25. [Select](select.md)
+26. [Steps](steps.md)
+27. [Switch](switch.md)
+28. [Table](table.md)
+29. [Tabs](tabs.md)
+30. [Tag](tag.md)
+31. [Text Input](textinput.md)
+32. [Textarea](textarea.md)
+33. [Timepicker](timepicker.md)

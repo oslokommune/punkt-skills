@@ -9,7 +9,7 @@ Dark mode is activated by the `data-mode="dark"` attribute on an ancestor elemen
 3. Components reference `var(--pkt-color-*)` — they automatically adapt
 
 ```scss
-// In base/_colors.scss
+// In base/_colors-tokens.scss
 :root {
   --pkt-color-text-body-default: #2a2859;    // dark blue (light mode)
 

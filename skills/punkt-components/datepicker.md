@@ -69,6 +69,7 @@ Dark mode: Yes
 | `errorMessage`           | `errorMessage`           | string             | —                | Error message shown below the field           |
 | `disabled`               | `disabled`               | boolean            | `false`          | Disables the datepicker                       |
 | `fullwidth`              | `fullwidth`              | boolean            | `false`          | Field takes full width                        |
+| `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`       | Field height                                  |
 | `required`               | `required`               | boolean            | `false`          | Field is required                             |
 | `requiredTag`            | `requiredTag`            | boolean            | `false`          | Show "Required" tag next to label             |
 | `requiredText`           | `requiredText`           | string             | `"Må fylles ut"` | Text in the required tag                      |

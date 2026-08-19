@@ -61,6 +61,17 @@ The consent modal itself is always the same, but the trigger to reopen settings 
 | ----------------- | ---------------- | -------------------------------------------- |
 | `onToggleConsent` | `toggle-consent` | Fires when the user saves or updates consent |
 
+## Content Security Policy
+
+Consent loads a script and a stylesheet from `https://cdn.web.oslo.kommune.no/` — a **different** domain from the `punkt-cdn.oslo.kommune.no` the rest of Punkt uses, so the standard Punkt directives are not enough:
+
+```
+script-src 'self' https://cdn.web.oslo.kommune.no/;
+style-src 'self' https://cdn.web.oslo.kommune.no/;
+```
+
+This applies equally when Consent is rendered through the footer's `includeConsent` prop.
+
 ## Accessibility
 
 - The button/link to change or decline consent must be clearly visible and accessible

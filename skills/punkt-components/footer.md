@@ -7,72 +7,133 @@ Footer is part of the standard page template and is placed at the bottom of the 
 | Package        | Available | Tag / Import                                                                                                  |
 | -------------- | --------- | ------------------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktFooter>` / `<PktFooterSimple>` — `import { PktFooter, PktFooterSimple } from '@oslokommune/punkt-react'` |
-| Elements       | No        | —                                                                                                             |
-| Elements (CDN) | No        | —                                                                                                             |
+| Elements       | Yes       | `<pkt-footer>` / `<pkt-footer-simple>` — `import '@oslokommune/punkt-elements/dist/pkt-footer.js'`            |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-footer.js" type="module">`                |
+
+One import registers both elements — there is no separate `pkt-footer-simple.js`.
 
 Dark mode: Yes
 
+## How the footer is composed
+
+The footer renders in two bands:
+
+1. **The global (blue) footer** — rendered automatically. Its content (contact details, privacy and accessibility links, social media) comes from Oslo kommune's shared header/footer payload, the same endpoint `PktHeader type="global"` uses. You do not supply this content.
+2. **A secondary (grey) band** — your own content, stacked on top. Optional.
+
+With no custom content you get only the global footer. This is the intended setup for most solutions: render the component with no props and the required links stay correct without you maintaining them.
+
+If the payload cannot be fetched, the global footer is hidden silently and only your custom content renders.
+
 ## Variants
 
-| Variant | Use                                                                                         |
-| ------- | ------------------------------------------------------------------------------------------- |
-| Normal  | Standard footer with three columns — for solutions closely tied to oslo.kommune.no          |
-| Simple  | Simpler footer with fewer links — for smaller, standalone solutions with limited navigation |
+| Variant            | Use                                                                     |
+| ------------------ | ----------------------------------------------------------------------- |
+| `PktFooter`        | Custom content as 1–3 columns of links in the secondary band            |
+| `PktFooterSimple`  | Custom content as one compact row of links in the secondary band        |
+
+Use `PktFooterSimple` for standalone solutions with limited navigation needs.
 
 ## Usage guidelines
 
 **Use footer when:**
 
 - You're building solutions where Oslo municipality is the sender (in practice, footer should always be used)
-- You need a fixed area for links to privacy, accessibility, and contact information
 - You want to make it clear the solution belongs to Oslo municipality
 
 **Content guidelines:**
 
-- The footer must always include links to privacy ("Personvern og informasjonskapsler") and accessibility ("Tilgjengelighet")
+- Privacy and accessibility links come from the global footer — do not add your own
 - Other links in the footer should also be available elsewhere on the site
 - Avoid images or icons in the footer
 - Don't fill the footer with too many links
-- Remove language links if only one language version exists
-- Social media links should only be used if relevant to the solution
 
-**Normal vs Simple:** Use Normal if the solution is part of oslo.kommune.no or needs multiple link columns. Use Simple for standalone solutions with limited navigation needs.
+## Props / Attributes
 
-## Props / Attributes — PktFooter
+These apply to both `PktFooter` and `PktFooterSimple`.
 
-| Prop (React)           | Type                                                            | Default        | Description                                 |
-| ---------------------- | --------------------------------------------------------------- | -------------- | ------------------------------------------- |
-| `personvernOgInfoLink` | string                                                          | —              | URL to privacy and cookie information page  |
-| `tilgjengelighetLink`  | string                                                          | —              | URL to accessibility statement page         |
-| `openLinksInNewTab`    | boolean                                                         | —              | Open links in a new tab                     |
-| `includeConsent`       | boolean                                                         | —              | Include the Consent component in the footer |
-| `googleAnalyticsId`    | string                                                          | —              | Google Analytics ID (when using Consent)    |
-| `hotjarId`             | string                                                          | —              | Hotjar ID (when using Consent)              |
-| `columnOne`            | `{ title: string, links?: LinkItem[], text?: string }`          | **(required)** | Content for the first column                |
-| `columnTwo`            | `{ title: string, links?: LinkItem[] }`                         | **(required)** | Content for the second column               |
-| `socialLinks`          | `Array<{ href: string, iconName?: string, language?: string }>` | —              | Social media links                          |
+| Prop (React)        | Attribute (Elements)     | Type                        | Default   | Description                                                                       |
+| ------------------- | ------------------------ | --------------------------- | --------- | --------------------------------------------------------------------------------- |
+| `data`              | `.data` (property)       | `THeaderFooterApi`          | —         | Pre-fetched payload. When set, no fetch is made                                   |
+| `dataUrl`           | `data-url`               | string                      | Oslo kommune CDN | Endpoint to fetch the payload from                                         |
+| `locale`            | `locale`                 | `"nb-NO"` \| `"en-GB"` \| string | `"nb-NO"` | Which locale to select from the payload                                     |
+| `skipGlobal`        | `skip-global`            | boolean                     | `false`   | Skip the global footer entirely, e.g. when CSP blocks the CDN                     |
+| `openLinksInNewTab` | `open-links-in-new-tab`  | boolean                     | `false`   | Open your custom links in a new tab. Does not affect global footer links          |
+| `includeConsent`    | `include-consent`        | boolean                     | `false`   | Replace the payload's cookie-settings link with Punkt's own consent dialog. When unset, that link is hidden |
+| `hotjarId`          | `hotjar-id`              | string \| null              | `null`    | Passed to the consent dialog                                                      |
+| `googleAnalyticsId` | `google-analytics-id`    | string \| null              | `null`    | Passed to the consent dialog                                                      |
+| `devMode`           | `dev-mode`               | boolean                     | `false`   | Passed to the consent dialog                                                      |
+| `cookieDomain`      | `cookie-domain`          | string \| null              | `null`    | Passed to the consent dialog                                                      |
+| `cookieSecure`      | `cookie-secure`          | string \| null              | `null`    | Passed to the consent dialog                                                      |
+| `cookieExpiryDays`  | `cookie-expiry-days`     | string \| null              | `null`    | Passed to the consent dialog                                                      |
 
-### LinkItem shape
+### PktFooter only
+
+| Prop (React) | Attribute (Elements) | Type                  | Default | Description                                  |
+| ------------ | -------------------- | --------------------- | ------- | -------------------------------------------- |
+| `columns`    | `.columns`           | `IPktFooterColumn[]`  | —       | 1–3 columns of custom content in the grey band |
+
+### PktFooterSimple only
+
+| Prop (React) | Attribute (Elements) | Type               | Default | Description                                   |
+| ------------ | -------------------- | ------------------ | ------- | --------------------------------------------- |
+| `links`      | `.links`             | `IPktFooterLink[]` | —       | Compact row of custom links in the grey band  |
+
+### Shapes
 
 ```ts
-{
-  href: string        // URL (required)
-  text: string        // Link text (required)
-  external?: boolean  // Is an external link
-  openInNewTab?: boolean // Open in new tab
+interface IPktFooterColumn {
+  title: string
+  text?: string             // optional paragraph above the links
+  links?: IPktFooterLink[]
+}
+
+interface IPktFooterLink {
+  href: string
+  text: string
+  external?: boolean        // appends the top domain in parentheses: "Ledige stillinger (webcruiter.com)"
+  openInNewTab?: boolean
 }
 ```
 
-## Props / Attributes — PktFooterSimple
+## Events
 
-| Prop (React)           | Type              | Default | Description                                |
-| ---------------------- | ----------------- | ------- | ------------------------------------------ |
-| `personvernOgInfoLink` | string            | —       | URL to privacy and cookie information page |
-| `tilgjengelighetLink`  | string            | —       | URL to accessibility statement page        |
-| `includeConsent`       | boolean           | —       | Include the Consent component              |
-| `googleAnalyticsId`    | string            | —       | Google Analytics ID (when using Consent)   |
-| `hotjarId`             | string            | —       | Hotjar ID (when using Consent)             |
-| `links`                | `Array<LinkItem>` | —       | Additional links in the footer             |
+| Event (React)  | Event (Elements) | Description                                                    |
+| -------------- | ---------------- | -------------------------------------------------------------- |
+| `onDataError`  | `data-error`     | Fetching the payload failed. The global footer is hidden        |
+
+## Deprecated props (React only)
+
+These still work but log a `console.warn`. They are not available in Elements.
+
+| Deprecated             | Use instead                                                          |
+| ---------------------- | -------------------------------------------------------------------- |
+| `columnOne`            | `columns` — mapped to the first entry                                |
+| `columnTwo`            | `columns` — mapped to the second entry                               |
+| `personvernOgInfoLink` | Nothing. The privacy link comes from the global footer               |
+| `tilgjengelighetLink`  | Nothing. The accessibility link comes from the global footer         |
+| `socialLinks`          | Nothing. The social media row comes from the global footer           |
+
+`personvernOgInfoLink` and `tilgjengelighetLink` are only rendered — in the secondary band — when set to a value other than the historical default.
+
+## Content Security Policy
+
+The footer needs more than the standard Punkt CSP, because the global footer fetches its content from a **different** domain than the rest of Punkt — `cdn.web.oslo.kommune.no`, not `punkt-cdn.oslo.kommune.no`:
+
+```
+connect-src 'self' https://punkt-cdn.oslo.kommune.no/ https://cdn.web.oslo.kommune.no/;
+```
+
+If you set your own `dataUrl`, allow that URL instead. `PktHeader type="global"` uses the same endpoint, so this one permission covers both.
+
+With `includeConsent`, the consent dialog also loads a script and a stylesheet from that CDN:
+
+```
+script-src 'self' https://cdn.web.oslo.kommune.no/;
+style-src 'self' https://cdn.web.oslo.kommune.no/;
+```
+
+Two ways out if you cannot allow the endpoint: fetch the payload server-side and pass it as `data`, so the browser never contacts the endpoint, or drop the global footer with `skipGlobal`.
 
 ## Accessibility
 
@@ -88,33 +149,63 @@ Dark mode: Yes
 import { PktFooter, PktFooterSimple } from '@oslokommune/punkt-react'
 
 {
-  /* Standard footer */
+  /* Global footer only — the usual case */
 }
-;<PktFooter
-  personvernOgInfoLink="/personvern"
-  tilgjengelighetLink="/tilgjengelighet"
-  columnOne={{
-    title: 'Oslo kommune',
-    links: [{ href: 'https://www.oslo.kommune.no', text: 'oslo.kommune.no' }],
-    text: 'Oslo kommune, Rådhuset, 0037 Oslo',
-  }}
-  columnTwo={{
-    title: 'Kontakt',
-    links: [{ href: 'tel:21802180', text: 'Telefon: 21 80 21 80' }],
-  }}
-  socialLinks={[
-    { href: 'https://facebook.com/oslokommune', iconName: 'facebook' },
-    { href: 'https://instagram.com/oslokommune', iconName: 'instagram' },
-  ]}
-/>
+;<PktFooter />
 
 {
-  /* Simple footer */
+  /* Global footer with two custom columns above it */
 }
-;<PktFooterSimple
-  personvernOgInfoLink="/personvern"
-  tilgjengelighetLink="/tilgjengelighet"
+;<PktFooter
+  columns={[
+    {
+      title: 'About the service',
+      text: 'Apply for a kindergarten place in Oslo.',
+      links: [{ href: '/about', text: 'About this service' }],
+    },
+    {
+      title: 'Get help',
+      links: [
+        { href: '/help', text: 'Help and guides' },
+        { href: 'https://webcruiter.com', text: 'Vacancies', external: true },
+      ],
+    },
+  ]}
   includeConsent
   googleAnalyticsId="G-XXXXXXXXXX"
 />
+
+{
+  /* Simple footer, global skipped because CSP blocks the CDN */
+}
+;<PktFooterSimple
+  skipGlobal
+  links={[
+    { href: '/personvern', text: 'Privacy' },
+    { href: '/tilgjengelighet', text: 'Accessibility' },
+  ]}
+/>
 ```
+
+### Elements
+
+```html
+<pkt-footer include-consent google-analytics-id="G-XXXXXXXXXX"></pkt-footer>
+
+<script>
+  const footer = document.querySelector('pkt-footer')
+  footer.columns = [
+    {
+      title: 'Get help',
+      links: [{ href: '/help', text: 'Help and guides' }],
+    },
+  ]
+  footer.addEventListener('data-error', (e) => console.warn(e.detail.error))
+</script>
+```
+
+## Notes
+
+For Elements, `columns` and `links` are arrays and must be set as JavaScript properties (or passed as JSON strings in the attribute, which Lit will `JSON.parse`).
+
+A global header and a global footer on the same page share one cached request for the payload, so using both costs a single fetch.

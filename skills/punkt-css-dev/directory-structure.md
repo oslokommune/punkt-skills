@@ -11,6 +11,7 @@ packages/css/
 │   ├── elements/            # Base element styles (11 files)
 │   ├── normalise/           # CSS normalize/reset
 │   ├── pkt.scss             # Main entry (everything)
+│   ├── pkt.layer.scss       # Main entry wrapped in @layer punkt
 │   ├── pkt-base.scss        # Base styles only
 │   ├── pkt-components.scss  # Components only
 │   ├── pkt-elements.scss    # Elements only
@@ -35,10 +36,17 @@ packages/css/
 | File | Contents |
 |---|---|
 | `pkt.scss` | Everything (normalise + base + elements + components) |
+| `pkt.layer.scss` | Everything, wrapped in `@layer punkt` |
 | `pkt-base.scss` | Base styles only |
 | `pkt-elements.scss` | Elements only |
 | `pkt-components.scss` | Components only |
 | `pkt-normalise.scss` | Normalize/reset only |
+| `pkt-tokens.scss` | Color variables, dark mode, `@font-face` |
+| `pkt-utilities.scss` | Spacing, color and visibility helper classes. Requires `pkt-tokens` |
+| `pkt-grid.scss` | Containers, grid and layouts. Requires `pkt-tokens` |
+| `pkt-docs.scss` | Everything plus docs-only styles. Internal to the documentation site |
+
+`pkt-tokens`, `pkt-utilities` and `pkt-grid` are the granular entries, so a consumer can take the design tokens and grid without pulling in every component style. Both `pkt-utilities` and `pkt-grid` depend on the custom properties in `pkt-tokens` — load it first or they resolve against nothing.
 
 Each entry file uses `@forward` to include its modules:
 ```scss
@@ -49,6 +57,20 @@ Each entry file uses `@forward` to include its modules:
 @forward 'elements';
 @forward 'components';
 ```
+
+`pkt.layer.scss` is the exception. It has to use `meta.load-css`, because Sass does not allow `@use` inside `@layer`:
+
+```scss
+// pkt.layer.scss
+@charset "utf-8";
+@use 'sass:meta';
+
+@layer punkt {
+  @include meta.load-css('pkt');
+}
+```
+
+Keep all of Punkt inside the single `punkt` layer. Splitting it across layers would let Punkt's own styles compete with each other — base link styles could start beating component button styles.
 
 ## Index files
 

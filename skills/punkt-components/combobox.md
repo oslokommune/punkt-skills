@@ -71,6 +71,7 @@ When using multi select, selected values appear as tags. Tags can be placed insi
 | `optionalText`           | `optionaltext`             | string                                       | —           | Text in the optional tag                             |
 | `tagText`                | `tagtext`                  | string                                       | —           | Custom tag text next to label                        |
 | `fullwidth`              | `fullwidth`                | boolean                                      | —           | Field takes full width                               |
+| `inputSize`              | `input-size`               | `"xsmall"` \| `"small"` \| `"medium"`        | `"medium"`  | Field height                                         |
 | `defaultOptions`         | `default-options`          | `Array<OptionObject>`                        | `[]`        | Initial options list (not modified by the component) |
 | `options`                | `options`                  | `Array<OptionObject>`                        | `[]`        | Current options list                                 |
 

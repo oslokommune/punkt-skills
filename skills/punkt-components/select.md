@@ -41,6 +41,7 @@ Dark mode: No
 | `disabled`               | `disabled`               | boolean | `false`        | Disables the field                          |
 | `inline`                 | `inline`                 | boolean | `false`        | Display inline with page content            |
 | `fullwidth`              | `fullwidth`              | boolean | `false`        | Field takes full width                      |
+| `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`     | Field height                                |
 | `requiredTag`            | `requiredTag`            | boolean | `false`        | Show "Required" tag next to label           |
 | `requiredText`           | `requiredText`           | string  | —              | Text in the required tag                    |
 | `optionalTag`            | `optionalTag`            | boolean | —              | Show "Optional" tag next to label           |

@@ -54,6 +54,7 @@ Dark mode: No
 | `disabled`               | `disabled`               | boolean | `false`          | Disables the field                      |
 | `inline`                 | `inline`                 | boolean | `false`          | Display inline with page content        |
 | `fullwidth`              | `fullwidth`              | boolean | `false`          | Field takes full width                  |
+| `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`       | Field height                            |
 | `useWrapper`             | `useWrapper`             | boolean | `true`           | Show label, help text, and wrapper      |
 | `counter`                | `counter`                | boolean | `false`          | Show character counter                  |
 | `counterMaxLength`       | `counterMaxLength`       | number  | —                | Maximum character count for the counter |
