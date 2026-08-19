@@ -2,7 +2,7 @@
 
 Header shows the sender and helps the user navigate a solution or website. It provides recognition and predictability, helping the user understand where they are and what they can do. The header should be consistent across all pages in the same context.
 
-**Note:** This documentation covers the **service header** only. The global header (for open public sites tied to oslo.kommune.no) is developed separately.
+Both variants are rendered by the same component and selected with the `type` prop: `type="service"` (default) or `type="global"`. Most of this page describes the **service header**; see [Global header](#global-header) for the kommune-wide variant.
 
 ## Availability
 
@@ -49,7 +49,8 @@ Dark mode: Yes
 | `serviceLink`             | `service-link`              | string                                                                     | —             | URL for the service name                                                                     |
 | `serviceClick`            | —                           | function (React only)                                                      | —             | Callback when service name is clicked (React). For Elements, listen to `service-click` event |
 | `compact`                 | `compact`                   | boolean                                                                    | `false`       | Use compact header height                                                                    |
-| `position`                | `position`                  | `"fixed"` \| `"relative"`                                                  | `"fixed"`     | Header positioning                                                                           |
+| `type`                    | `type`                      | `"service"` \| `"global"`                                                  | `"service"`   | Which header variant to render                                                               |
+| `position`                | `position`                  | `"fixed"` \| `"sticky"` \| `"relative"`                                    | `"fixed"`     | Header positioning                                                                           |
 | `scrollBehavior`          | `scroll-behavior`           | `"hide"` \| `"none"`                                                       | `"hide"`      | `"hide"` hides header on scroll down, `"none"` keeps it visible                              |
 | `user`                    | `user`                      | `{ name: string, lastLoggedIn?: string \| Date }`                          | —             | Logged-in user info                                                                          |
 | `userMenu`                | `user-menu`                 | `Array<{ title: string, iconName?: string, target?: string \| function }>` | —             | Menu items shown when user button is clicked                                                 |
@@ -134,7 +135,7 @@ import { PktHeader } from '@oslokommune/punkt-react'
     { title: 'Settings', iconName: 'settings', target: '/settings' },
   ]}
   logOutButtonPlacement="userMenu"
-  onLogOut={() => handleLogout()}
+  logOut={() => handleLogout()}
 >
   <PktLink href="/dashboard">Dashboard</PktLink>
   <PktLink href="/reports">Reports</PktLink>
@@ -149,9 +150,9 @@ import { PktHeader } from '@oslokommune/punkt-react'
   user={{ name: 'Kari Hansen' }}
   representing={{ name: 'Oslo Bygg AS', orgNumber: '123456789' }}
   canChangeRepresentation
-  onChangeRepresentation={() => showOrgPicker()}
+  changeRepresentation={() => showOrgPicker()}
   logOutButtonPlacement="header"
-  onLogOut={() => handleLogout()}
+  logOut={() => handleLogout()}
 />
 ```
 
@@ -173,6 +174,107 @@ import { PktHeader } from '@oslokommune/punkt-react'
   header.user = { name: 'Ola Nordmann' }
   header.userMenu = [{ title: 'My profile', iconName: 'user', target: '/profile' }]
   header.addEventListener('log-out', () => handleLogout())
+</script>
+```
+
+## Global header
+
+The kommune-wide header for open public sites. Its navigation, search and contact link come from a shared header/footer payload published by oslo.kommune.no, so the menu stays in sync without the consuming site maintaining it.
+
+Select it with `type="global"`:
+
+```jsx
+<PktHeader type="global" />
+```
+
+```html
+<pkt-header type="global"></pkt-header>
+```
+
+You can also import the variant directly as `PktHeaderGlobal` / `<pkt-header-global>`. Going through `PktHeader` is preferred — it keeps the choice of variant a one-word change.
+
+### Data source
+
+The payload is fetched automatically from `https://cdn.web.oslo.kommune.no/header-footer/header-footer.json`. Override with `dataUrl`, or skip the fetch entirely by passing an already-fetched payload as `data` (useful for SSR and tests).
+
+A global header and a global footer on the same page share one cached request, so you do not need to hoist the fetch yourself.
+
+### Props / Attributes
+
+The global header takes its own prop set — `serviceName`, `serviceLink`, `compact`, `openedMenu`, `searchValue`, `slotMenuVariant` and `slotMenuText` are **not** supported.
+
+| Prop (React)              | Attribute (Elements)        | Type                                               | Default              | Description                                                                 |
+| ------------------------- | --------------------------- | -------------------------------------------------- | -------------------- | --------------------------------------------------------------------------- |
+| `dataUrl`                 | `data-url`                  | string                                             | Oslo kommune CDN     | Endpoint to fetch the header/footer payload from                            |
+| `data`                    | `.data` (property)          | `THeaderFooterApi`                                 | —                    | Pre-fetched payload. When set, no fetch is made                             |
+| `locale`                  | `locale`                    | `"nb-NO"` \| `"en-GB"` \| string                   | `"nb-NO"`            | Which locale to select from the payload                                     |
+| `logoLink`                | `logo-link`                 | string                                             | —                    | URL for the logo. Omit to render the logo without a link                    |
+| `logoPath`                | `logo-path`                 | string                                             | —                    | Override the CDN path for logo assets                                       |
+| `showSearch`              | `show-search`               | boolean                                            | `true`               | Show the search field                                                       |
+| `searchPlaceholder`       | `search-placeholder`        | string                                             | From payload         | Falls back to the payload's placeholder, then `"Søk"`                       |
+| `showContact`             | `show-contact`              | boolean                                            | `true`               | Show the contact link from the payload                                      |
+| `user`                    | `user`                      | `{ name: string, lastLoggedIn?: string \| Date }`  | —                    | Logged-in user. When set, the user menu is shown                            |
+| `userMenu`                | `user-menu`                 | `Array<{ title, iconName?, target? }>`             | —                    | User menu items                                                             |
+| `representing`            | `representing`              | `{ name: string, orgNumber?: string \| number }`   | —                    | Organization being represented                                              |
+| `canChangeRepresentation` | `can-change-representation` | boolean                                            | `false`              | Show "Change organization" button                                           |
+| `logOutButtonPlacement`   | `log-out-button-placement`  | `"userMenu"` \| `"header"` \| `"both"` \| `"none"` | `"none"`             | Where to show the logout button                                             |
+| —                         | `has-log-out`               | boolean                                            | `false`              | Elements only. Must be set for the logout button to render                  |
+| `position`                | `position`                  | `"fixed"` \| `"sticky"` \| `"relative"`            | `"fixed"`            | Header positioning                                                          |
+| `scrollBehavior`          | `scroll-behavior`           | `"hide"` \| `"none"`                               | `"hide"`             | `"hide"` hides the header on scroll down                                    |
+| `mobileBreakpoint`        | `mobile-breakpoint`         | number                                             | `768`                | Breakpoint for mobile layout (pixels)                                       |
+| `tabletBreakpoint`        | `tablet-breakpoint`         | number                                             | `1024`               | Breakpoint for tablet layout (pixels)                                       |
+
+Note the breakpoint defaults differ from the service header, where `tabletBreakpoint` is `1280`.
+
+### Events
+
+| Event (React)          | Event (Elements)        | Description                                             |
+| ---------------------- | ----------------------- | ------------------------------------------------------- |
+| `onSearch`             | `search`                | User submits a search. When set, navigation is left to you |
+| `logOut`               | `log-out`               | User clicks the logout button                           |
+| `changeRepresentation` | `change-representation` | User clicks "Change organization"                       |
+| `logoClick`            | `logo-click`            | User clicks the logo                                    |
+| `onDataLoaded`         | `data-loaded`           | Payload was fetched, or `data` was supplied             |
+| `onDataError`          | `data-error`            | Fetching the payload failed                             |
+
+There is no navigation slot — the menu is built from the payload, so `children` are not used.
+
+### Examples
+
+```jsx
+import { PktHeader } from '@oslokommune/punkt-react'
+
+{
+  /* Anonymous public site — menu and search come from the payload */
+}
+;<PktHeader type="global" logoLink="/" />
+
+{
+  /* Logged-in user, own search handling, English payload */
+}
+;<PktHeader
+  type="global"
+  logoLink="/"
+  locale="en-GB"
+  user={{ name: 'Ola Nordmann' }}
+  userMenu={[{ title: 'My profile', iconName: 'user', target: '/profile' }]}
+  logOutButtonPlacement="userMenu"
+  logOut={() => handleLogout()}
+  onSearch={(query) => router.push(`/search?q=${query}`)}
+  onDataError={(error) => reportError(error)}
+/>
+```
+
+```html
+<pkt-header type="global" logo-link="/" log-out-button-placement="userMenu" has-log-out>
+</pkt-header>
+
+<script>
+  const header = document.querySelector('pkt-header')
+  header.user = { name: 'Ola Nordmann' }
+  header.userMenu = [{ title: 'My profile', iconName: 'user', target: '/profile' }]
+  header.addEventListener('log-out', () => handleLogout())
+  header.addEventListener('search', (e) => (location.href = `/search?q=${e.detail.query}`))
 </script>
 ```
 

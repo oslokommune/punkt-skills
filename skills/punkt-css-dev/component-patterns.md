@@ -32,7 +32,7 @@ pkt-component {
   // 5. Child elements (BEM)
   &__title {
     @include typography.get-text('pkt-txt-18-medium');
-    margin-bottom: $-spacing-16;
+    margin-block-end: $-spacing-16;
   }
 
   &__content {

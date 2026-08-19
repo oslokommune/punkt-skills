@@ -6,9 +6,9 @@ A centered wrapper that constrains content width and adds horizontal padding.
 
 ### Defaults
 
-- **Padding:** 16px (1rem) on mobile, 32px (2rem) from tablet up
+- **Padding:** `padding-inline` 16px (1rem) on mobile, 32px (2rem) from tablet up
 - **Max-width:** 80rem (1280px) from laptop up
-- **Centering:** `margin-left: auto; margin-right: auto`
+- **Centering:** `margin-inline: auto`
 
 ### Width modifiers
 
@@ -25,11 +25,13 @@ Below the activation breakpoint, the container is always 100% width.
 
 ### Alignment modifiers
 
-| Modifier   | Effect                            |
-| ---------- | --------------------------------- |
-| `--left`   | Left-aligned (margin-right: auto) |
-| `--center` | Centered _(default)_              |
-| `--right`  | Right-aligned (margin-left: auto) |
+| Modifier   | Effect                |
+| ---------- | --------------------- |
+| `--left`   | Left-aligned          |
+| `--center` | Centered _(default)_  |
+| `--right`  | Right-aligned         |
+
+`--center` uses `margin-inline: auto`. `--left` and `--right` are still implemented with physical `margin-left`/`margin-right`, so they do not flip in right-to-left writing modes.
 
 ### Examples
 
@@ -54,7 +56,7 @@ A 12-column CSS Grid for laying out content in columns.
 
 - **Columns:** `repeat(12, 1fr)`
 - **Gap:** 16px (1rem) on mobile, 32px (2rem) from tablet up
-- **Centering:** `margin-left: auto; margin-right: auto`
+- **Centering:** `margin-inline: auto`
 
 ### Width modifiers
 
@@ -66,7 +68,7 @@ Same as container: `--left`, `--center`, `--right`.
 
 ### Padding modifier
 
-`--padding` — adds horizontal padding matching the gap sizes (16px mobile, 32px tablet-up).
+`--padding` — adds `padding-inline` matching the gap sizes (16px mobile, 32px tablet-up).
 
 ### Gap modifiers
 

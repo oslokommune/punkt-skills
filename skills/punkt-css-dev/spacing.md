@@ -37,9 +37,23 @@ $-spacing-24: map.get(variables.$spacing, 'size-24');
 .pkt-component {
   padding: $-spacing-16;
   gap: $-spacing-8;
-  margin-bottom: $-spacing-24;
+  margin-block-end: $-spacing-24;
 }
 ```
+
+## Use logical properties
+
+Write `margin-block-end` / `padding-inline` rather than `margin-bottom` / `padding-left`. This is the established convention in the codebase — the SCSS source uses logical properties roughly four times as often as physical ones, and the spacing utility classes compile to logical properties throughout.
+
+| Physical        | Logical                        |
+| --------------- | ------------------------------ |
+| `margin-top`    | `margin-block-start`           |
+| `margin-bottom` | `margin-block-end`             |
+| `margin-left`   | `margin-inline-start`          |
+| `margin-right`  | `margin-inline-end`            |
+| `margin: 0 auto`| `margin-inline: auto`          |
+
+The same applies to `padding`. Borders are an exception — the codebase still uses physical `border-left` / `border-bottom`.
 
 ## Utility classes
 

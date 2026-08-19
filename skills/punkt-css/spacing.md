@@ -14,15 +14,19 @@
 
 ### Direction
 
-| Suffix   | Sides        |
-| -------- | ------------ |
-| `t`      | top          |
-| `r`      | right        |
-| `b`      | bottom       |
-| `l`      | left         |
-| `x`      | left + right |
-| `y`      | top + bottom |
-| _(none)_ | all sides    |
+The suffixes are named after physical directions, but they all resolve to **logical** CSS properties, so spacing follows the writing direction automatically.
+
+| Suffix   | Property              | Sides in LTR   |
+| -------- | --------------------- | -------------- |
+| `t`      | `margin-block-start`  | top            |
+| `r`      | `margin-inline-end`   | right          |
+| `b`      | `margin-block-end`    | bottom         |
+| `l`      | `margin-inline-start` | left           |
+| `x`      | `margin-inline`       | left + right   |
+| `y`      | `margin-block`        | top + bottom   |
+| _(none)_ | `margin`              | all sides      |
+
+Padding utilities map the same way (`.pt-` → `padding-block-start`, and so on).
 
 ### Recommended sizes
 
@@ -110,6 +114,6 @@ Add `--{breakpoint}-up` to apply spacing at a breakpoint and above:
 
 .my-element {
   padding: map.get(variables.$spacing, 'size-24');
-  margin-bottom: map.get(variables.$spacing, 'size-16');
+  margin-block-end: map.get(variables.$spacing, 'size-16');
 }
 ```
