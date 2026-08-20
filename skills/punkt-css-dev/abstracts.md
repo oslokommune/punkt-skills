@@ -89,6 +89,17 @@ $icon-path: 'https://punkt-cdn.oslo.kommune.no/latest/icons';
 ```
 See [Breakpoints & Responsive](breakpoints.md).
 
+### `bp-up($value)` — Breakpoints from a raw value
+```scss
+// For loops over variables.$breakpoints, where `mobile` is 0
+@each $bp-name, $bp-value in variables.$breakpoints {
+  @include bp-up($bp-value) { ... }
+}
+```
+Emits no `min-width` when `$value` is `0`. Use this instead of passing a value to `bp()` —
+`bp(0)` produces an always-true `@media (min-width: 0)`. See
+[Breakpoints & Responsive](breakpoints.md).
+
 ### `cq($container-name, $min-width)` — Container Queries
 ```scss
 @include cq('my-container', 48rem) {
@@ -134,3 +145,19 @@ See [Breakpoints & Responsive](breakpoints.md).
 ```
 
 Usage: `@extend %sr-only;`
+
+### Extend placeholders, not classes
+
+`@extend` appends the extending selector to **every rule** the extended selector appears in. On
+a placeholder that is cheap. On a heavily used class it is not.
+
+```scss
+.pkt-textinput__input { @extend .pkt-input; }   // don't
+```
+
+`.pkt-input` has 124 rules, so that one line added `.pkt-textinput__input` to all 124 selector
+lists. Two such extends cost **6 183 bytes** in `pkt.css` — and both turned out to be dead,
+because the components already put `pkt-input` on the field directly. Both files were deleted.
+
+If a component needs the field styling, apply the `pkt-input` class in the markup. If several
+components need to share declarations, use a mixin.

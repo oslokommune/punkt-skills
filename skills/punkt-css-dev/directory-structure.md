@@ -75,3 +75,26 @@ Keep all of Punkt inside the single `punkt` layer. Splitting it across layers wo
 ## Index files
 
 Every directory has an `_index.scss` that `@forward`s all its partials. When adding a new component or element, register it in the corresponding `_index.scss`.
+
+`components/_index.scss` and `elements/_index.scss` are alphabetical — add new entries in order.
+
+**`base/_index.scss` is not.** Its order is deliberate and mirrors the granular entry points:
+
+```
+tokens      oslo-sans, colors-tokens
+reset       defaults
+typography  typography
+grid        containers, grid, layouts
+utilities   colors-utilities, spacing, visibility
+a11y        accessibility
+```
+
+Do not sort it. **Utilities come last on purpose.** They currently win through `!important`, but
+the plan is to remove those — and then source order is the only thing left making a utility
+class beat a component style. With utilities last that still works; sorted alphabetically it
+would not, and the breakage would be silent.
+
+`base/_colors.scss` is a forwarding stub over `_colors-tokens.scss` (the `:root` custom
+properties and dark mode) and `_colors-utilities.scss` (the `.pkt-color-*` helper classes). The
+split is what lets `pkt-tokens` ship the variables without the classes. Add new colour tokens to
+`_colors-tokens.scss`, new helper classes to `_colors-utilities.scss`.

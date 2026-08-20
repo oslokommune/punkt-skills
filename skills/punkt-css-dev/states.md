@@ -85,3 +85,26 @@ Always handle all three disabled variants:
 - `:disabled` — native HTML disabled attribute (form elements)
 - `[disabled]` — attribute selector (works on any element)
 - `[data-disabled]` — data attribute (used by web components)
+
+---
+
+## Avoid naming other components in `:not()`
+
+`:not(:focus-visible)` and similar — narrowing on the element's own state — is fine. Naming
+*other components* to carve yourself out around them is not:
+
+```scss
+// _input.scss, existing — don't add more of these
+&--small:not(:is(textarea, .pkt-timepicker__input, .pkt-datepicker__input)) { … }
+&__container:is(:has(.pkt-datepicker__input:not(.pkt-datepicker--multiple))) { … }
+```
+
+The rule is generic, so it has to enumerate its own exceptions. That makes `_input.scss` know
+about every component built on an input: add a new input-based component and you must edit
+`_input.scss` too. The same pattern sits in `base/_typography.scss`, where the visited-link
+colour excludes `.pkt-linkcard`, `.pkt-btn` and `.pkt-tabs__link`.
+
+It is a knowledge coupling, not an import, so it survives any amount of moving files around.
+
+Prefer the inverse: make the generic rule opt-in via a modifier class the component applies, so
+the general case does not need a list of special cases.
