@@ -78,4 +78,3 @@ All headings (`h1`–`h6`) are reset to `font-size: 1rem; font-weight: normal`. 
 | `.pkt-font-regular` | `font-weight: 400` |
 | `.pkt-font-medium` | `font-weight: 500` |
 | `.pkt-font-bold` | `font-weight: 700` |
-| `.pkt-display-contents` | `display: contents` |

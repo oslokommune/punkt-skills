@@ -26,7 +26,9 @@ Requires `display: block` or `display: inline-block` on the element (block is th
 
 ## Display contents
 
-`.pkt-display-contents` and `.pkt-contents` — sets `display: contents`, which makes the element's children behave as if they were direct children of the element's parent. Useful for wrapper elements that shouldn't affect layout.
+`.pkt-contents` — sets `display: contents`, which makes the element's children behave as if they were direct children of the element's parent. Useful for wrapper elements that shouldn't affect layout.
+
+The alias `.pkt-display-contents` was removed in v17. Use `.pkt-contents`.
 
 ```html
 <div class="pkt-grid">

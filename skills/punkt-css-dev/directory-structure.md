@@ -83,7 +83,7 @@ Every directory has an `_index.scss` that `@forward`s all its partials. When add
 ```
 tokens      oslo-sans, colors-tokens
 reset       defaults
-typography  typography
+typography  typography, link
 grid        containers, grid, layouts
 utilities   colors-utilities, spacing, visibility
 a11y        accessibility
@@ -93,6 +93,15 @@ Do not sort it. **Utilities come last on purpose.** They currently win through `
 the plan is to remove those — and then source order is the only thing left making a utility
 class beat a component style. With utilities last that still works; sorted alphabetically it
 would not, and the breakage would be silent.
+
+`base/_link.scss` holds the whole `.pkt-link` component — `a`, `.pkt-link-button`, their states,
+`.pkt-link__icon`, `--icon-left/--icon-right`, `--external` and the dark-mode filters. It lives in
+`base/` rather than `components/` because the `a` element rules must stay ahead of
+`elements/_button.scss`, so `<a class="pkt-btn">` still gets button styling.
+
+`base/_defaults.scss` holds `.pkt-contents` (`display: contents`). It is not a utility — around
+eleven components emit it as a slot wrapper, so it has to load whenever components do. `pkt-base`
+is mandatory, which is what makes `base/` the right home.
 
 `base/_colors.scss` is a forwarding stub over `_colors-tokens.scss` (the `:root` custom
 properties and dark mode) and `_colors-utilities.scss` (the `.pkt-color-*` helper classes). The
