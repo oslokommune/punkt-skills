@@ -28,44 +28,56 @@ The suffixes are named after physical directions, but they all resolve to **logi
 
 Padding utilities map the same way (`.pt-` → `padding-block-start`, and so on).
 
-### Recommended sizes
+### The scale
 
-These are the documented spacing scale values. Use these in new code.
+These 19 values are the approved scale and mirror Figma exactly. Use these in new code.
 
 | Token      | Value    | Pixels |
 | ---------- | -------- | ------ |
 | `size-0`   | 0        | 0      |
 | `size-2`   | 0.125rem | 2px    |
 | `size-4`   | 0.25rem  | 4px    |
+| `size-6`   | 0.375rem | 6px    |
 | `size-8`   | 0.5rem   | 8px    |
 | `size-12`  | 0.75rem  | 12px   |
 | `size-16`  | 1rem     | 16px   |
 | `size-24`  | 1.5rem   | 24px   |
 | `size-32`  | 2rem     | 32px   |
 | `size-40`  | 2.5rem   | 40px   |
-| `size-64`  | 4rem     | 64px   |
-| `size-104` | 6.5rem   | 104px  |
-
-### Available but not recommended
-
-These sizes exist in the CSS but are not part of the documented spacing scale. They can be used when needed but prefer the recommended sizes.
-
-| Token      | Value    | Pixels |
-| ---------- | -------- | ------ |
-| `size-6`   | 0.375rem | 6px    |
 | `size-48`  | 3rem     | 48px   |
-| `size-52`  | 3.25rem  | 52px   |
 | `size-56`  | 3.5rem   | 56px   |
+| `size-64`  | 4rem     | 64px   |
 | `size-72`  | 4.5rem   | 72px   |
 | `size-80`  | 5rem     | 80px   |
 | `size-88`  | 5.5rem   | 88px   |
+| `size-96`  | 6rem     | 96px   |
+| `size-104` | 6.5rem   | 104px  |
 | `size-128` | 8rem     | 128px  |
 
-### Deprecated sizes
+### Outside the scale
 
-Do not use in new code. These exist for backwards compatibility only.
+`size-52` (3.25rem) exists in the CSS but is not in Figma. It is used internally by footer and
+header, and will be snapped to `size-56` in a future major. Do not use it in new code.
 
-`size-5`, `size-10`, `size-15`, `size-20`, `size-30`, `size-50`, `size-60`, `size-75`, `size-100`
+### Half-steps — supported, but undocumented
+
+These sit between the Figma steps. They are not part of the approved scale and are not shown in
+the documentation, but they are in active use across several teams and will stay for now. Use the
+nearest scale value in new code.
+
+`size-10` (10px), `size-20` (20px), `size-30` (30px), `size-60` (60px)
+
+### Slated for removal
+
+Same as above, but with almost no usage. These go in the next major.
+
+| Token      | Pixels | Replace with |
+| ---------- | ------ | ------------ |
+| `size-5`   | 5px    | `size-6`     |
+| `size-15`  | 15px   | `size-16`    |
+| `size-50`  | 50px   | `size-48`    |
+| `size-75`  | 75px   | `size-72`    |
+| `size-100` | 100px  | `size-104`   |
 
 ## Examples
 

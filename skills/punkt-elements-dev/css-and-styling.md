@@ -70,7 +70,11 @@ Used for toggling visibility classes (`pkt-hide`) on the host element, important
 
 ## Input wrapper
 
-Form input components use the `pkt-input-wrapper` component for consistent label, helptext, and error display:
+Form input components use the `pkt-input-wrapper` component for consistent label, helptext, and error display.
+
+**`pkt-input-wrapper` is itself the `.pkt-inputwrapper` box** — it renders no wrapper div of its
+own, and its classes sit on the host. Every form component therefore has the same two boxes in
+both frameworks: an outer component box carrying the component class, then `.pkt-inputwrapper`.
 
 ```typescript
 import '@/components/input-wrapper'
@@ -90,6 +94,49 @@ render() {
   `
 }
 ```
+
+Five things every form component owes the wrapper:
+
+**1. Put the component class on the host**, not on the inner wrapper — React puts it on its outer
+div, so this is what keeps the two frameworks aligned:
+
+```typescript
+protected updated(changedProperties: PropertyValues): void {
+  super.updated(changedProperties)
+  this.classList.add('pkt-textinput')
+}
+```
+
+**2. Build aria ids from the same base as `forId`.** The wrapper derives `{forId}-helptext` and
+`{forId}-error` from what you pass as `forId`. Passing `this.id + '-input'` as `forId` while
+building `aria-errormessage` from `this.id` points the reference at an element that does not
+exist, and nothing fails loudly — check the ids resolve.
+
+**3. Describe the control, not the label.** `aria-describedby` belongs on the input itself; on a
+`<label>` it contributes nothing to the accessible description:
+
+```typescript
+aria-describedby=${ifDefined(
+  describedByIds({ id: this.id + '-input', hasHelptext: !!this.helptext, hasCounter: showCounter }),
+)}
+```
+
+**4. Only emit `aria-errormessage` when there is an error**, and pair it with `aria-invalid`.
+
+**5. Resolve tri-state props before forwarding.** `counter` and `hasFieldset` are
+`boolean | null` on `PktInputElement`: null means "derive a sensible default", explicit `false`
+always turns it off. Use the base helpers so the derivation is visible:
+
+```typescript
+const showCounter = this.effectiveCounter(this.counterMaxLength > 0)
+...
+?counter=${showCounter}
+?hasFieldset=${this.effectiveHasFieldset(false)}
+```
+
+`components/input-wrapper/wrapper-parity.test.ts` checks that every wrapper prop is forwarded by
+every component in both frameworks. Leaving one out is allowed, but it has to be declared in that
+file's `OMITTED` list with a reason.
 
 ## Styling changes
 

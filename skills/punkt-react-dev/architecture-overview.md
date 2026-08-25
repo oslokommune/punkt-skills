@@ -18,6 +18,6 @@ Punkt is a monorepo design system by Oslo kommune. The React package provides co
 
 Every component is a native React implementation. The package has no runtime dependency on `@oslokommune/punkt-elements`, `lit` or `@lit/react` — check `packages/react/package.json` and you will not find them.
 
-Punkt React used to wrap some web components with `@lit/react`'s `createComponent`. That is gone; the last wrappers (including `PktIcon`) were rewritten as React components. Do not add new Lit wrappers, and treat any tutorial or older code showing `createComponent` as out of date.
+Punkt React is pure React — there are no `@lit/react` wrappers. Do not add any: components are written as React components, including `PktIcon`. Code or tutorials showing `createComponent` do not apply here.
 
 React and Elements are now two independent implementations that share `shared-types`, `shared-utils` and the component specs.

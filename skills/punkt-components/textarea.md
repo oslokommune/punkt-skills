@@ -56,8 +56,18 @@ Dark mode: No
 | `fullwidth`              | `fullwidth`              | boolean | `false`          | Field takes full width                  |
 | `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`       | Field height                            |
 | `useWrapper`             | `useWrapper`             | boolean | `true`           | Show label, help text, and wrapper      |
-| `counter`                | `counter`                | boolean | `false`          | Show character counter                  |
+| `counter`                | `counter`                | boolean | derived          | Show character counter                  |
 | `counterMaxLength`       | `counterMaxLength`       | number  | —                | Maximum character count for the counter |
+
+### Counter and fieldset
+
+`counter` is derived when you don't set it: the counter appears on its own once
+`counterMaxLength` is set. Pass `counter={false}` to suppress it, or `counter` to force it on. The
+visible number is `aria-hidden` — a separate live region announces only when the limit is
+exceeded, so screen readers aren't told the count on every keystroke.
+
+`hasFieldset` renders `fieldset`/`legend` instead of `div`/`label`. Off by default for a single
+field; useful when the label should not be a `<label>`.
 
 ## Accessibility
 

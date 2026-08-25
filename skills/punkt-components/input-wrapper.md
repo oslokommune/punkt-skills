@@ -65,6 +65,11 @@ Dark mode: No
 - The label is automatically connected to the form element via `forId`
 - Help text and error messages are connected via `aria-describedby` (handled automatically)
 - Use `hasFieldset` when wrapping groups of checkboxes or radio buttons — renders a `fieldset` with `legend` for proper screen reader grouping
+- Input Wrapper itself takes `counter` and `hasFieldset` as plain booleans. The **components** that
+  use it (Text Input, Combobox, Datepicker …) treat them as tri-state: unset means "derive a
+  sensible default", explicit `false` always turns it off
+- The counter's visible number is `aria-hidden`. A separate live region announces only when the
+  limit is exceeded, so screen readers aren't told the count on every keystroke
 - Error messages should be specific and explain how to fix the issue
 
 ## Examples

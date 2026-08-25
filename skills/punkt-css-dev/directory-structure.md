@@ -99,6 +99,12 @@ would not, and the breakage would be silent.
 `base/` rather than `components/` because the `a` element rules must stay ahead of
 `elements/_button.scss`, so `<a class="pkt-btn">` still gets button styling.
 
+`base/_spacing-responsive.scss` and `base/_grid-responsive.scss` hold the per-breakpoint variants
+of the spacing and grid utilities — the bulk of the classes in both. They are separate files so
+they can be dropped from `pkt-base` by removing a single `@forward` from `base/_index.scss`, where
+both are currently forwarded. Put new responsive utility loops in these files rather than beside
+the non-responsive ones.
+
 `base/_defaults.scss` holds `.pkt-contents` (`display: contents`). It is not a utility — around
 eleven components emit it as a slot wrapper, so it has to load whenever components do. `pkt-base`
 is mandatory, which is what makes `base/` the right home.

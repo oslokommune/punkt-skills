@@ -67,8 +67,7 @@ Use it whenever you iterate `variables.$breakpoints`, because `mobile` is `0`:
 
 **Do not pass a value to `bp()`.** `bp('#{$bp-value}')` falls through to the generic `@else`
 branch and emits `@media screen and (min-width: 0)` for mobile — a query that is always true.
-That mistake previously put **91 always-true media queries** in `pkt-base`. `bp-up()` drops the
-`min-width` entirely when the value is `0`.
+`bp-up()` drops the `min-width` entirely when the value is `0`.
 
 ## Generating responsive classes: loop breakpoint-outermost
 
@@ -95,13 +94,15 @@ and the `bp-up()` include **outside the value loop**:
 }
 ```
 
-The wrong form has two costs. It emits a separate `@media` block for every single class —
-typography once produced **348 blocks for 348 classes**. And it orders output by value rather
-than by breakpoint, so with equal specificity the *widest* declared value wins instead of the
-narrowest breakpoint. That was a real bug: `mb-size-32--phablet-up mb-size-16--tablet-up` gave
-32px at tablet.
+The wrong form orders output by value rather than by breakpoint, so with equal specificity the
+*widest* declared value wins instead of the narrowest breakpoint — `mb-size-32--phablet-up
+mb-size-16--tablet-up` gives 32px at tablet. It also emits one `@media` block per class instead
+of one per breakpoint, which scatters near-identical rules across the file.
 
-`pkt-base` went from 560 `@media` blocks to 50 by fixing this.
+**Don't go further and merge the remaining `@media` blocks.** Block count is not a size target:
+the blocks are separated by ordinary rules, so merging them means reordering, and moving rules
+away from the near-identical text they compress against makes the gzipped file *larger* even
+though the raw file shrinks. Since assets are served gzipped, that is the number that counts.
 
 ## When to use which
 
