@@ -10,7 +10,8 @@ All base classes live in `src/base-elements/`. Every Punkt element extends one o
 
 The root base class. Provides:
 
-- **`strings`** property — Norwegian translations from `translations/no.json` (validation messages, form labels)
+- **`strings`** property — partial override of the shared string catalogue (`shared-strings`)
+- **`pktStrings`** controller — resolves catalogue text and re-renders on `setPktStrings()`
 - **`role`** property — ARIA role attribute
 - **Index signature** `[key: string]: any` — allows dynamic property access (needed for controllers)
 - **`$props`** — Vue prop typing support
@@ -19,12 +20,14 @@ The root base class. Provides:
 ```typescript
 import { LitElement } from 'lit'
 import { property } from 'lit/decorators.js'
-import strings from '../translations/no.json'
+import { PktStringsController } from '@/controllers/strings-controller'
+import type { TPktStringsOverride } from 'shared-strings'
 
 export class PktShadowElement<T = {}> extends LitElement {
   [key: string]: any
 
-  @property({ type: Object }) strings: any = strings
+  @property({ type: Object }) strings?: TPktStringsOverride
+  protected pktStrings = new PktStringsController(this)
   @property({ type: String }) role: string | null = null
 
   $props!: T & Props

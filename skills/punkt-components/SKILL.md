@@ -114,6 +114,11 @@ Content-Security-Policy:
 
 They share the endpoint, so one `connect-src` entry covers all three. See [header.md](header.md), [footer.md](footer.md), [header-menu.md](header-menu.md) and [consent.md](consent.md) for details and for the server-side `data` workaround.
 
+## Strings
+
+All UI text comes from a single shared catalogue and can be overridden globally, per
+subtree, or per component. See [Strings and overrides](strings.md).
+
 ## Components
 
 1. [Accordion](accordion.md)

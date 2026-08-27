@@ -208,7 +208,7 @@ Validates the input and sets the `ElementInternals` validity state. Checks, in o
 9. `customError` → uses the input's `validationMessage`
 10. Otherwise → valid (`setValidity({})`)
 
-Error messages come from `strings.forms.messages` (Norwegian translations).
+Error messages come from `this.pktStrings.get('validation')` in the shared string catalogue.
 
 #### `dispatchChangeEvents(value)` — Event dispatching
 

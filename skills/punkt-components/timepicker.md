@@ -65,13 +65,13 @@ Dark mode: Yes
 | `hasError`               | `hasError`                 | boolean            | `false`          | Shows error state                                        |
 | `errorMessage`           | `errorMessage`             | string             | —                | Error message shown below the field                      |
 | `requiredTag`            | `requiredTag`              | boolean            | `false`          | Show "Required" tag next to label                        |
-| `requiredText`           | `requiredText`             | string             | `"Må fylles ut"` | Text in the required tag                                 |
+| `requiredText`           | `requiredText`             | string             | `"Må fylles ut"` | Deprecated — use `strings`. See [Strings](strings.md)                                 |
 | `optionalTag`            | `optionalTag`              | boolean            | `false`          | Show "Optional" tag next to label                        |
-| `optionalText`           | `optionalText`             | string             | `"Valgfritt"`    | Text in the optional tag                                 |
+| `optionalText`           | `optionalText`             | string             | `"Valgfritt"`    | Deprecated — use `strings`. See [Strings](strings.md)                                 |
 | `tagText`                | `tagText`                  | string             | —                | Custom tag text next to label                            |
 | `useWrapper`             | `useWrapper`               | boolean            | `true`           | Show label, help text, and wrapper                       |
 | `inline`                 | `inline`                   | boolean            | `false`          | Inline layout                                            |
-| `strings`                | —                          | ITimepickerStrings | —                | Override labels for hours, minutes, buttons (React only) |
+| `strings`                | `strings`                  | TPktStringsOverride | —               | Overrides text for this component. See [Strings](strings.md) |
 | `ariaDescribedby`        | `aria-describedby`         | string             | —                | ID of element describing the field                       |
 
 ## Events

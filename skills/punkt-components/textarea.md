@@ -45,9 +45,9 @@ Dark mode: No
 | `ariaLabelledby`         | `ariaLabelledby`         | string  | —                | ID of an element that labels this field |
 | `required`               | `required`               | boolean | `false`          | Field is required for form submission   |
 | `requiredTag`            | `requiredTag`            | boolean | —                | Show "Required" tag next to label       |
-| `requiredText`           | `requiredText`           | string  | `"Må fylles ut"` | Text in the required tag                |
+| `requiredText`           | `requiredText`           | string  | `"Må fylles ut"` | Deprecated — use `strings`. See [Strings](strings.md)                |
 | `optionalTag`            | `optionalTag`            | boolean | —                | Show "Optional" tag next to label       |
-| `optionalText`           | `optionalText`           | string  | `"Valgfritt"`    | Text in the optional tag                |
+| `optionalText`           | `optionalText`           | string  | `"Valgfritt"`    | Deprecated — use `strings`. See [Strings](strings.md)                |
 | `tagText`                | `tagText`                | string  | —                | Custom tag text next to label           |
 | `hasError`               | `hasError`               | boolean | —                | Shows error state                       |
 | `errorMessage`           | `errorMessage`           | string  | —                | Error message shown below the field     |

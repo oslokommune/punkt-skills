@@ -36,9 +36,9 @@ Dark mode: No
 | `counterMaxLength`       | `counterMaxLength`       | number                | —                | Maximum character count                                       |
 | `counterPosition`        | `counterPosition`        | `"top"` \| `"bottom"` | `"bottom"`       | Position of the counter                                       |
 | `optionalTag`            | `optionalTag`            | boolean               | `false`          | Show "Optional" tag next to label                             |
-| `optionalText`           | `optionalText`           | string                | `"Valgfritt"`    | Text in the optional tag                                      |
+| `optionalText`           | `optionalText`           | string                | `"Valgfritt"`    | Deprecated — use `strings`. See [Strings](strings.md)                                      |
 | `requiredTag`            | `requiredTag`            | boolean               | `false`          | Show "Required" tag next to label                             |
-| `requiredText`           | `requiredText`           | string                | `"Må fylles ut"` | Text in the required tag                                      |
+| `requiredText`           | `requiredText`           | string                | `"Må fylles ut"` | Deprecated — use `strings`. See [Strings](strings.md)                                      |
 | `tagText`                | `tagText`                | string                | —                | Custom tag text next to label                                 |
 | `hasError`               | `hasError`               | boolean               | `false`          | Shows error state                                             |
 | `errorMessage`           | `errorMessage`           | string                | —                | Error message shown below the field                           |

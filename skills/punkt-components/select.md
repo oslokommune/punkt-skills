@@ -43,9 +43,9 @@ Dark mode: No
 | `fullwidth`              | `fullwidth`              | boolean | `false`        | Field takes full width                      |
 | `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`     | Field height                                |
 | `requiredTag`            | `requiredTag`            | boolean | `false`        | Show "Required" tag next to label           |
-| `requiredText`           | `requiredText`           | string  | —              | Text in the required tag                    |
+| `requiredText`           | `requiredText`           | string  | —              | Deprecated — use `strings`. See [Strings](strings.md)                    |
 | `optionalTag`            | `optionalTag`            | boolean | —              | Show "Optional" tag next to label           |
-| `optionalText`           | `optionalText`           | string  | —              | Text in the optional tag                    |
+| `optionalText`           | `optionalText`           | string  | —              | Deprecated — use `strings`. See [Strings](strings.md)                    |
 | `tagText`                | `tagText`                | string  | —              | Custom tag text next to label               |
 | `ariaDescribedBy`        | `ariaDescribedBy`        | string  | —              | ID of the element that describes this field |
 | `ariaLabelledby`         | `ariaLabelledby`         | string  | —              | ID of the element that labels this field    |

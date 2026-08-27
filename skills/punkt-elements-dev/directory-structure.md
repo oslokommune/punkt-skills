@@ -34,8 +34,6 @@ packages/elements/
 │   │   ├── index.ts
 │   │   ├── size.ts               # TPktSize
 │   │   └── typeUtils.ts          # ElementProps<> helper
-│   ├── translations/
-│   │   └── no.json               # Norwegian strings (validation, labels)
 │   ├── utils/
 │   │   └── classutils.ts         # Host class attribute helpers
 │   ├── tests/

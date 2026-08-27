@@ -53,9 +53,9 @@ Dark mode: Yes
 | `checkHelptext`  | `checkHelptext`      | string  | —              | Help text shown below the radio button            |
 | `hasError`       | `hasError`           | boolean | `false`        | Shows error state                                 |
 | `requiredTag`    | `requiredTag`        | boolean | `false`        | Show "Required" tag next to label                 |
-| `requiredText`   | `requiredText`       | string  | —              | Text in the required tag                          |
+| `requiredText`   | `requiredText`       | string  | —              | Deprecated — use `strings`. See [Strings](strings.md)                          |
 | `optionalTag`    | `optionalTag`        | boolean | —              | Show "Optional" tag next to label                 |
-| `optionalText`   | `optionalText`       | string  | —              | Text in the optional tag                          |
+| `optionalText`   | `optionalText`       | string  | —              | Deprecated — use `strings`. See [Strings](strings.md)                          |
 | `tagText`        | `tagText`            | string  | —              | Custom tag text next to label                     |
 
 ## Events

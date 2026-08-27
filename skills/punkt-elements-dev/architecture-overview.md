@@ -26,7 +26,7 @@ Punkt is a monorepo design system by Oslo kommune. The Elements package provides
 
 ```
 LitElement (from 'lit')
-  └─ PktShadowElement  (shadow DOM, translations, HMR)
+  └─ PktShadowElement  (shadow DOM, string catalogue, HMR)
       └─ PktElement  (light DOM override)
           └─ PktInputElement  (form-associated, validation)
               └─ PktOptionsInputElement  (select/combobox options)

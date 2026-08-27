@@ -72,9 +72,9 @@ Dark mode: Yes
 | `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`       | Field height                                  |
 | `required`               | `required`               | boolean            | `false`          | Field is required                             |
 | `requiredTag`            | `requiredTag`            | boolean            | `false`          | Show "Required" tag next to label             |
-| `requiredText`           | `requiredText`           | string             | `"Må fylles ut"` | Text in the required tag                      |
+| `requiredText`           | `requiredText`           | string             | `"Må fylles ut"` | Deprecated — use `strings`. See [Strings](strings.md)                      |
 | `optionalTag`            | `optionalTag`            | boolean            | `false`          | Show "Optional" tag next to label             |
-| `optionalText`           | `optionalText`           | string             | `"Valgfritt"`    | Text in the optional tag                      |
+| `optionalText`           | `optionalText`           | string             | `"Valgfritt"`    | Deprecated — use `strings`. See [Strings](strings.md)                      |
 | `tagText`                | `tagText`                | string             | —                | Custom tag text next to label                 |
 | `useWrapper`             | `useWrapper`             | boolean            | `true`           | Show label, help text, and wrapper            |
 

@@ -66,9 +66,9 @@ When using multi select, selected values appear as tags. Tags can be placed insi
 | `errorMessage`           | `errormessage`             | string                                       | —           | Error message shown below the field                  |
 | `required`               | `required`                 | boolean                                      | —           | Field is required                                    |
 | `requiredTag`            | `requiredtag`              | boolean                                      | —           | Show "Required" tag next to label                    |
-| `requiredText`           | `requiredtext`             | string                                       | —           | Text in the required tag                             |
+| `requiredText`           | `requiredtext`             | string                                       | —           | Deprecated — use `strings`. See [Strings](strings.md)                             |
 | `optionalTag`            | `optionaltag`              | boolean                                      | —           | Show "Optional" tag next to label                    |
-| `optionalText`           | `optionaltext`             | string                                       | —           | Text in the optional tag                             |
+| `optionalText`           | `optionaltext`             | string                                       | —           | Deprecated — use `strings`. See [Strings](strings.md)                             |
 | `tagText`                | `tagtext`                  | string                                       | —           | Custom tag text next to label                        |
 | `fullwidth`              | `fullwidth`                | boolean                                      | —           | Field takes full width                               |
 | `inputSize`              | `input-size`               | `"xsmall"` \| `"small"` \| `"medium"`        | `"medium"`  | Field height                                         |
