@@ -77,14 +77,16 @@ Page-level backgrounds.
 
 Element-level backgrounds (panels, buttons, sections).
 
+Surface tokens have the same value in light and dark mode.
+
 **Default surfaces:**
-`surface-default-light-blue`, `surface-default-faded-blue`, `surface-default-green`, `surface-default-faded-green`, `surface-default-light-beige`, `surface-default-yellow`, `surface-default-red`, `surface-default-faded-red`
+`surface-default-faded-green`, `surface-default-faded-red`, `surface-default-gray`, `surface-default-light-beige`, `surface-default-light-blue`, `surface-default-light-green`, `surface-default-pale-blue`, `surface-default-red`, `surface-default-yellow`
 
 **Strong surfaces (saturated):**
-`surface-strong-dark-blue`, `surface-strong-blue`, `surface-strong-warm-blue`, `surface-strong-green`, `surface-strong-dark-green`, `surface-strong-yellow`, `surface-strong-red`, `surface-strong-beige`, `surface-strong-purple`
+`surface-strong-beige`, `surface-strong-blue`, `surface-strong-dark-blue`, `surface-strong-dark-green`, `surface-strong-gray`, `surface-strong-green`, `surface-strong-light-green`, `surface-strong-red`, `surface-strong-yellow`
 
 **Subtle surfaces:**
-`surface-subtle-grey`, `surface-subtle-light-blue`, `surface-subtle-warm-blue`, `surface-subtle-green`
+`surface-subtle-gray`, `surface-subtle-light-blue`, `surface-subtle-light-red`, `surface-subtle-pale-blue`, `surface-subtle-white`
 
 ### Border
 
@@ -115,10 +117,15 @@ Element-level backgrounds (panels, buttons, sections).
 
 Used internally by form components:
 
-- `input-background-normal`
+- `input-background-normal`, `input-background-open`, `input-background-disabled`
 - `input-border-normal`, `input-border-hover`, `input-border-active`, `input-border-disabled`, `input-border-error`
 - `input-text-normal`, `input-text-hover`, `input-text-active`, `input-text-disabled`, `input-text-error`, `input-text-open`
 - `input-check-background`, `input-check-border`, `input-check-text-active`, `input-check-text-hover`
+
+### Tag and button
+
+- `tag-text-normal`, `tag-text-hover`, `tag-text-active`, `tag-text-focus`
+- `button-primary-*`, `button-secondary-*`, `button-tertiary-*` — background, border and text per state
 
 ## Brand colors reference
 
@@ -168,15 +175,44 @@ Used internally by form components:
 | `brand-light-beige-1000` | #f8f0dd |
 | `brand-dark-beige-1000`  | #d0bfae |
 | `brand-purple-1000`      | #e0adff |
-| `brand-neutrals-white`   | #ffffff |
-| `brand-neutrals-100`     | #f9f9f9 |
-| `brand-neutrals-200`     | #f2f2f2 |
-| `brand-neutrals-1000`    | #2c2c2c |
-| `brand-neutrals-black`   | #000000 |
 
-### Grays
+### Neutrals
 
-`grays-gray-100` (#e6e6e6) through `grays-gray-1000` (#2c2c2c) in 10 steps (100–1000).
+Light to dark, with ascending numbers.
+
+| Token                        | Hex         |
+| ---------------------------- | ----------- |
+| `brand-neutrals-white`       | #ffffff     |
+| `brand-neutrals-50`          | #f9f9f9     |
+| `brand-neutrals-100`         | #f2f2f2     |
+| `brand-neutrals-200`         | #e6e6e6     |
+| `brand-neutrals-300`         | #cccccc     |
+| `brand-neutrals-400`         | #b3b3b3     |
+| `brand-neutrals-500`         | #9a9a9a     |
+| `brand-neutrals-600`         | #808080     |
+| `brand-neutrals-700`         | #666666     |
+| `brand-neutrals-800`         | #4d4d4d     |
+| `brand-neutrals-900`         | #333333     |
+| `brand-neutrals-1000`        | #2c2c2c     |
+| `brand-neutrals-black`       | #000000     |
+| `brand-neutrals-transparent` | transparent |
+
+### Deprecated grays
+
+`grays-gray-100` through `grays-gray-1000` still resolve, but the neutral scale replaces them. Map
+old to new by value, not by number — the numbers do not line up:
+
+| Deprecated       | Use instead           |
+| ---------------- | --------------------- |
+| `grays-gray-100` | `brand-neutrals-200`  |
+| `grays-gray-200` | `brand-neutrals-300`  |
+| `grays-gray-300` | `brand-neutrals-400`  |
+| `grays-gray-400` | `brand-neutrals-500`  |
+| `grays-gray-500` | `brand-neutrals-600`  |
+| `grays-gray-600` | `brand-neutrals-700`  |
+| `grays-gray-700` | `brand-neutrals-800`  |
+| `grays-gray-800` | `brand-neutrals-900`  |
+| `grays-gray-1000`| `brand-neutrals-1000` |
 
 ## Deprecated color classes
 
