@@ -43,6 +43,38 @@ CSS classes follow BEM methodology with the `pkt-` prefix:
 | Size modifier | `.pkt-{block}--{size}` | `.pkt-btn--small` |
 | State modifier | `.pkt-{block}--{state}` | `.pkt-btn--disabled` |
 
+## The host is a thin wrapper
+
+`<pkt-card>` wraps the real root; it is not the root. Render the same markup React renders, and
+leave the host carrying nothing:
+
+```typescript
+render() {
+  return html`<div class="pkt-progressbar" role=${this.resolvedRole} aria-valuenow=${this.valueCurrent}>
+    …
+  </div>`
+}
+```
+
+Rules that follow from this:
+
+- **No classes, `role`, `aria-*` or `id` on the host.** A class there is invisible to React, and a
+  duplicated `role` or `id` is an accessibility defect — two nested elements claiming the same role.
+- **Never `setAttribute` onto `this`** to expose semantics. Render them on the inner root instead.
+- **Relocating an author-set attribute?** Capture the value *before* `removeAttribute` —
+  removal fires `attributeChangedCallback` and nulls the Lit property. See
+  `PktButton.relocatedAriaAttributes` and `PktProgressbar.willUpdate` for the pattern.
+- **Compute derived values in `render()`**, not into `@state` from `updated()`. State written after
+  render is missing from the first paint.
+- **The host needs a `display` rule** in `packages/css` — custom elements are `display: inline` by
+  default. `display` only; never width or other layout properties.
+
+`packages/conformance` enforces this: it renders React and Elements and fails on any
+difference in the markup inside the host. Run `npm run test-conformance`.
+
+**Not yet migrated:** the form components still put the component class on the host (see
+[Input wrapper](#input-wrapper) below). They are logged as known divergences in the conformance suite.
+
 ## Host element classes
 
 For Shadow DOM components (extending `PktShadowElement`), apply classes directly to the host element:
