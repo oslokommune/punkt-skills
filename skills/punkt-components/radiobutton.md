@@ -44,6 +44,7 @@ Dark mode: Yes
 | ---------------- | -------------------- | ------- | -------------- | ------------------------------------------------- |
 | `id`             | `id`                 | string  | **(required)** | Unique identifier                                 |
 | `name`           | `name`               | string  | **(required)** | Group name (shared by all radio buttons in group) |
+| `form`           | `form`               | string  | —              | `id` of the `<form>` the field belongs to, when it sits outside it |
 | `label`          | `label`              | string  | **(required)** | Label text                                        |
 | `value`          | `value`              | string  | —              | Value submitted with the form                     |
 | `checked`        | `checked`            | boolean | `false`        | Controlled checked state                          |

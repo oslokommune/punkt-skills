@@ -28,6 +28,7 @@ With `"custom"` you must supply `id`, `transfers` and `onFileUploadRequested`. P
 | Prop (React)             | Attribute (Elements)        | Type                                     | Default      | Description                                                              |
 | ------------------------ | --------------------------- | ---------------------------------------- | ------------ | ------------------------------------------------------------------------ |
 | `name`                   | `name`                      | string                                   | **(required)** / `"files"` | Form field name                                            |
+| `form`                   | `form`                      | string                                   | —                          | `id` of the `<form>` the field belongs to, when it sits outside it |
 | `id`                     | `id`                        | string                                   | auto         | Required when `uploadStrategy="custom"`                                  |
 | `uploadStrategy`         | `upload-strategy`           | `"form"` \| `"custom"`                   | `"form"`     | When files are uploaded                                                  |
 | `multiple`               | `multiple`                  | boolean                                  | `false`      | Allow more than one file                                                 |

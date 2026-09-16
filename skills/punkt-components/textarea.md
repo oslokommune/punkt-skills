@@ -34,6 +34,7 @@ Dark mode: No
 | ------------------------ | ------------------------ | ------- | ---------------- | --------------------------------------- |
 | `label`                  | `label`                  | string  | —                | Label displayed above the field         |
 | `name`                   | `name`                   | string  | **(required)**   | Form field name                         |
+| `form`                   | `form`                   | string  | —                | `id` of the `<form>` the field belongs to, when it sits outside it |
 | `id`                     | `id`                     | string  | **(required)**   | Unique identifier                       |
 | `value`                  | `value`                  | string  | —                | Current value                           |
 | `placeholder`            | `placeholder`            | string  | —                | Hint text shown when empty              |

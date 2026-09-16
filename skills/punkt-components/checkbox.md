@@ -69,6 +69,7 @@ Dark mode: Yes
 | `label`          | `label`              | string                | —              | Text label for the checkbox                                   |
 | `checkHelptext`  | `checkHelptext`      | string                | —              | Help text for the checkbox                                    |
 | `name`           | `name`               | string                | **(required)** | Form field name                                               |
+| `form`           | `form`               | string                | —              | `id` of the `<form>` the field belongs to, when it sits outside it |
 | `value`          | `value`              | string                | —              | Value submitted with the form                                 |
 | `id`             | `id`                 | string                | **(required)** | Unique identifier                                             |
 | `defaultChecked` | `defaultChecked`     | boolean               | `false`        | Initially checked (uncontrolled)                              |

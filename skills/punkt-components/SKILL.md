@@ -82,6 +82,33 @@ Supported by: combobox, datepicker, searchinput, select, textarea, textinput and
 
 Keep the size consistent across fields that sit next to each other — mixing sizes in one form makes the fields look misaligned. Smaller fields also mean smaller touch targets, so prefer `"medium"` on touch-first interfaces.
 
+## Fields outside the form
+
+A form field does not have to sit inside its `<form>`. Set `form` to the form's `id` and the browser
+submits the field with that form, wherever it is on the page:
+
+```jsx
+<form id="application" onSubmit={handleSubmit} />
+
+<PktTextinput id="name" name="name" label="Name" form="application" />
+<PktRadioButton id="p1" name="priority" value="normal" label="Normal" form="application" />
+<PktRadioButton id="p2" name="priority" value="express" label="Express" form="application" />
+```
+
+```html
+<form id="application"></form>
+
+<pkt-textinput id="name" name="name" label="Name" form="application"></pkt-textinput>
+<pkt-radiobutton id="p1" name="priority" value="normal" label="Normal" form="application"></pkt-radiobutton>
+<pkt-radiobutton id="p2" name="priority" value="express" label="Express" form="application"></pkt-radiobutton>
+```
+
+Radio buttons linked to the same form form one group, whether they are inside it or outside it, so
+selecting one clears the others. Form reset works the same way.
+
+Supported by: checkbox, combobox, datepicker, fileupload, radiobutton, select, textarea, textinput
+and timepicker. Button also takes `form`, to submit or reset a form it sits outside of.
+
 ## Content Security Policy (CSP)
 
 Punkt components load fonts, icons (SVG), and other resources from `https://punkt-cdn.oslo.kommune.no/`. If the application uses a Content Security Policy, the CSP must allow this origin. This applies to all setup methods (NPM and CDN).

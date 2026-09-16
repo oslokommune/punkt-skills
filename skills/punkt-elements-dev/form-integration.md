@@ -41,6 +41,28 @@ The `internals` object (`ElementInternals`) provides:
 - `form` — reference to the parent `<form>`
 - `states` — `CustomStateSet` for CSS `:state()` selectors
 
+### The `form` attribute
+
+Because the host element is the form-associated element, the browser resolves the `form` content
+attribute natively — `<pkt-textinput form="my-form">` submits with that form even when it sits
+outside it. Nothing needs forwarding to the inner input, which carries `form=""` on purpose so it
+never submits alongside the host.
+
+Use the `form` getter to find the owning form. It follows the HTML form owner rules: the `form`
+attribute when set (`form=""` means no owner), otherwise the closest `<form>` ancestor.
+
+```typescript
+get form(): HTMLFormElement | null
+```
+
+**Never use `this.closest('form')` to find the owning form** — it misses controls linked with the
+`form` attribute. The same applies to scoping a query to the form: `form.querySelectorAll()` only
+finds descendants, so query the root node and filter on `.form` instead (see
+`radioGroupMembers()`).
+
+Components that are not form-associated (`pkt-fileupload`) declare `form` as a plain string
+property and forward it to the native inputs they render.
+
 ### Properties
 
 PktInputElement declares a large set of properties that all input subclasses inherit:
@@ -241,7 +263,6 @@ Called automatically by the browser when the parent `<form>` is reset. Resets:
 #### `firstUpdated()`
 
 The base class `firstUpdated` does important setup:
-- Resolves the parent `<form>` reference
 - Sets `defaultValue` from initial `value`
 - Handles `defaultChecked`
 - Sets ARIA attributes (`required`, `disabled`)

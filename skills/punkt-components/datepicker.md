@@ -45,6 +45,7 @@ Dark mode: Yes
 | Prop (React)             | Attribute (Elements)     | Type               | Default          | Description                                   |
 | ------------------------ | ------------------------ | ------------------ | ---------------- | --------------------------------------------- |
 | `name`                   | `name`                   | string             | —                | Form field name                               |
+| `form`                   | `form`                   | string             | —                | `id` of the `<form>` the field belongs to, when it sits outside it |
 | `id`                     | `id`                     | string             | —                | Unique identifier                             |
 | `label`                  | `label`                  | string             | —                | Label displayed above the field               |
 | `helptext`               | `helptext`               | string             | —                | Help text below the label                     |

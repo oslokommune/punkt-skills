@@ -46,6 +46,7 @@ When using multi select, selected values appear as tags. Tags can be placed insi
 | Prop (React)             | Attribute (Elements)       | Type                                         | Default     | Description                                          |
 | ------------------------ | -------------------------- | -------------------------------------------- | ----------- | ---------------------------------------------------- |
 | `name`                   | `name`                     | string                                       | —           | Form field name                                      |
+| `form`                   | `form`                     | string                                       | —           | `id` of the `<form>` the field belongs to, when it sits outside it |
 | `id`                     | `id`                       | string                                       | —           | Unique identifier                                    |
 | `label`                  | `label`                    | string                                       | —           | Label displayed above the field                      |
 | `placeholder`            | `placeholder`              | string                                       | —           | Hint text shown when empty                           |

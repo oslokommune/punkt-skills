@@ -47,6 +47,7 @@ Dark mode: Yes
 | ------------------------ | -------------------------- | ------------------ | ---------------- | -------------------------------------------------------- |
 | `id`                     | `id`                       | string             | —                | Unique identifier (required)                             |
 | `name`                   | `name`                     | string             | —                | Form field name; falls back to `id`                      |
+| `form`                   | `form`                     | string             | —                | `id` of the `<form>` the field belongs to, when it sits outside it |
 | `label`                  | `label`                    | string             | —                | Label displayed above the field (required)               |
 | `value`                  | `value`                    | string             | —                | Controlled value in `HH:MM` format                       |
 | `defaultValue`           | —                          | string             | —                | Initial value (uncontrolled mode, React only)            |
