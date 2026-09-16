@@ -69,6 +69,8 @@ Dark mode: Yes
 - Group radio buttons with `fieldset` and `legend` (via Input Wrapper)
 - Keyboard: navigate within a group with arrow keys, select with Space
 - Each radio button must have a visible and accessible label
+- `checkHelptext` is exposed as the accessible description (`aria-describedby`), so the accessible name is the label and its tags only
+- The label and the full control column are clickable, including the strip above and below the control when the label is taller. A tile is clickable edge to edge
 - Avoid disabled radio buttons — prefer showing an error message explaining why. If you must disable, make it clear what must change to enable it
 
 ## Examples

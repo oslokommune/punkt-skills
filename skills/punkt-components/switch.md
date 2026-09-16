@@ -48,6 +48,11 @@ Switch is not a separate component — it is the Checkbox component with `isSwit
 | ------------- | ---------------- | -------------------------------- |
 | `onChange`    | `change`         | Fires when the switch is toggled |
 
+## Accessibility
+
+- `checkHelptext` is exposed as the accessible description (`aria-describedby`), so the accessible name is the label and its tags only
+- The label and the full switch column are clickable, including the empty strip above and below the switch when the label is taller
+
 ## Examples
 
 ### React

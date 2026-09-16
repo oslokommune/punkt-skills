@@ -95,6 +95,8 @@ Dark mode: Yes
 ## Accessibility
 
 - Every checkbox must have a label — visible or hidden with `pkt-sr-only` class
+- `checkHelptext` is exposed as the accessible description (`aria-describedby`), so the accessible name is the label and its tags only
+- The label and the full control column are clickable, including the strip above and below the control when the label is taller. A tile is clickable edge to edge
 - Avoid pre-selected defaults — they can be misleading
 - Avoid disabled checkboxes — prefer showing an error message or help text explaining why. If you must disable, make it clear why and what must change to enable it
 - Use `fieldset` and `legend` (via Input Wrapper) when grouping checkboxes

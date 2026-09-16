@@ -132,6 +132,14 @@ pkt-accordion {
 }
 ```
 
+## Click area for checkbox and radio
+
+`.pkt-input-check__input` is a flex row of `input` + `label`, and the label is the only clickable element. Without help it only covers its own column, so clicks below the control — the dead strip when the label is taller than the control — hit nothing. The label reaches back over that column with a negative `margin-inline-start` and a matching `padding-inline-start`, sized by `--pkt-input-check-control-size`, which is set on the label per control type via sibling selectors (the tile adds the control's `1rem` margin and the `2px` border on all four edges). The control keeps `position: relative; z-index: 1` so its own hover and focus styles still work under the label box.
+
+Do not solve this with an absolutely positioned overlay: it blocks text selection in the label and helptext, and turns a selection drag into a toggle.
+
+Only the tile grows the label (`flex-grow: 1`, it has a fixed `21.875rem` width to fill). Non-tile checkboxes and radios deliberately have **no width rule** — no `min(31rem, 100%)` like the other form fields. Their box is whatever the context gives it, and consumers rely on that; forcing a width would stretch the hit area across the full row in block contexts and break anyone laying options out horizontally.
+
 ## Formatting
 
 Prettier config (`packages/css/.prettierrc`):
