@@ -8,7 +8,7 @@ Select lets the user choose one option from a dropdown list. It uses the native 
 | -------------- | --------- | ---------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktSelect>` — `import { PktSelect } from '@oslokommune/punkt-react'`                         |
 | Elements       | Yes       | `<pkt-select>` — `import '@oslokommune/punkt-elements/dist/pkt-select.js'`                     |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-select.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-select.js" type="module">` |
 
 Dark mode: No
 

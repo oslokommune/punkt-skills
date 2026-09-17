@@ -8,7 +8,7 @@ Icon displays an SVG icon from the Punkt icon library. Icons are loaded from the
 | -------------- | --------- | -------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktIcon>` — `import { PktIcon } from '@oslokommune/punkt-react'`                           |
 | Elements       | Yes       | `<pkt-icon>` — `import '@oslokommune/punkt-elements/dist/pkt-icon.js'`                       |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-icon.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-icon.js" type="module">` |
 
 Dark mode: No
 

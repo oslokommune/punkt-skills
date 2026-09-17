@@ -10,7 +10,7 @@ Header Menu is the global mega menu for Oslo kommune. It renders the `megamenu` 
 | -------------- | --------- | ----------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktHeaderMenu>` — `import { PktHeaderMenu } from '@oslokommune/punkt-react'`                      |
 | Elements       | Yes       | `<pkt-header-menu>` — `import '@oslokommune/punkt-elements/dist/pkt-header-menu.js'`                |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-header-menu.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-header-menu.js" type="module">` |
 
 Dark mode: Yes
 

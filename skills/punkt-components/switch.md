@@ -8,7 +8,7 @@ Switch lets the user toggle a setting on or off. It is visually a toggle slider,
 | -------------- | --------- | ------------------------------------------------------------------------------------------------ |
 | React          | Yes       | `<PktCheckbox isSwitch>` — `import { PktCheckbox } from '@oslokommune/punkt-react'`              |
 | Elements       | Yes       | `<pkt-checkbox isSwitch>` — `import '@oslokommune/punkt-elements/dist/pkt-checkbox.js'`          |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-checkbox.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-checkbox.js" type="module">` |
 
 Dark mode: Yes
 

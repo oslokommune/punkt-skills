@@ -8,7 +8,7 @@ Input Wrapper provides the standard label, help text, error messages, character 
 | -------------- | --------- | ----------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktInputWrapper>` — `import { PktInputWrapper } from '@oslokommune/punkt-react'`                    |
 | Elements       | Yes       | `<pkt-input-wrapper>` — `import '@oslokommune/punkt-elements/dist/pkt-input-wrapper.js'`              |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-input-wrapper.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-input-wrapper.js" type="module">` |
 
 Dark mode: No
 

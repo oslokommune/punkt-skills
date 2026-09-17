@@ -8,7 +8,7 @@ Footer is part of the standard page template and is placed at the bottom of the 
 | -------------- | --------- | ------------------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktFooter>` / `<PktFooterSimple>` — `import { PktFooter, PktFooterSimple } from '@oslokommune/punkt-react'` |
 | Elements       | Yes       | `<pkt-footer>` / `<pkt-footer-simple>` — `import '@oslokommune/punkt-elements/dist/pkt-footer.js'`            |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-footer.js" type="module">`                |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-footer.js" type="module">`                |
 
 One import registers both elements — there is no separate `pkt-footer-simple.js`.
 

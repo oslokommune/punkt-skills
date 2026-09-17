@@ -8,7 +8,7 @@ Backlink (back link) helps the user understand where they are and provides a sim
 | -------------- | --------- | ------------------------------------------------------------------------------------------------ |
 | React          | Yes       | `<PktBackLink>` — `import { PktBackLink } from '@oslokommune/punkt-react'`                       |
 | Elements       | Yes       | `<pkt-backlink>` — `import '@oslokommune/punkt-elements/dist/pkt-backlink.js'`                   |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-backlink.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-backlink.js" type="module">` |
 
 Dark mode: Yes
 

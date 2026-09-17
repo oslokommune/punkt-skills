@@ -8,7 +8,7 @@ Breadcrumbs show the user where they are in the structure and make it possible t
 | -------------- | --------- | -------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktBreadcrumbs>` — `import { PktBreadcrumbs } from '@oslokommune/punkt-react'`                          |
 | Elements       | Yes       | `<pkt-breadcrumbs>` — `import '@oslokommune/punkt-elements/dist/pkt-breadcrumbs.js'`                      |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-breadcrumbs.js" type="module">`       |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-breadcrumbs.js" type="module">`       |
 
 Dark mode: Yes
 

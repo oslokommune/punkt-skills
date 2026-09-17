@@ -8,7 +8,7 @@ Button lets the user perform an action, such as submitting a form, starting a pr
 | -------------- | --------- | ---------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktButton>` — `import { PktButton } from '@oslokommune/punkt-react'`                         |
 | Elements       | Yes       | `<pkt-button>` — `import '@oslokommune/punkt-elements/dist/pkt-button.js'`                     |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-button.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-button.js" type="module">` |
 
 Dark mode: Yes
 

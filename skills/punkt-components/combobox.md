@@ -8,7 +8,7 @@ Combobox (multiselect) combines a text field with a dropdown list. It lets the u
 | -------------- | --------- | ------------------------------------------------------------------------------------------------ |
 | React          | Yes       | `<PktCombobox>` — `import { PktCombobox } from '@oslokommune/punkt-react'`                       |
 | Elements       | Yes       | `<pkt-combobox>` — `import '@oslokommune/punkt-elements/dist/pkt-combobox.js'`                   |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-combobox.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-combobox.js" type="module">` |
 
 Dark mode: No
 

@@ -10,7 +10,7 @@ Search Input provides a search field with optional autocomplete suggestions. It 
 | -------------- | --------- | ---------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktSearchInput>` — `import { PktSearchInput } from '@oslokommune/punkt-react'`                   |
 | Elements       | Yes       | `<pkt-searchinput>` — `import '@oslokommune/punkt-elements/dist/pkt-searchinput.js'`               |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-searchinput.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-searchinput.js" type="module">` |
 
 Dark mode: No
 

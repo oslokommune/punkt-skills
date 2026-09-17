@@ -8,7 +8,7 @@ Card groups related content together and can contain text, images, icons, button
 | -------------- | --------- | -------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktCard>` — `import { PktCard } from '@oslokommune/punkt-react'`                           |
 | Elements       | Yes       | `<pkt-card>` — `import '@oslokommune/punkt-elements/dist/pkt-card.js'`                       |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-card.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-card.js" type="module">` |
 
 Dark mode: Yes
 

@@ -8,7 +8,7 @@ Alert (status message) gives the user a message — for example to inform about 
 | -------------- | --------- | --------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktAlert>` — `import { PktAlert } from '@oslokommune/punkt-react'`                          |
 | Elements       | Yes       | `<pkt-alert>` — `import '@oslokommune/punkt-elements/dist/pkt-alert.js'`                      |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-alert.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-alert.js" type="module">` |
 
 Dark mode: Yes
 

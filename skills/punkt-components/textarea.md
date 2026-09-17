@@ -8,7 +8,7 @@ Textarea lets the user type longer free-form text, typically in forms. Use it wh
 | -------------- | --------- | ------------------------------------------------------------------------------------------------ |
 | React          | Yes       | `<PktTextarea>` — `import { PktTextarea } from '@oslokommune/punkt-react'`                       |
 | Elements       | Yes       | `<pkt-textarea>` — `import '@oslokommune/punkt-elements/dist/pkt-textarea.js'`                   |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-textarea.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-textarea.js" type="module">` |
 
 Dark mode: No
 

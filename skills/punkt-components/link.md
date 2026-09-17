@@ -8,7 +8,7 @@ Link is used for navigation to another page or resource. It can include an icon 
 | -------------- | --------- | -------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktLink>` — `import { PktLink } from '@oslokommune/punkt-react'`                           |
 | Elements       | Yes       | `<pkt-link>` — `import '@oslokommune/punkt-elements/dist/pkt-link.js'`                       |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-link.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-link.js" type="module">` |
 
 Dark mode: Yes
 

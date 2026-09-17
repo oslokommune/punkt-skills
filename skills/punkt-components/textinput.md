@@ -8,7 +8,7 @@ Text input lets the user type free-form text, typically in forms. Use it for sho
 | -------------- | --------- | ------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktTextinput>` — `import { PktTextinput } from '@oslokommune/punkt-react'`                      |
 | Elements       | Yes       | `<pkt-textinput>` — `import '@oslokommune/punkt-elements/dist/pkt-textinput.js'`                  |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-textinput.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-textinput.js" type="module">` |
 
 Dark mode: No
 

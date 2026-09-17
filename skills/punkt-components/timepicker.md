@@ -8,7 +8,7 @@ Timepicker lets the user select a time of day. The user can type hours and minut
 | -------------- | --------- | -------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktTimepicker>` — `import { PktTimepicker } from '@oslokommune/punkt-react'`                     |
 | Elements       | Yes       | `<pkt-timepicker>` — `import '@oslokommune/punkt-elements/dist/pkt-timepicker.js'`                 |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/latest/elements/pkt-timepicker.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-timepicker.js" type="module">` |
 
 Dark mode: Yes
 
