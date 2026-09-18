@@ -153,6 +153,17 @@ aria-describedby=${ifDefined(
 )}
 ```
 
+The wrapper only emits `aria-describedby` itself on the `hasFieldset` branch, where it describes
+the group. In the non-fieldset branch it emits nothing, so the component alone is responsible for
+describing its control — forgetting it fails silently, since the helptext still renders and looks
+right.
+
+Composite controls need this on every focusable part, and the id still comes from `forId`:
+`pkt-timepicker` passes `forId={id}-hours` and puts the same `aria-describedby` on both
+spinbuttons, matching how it already shares one `aria-errormessage`. A widget whose `role` sits on
+a wrapping element — `pkt-combobox` in select-only mode — needs it on that element too, not only
+on the fieldset around it.
+
 **4. Only emit `aria-errormessage` when there is an error**, and pair it with `aria-invalid`.
 
 **5. Resolve tri-state props before forwarding.** `counter` and `hasFieldset` are

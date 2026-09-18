@@ -48,6 +48,7 @@ When using multi select, selected values appear as tags. Tags can be placed insi
 | `name`                   | `name`                     | string                                       | —           | Form field name                                      |
 | `form`                   | `form`                     | string                                       | —           | `id` of the `<form>` the field belongs to, when it sits outside it |
 | `id`                     | `id`                       | string                                       | —           | Unique identifier                                    |
+| `ariaDescribedby`        | `aria-describedby`         | string                                       | —           | `id` of an extra element describing the field        |
 | `label`                  | `label`                    | string                                       | —           | Label displayed above the field                      |
 | `placeholder`            | `placeholder`              | string                                       | —           | Hint text shown when empty                           |
 | `multiple`               | `multiple`                 | boolean                                      | `false`     | Allow selecting multiple options                     |
@@ -94,6 +95,7 @@ When using multi select, selected values appear as tags. Tags can be placed insi
 
 - All fields must have a label — visible or hidden with `pkt-sr-only`
 - Labels must be connected to the field in code so screen readers read the correct information
+- The helptext is linked to the `role="combobox"` widget via `aria-describedby`, in both select-only and text-input mode
 - Error messages must be visible text that identifies the specific field where the error occurred
 - Use single-column layout for form elements
 - Test that tags in multi select don't become visually overwhelming on small screens

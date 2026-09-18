@@ -92,7 +92,8 @@ Dark mode: Yes
 - The hour and minute fields use `role="spinbutton"` with `aria-valuemin`, `aria-valuemax`, `aria-valuenow`, and `aria-valuetext`
 - Each spinbutton's `aria-label` includes the component label, so VoiceOver announces e.g. "15, Timer, Møtetidspunkt" — matching native `<input type="time">` behavior
 - The timepicker must work without a mouse: type digits directly, navigate between hour/minute with Arrow Left/Right, adjust values with Arrow Up/Down, open the dropdown with the clock button, navigate options with arrow keys, select with Enter, close with Esc
-- If the field has an error, the error message is linked via `aria-describedby`
+- The helptext is linked to both spinbuttons via `aria-describedby`, so it is announced wherever focus lands
+- If the field has an error, the error message is linked via `aria-errormessage`, paired with `aria-invalid`
 - The popup clock button has `aria-haspopup="listbox"` and `aria-expanded`
 
 ## Examples

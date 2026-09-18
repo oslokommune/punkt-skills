@@ -66,6 +66,33 @@ export const PktComponentName = ({
    ```
    For complex components, `classnames` library is also available.
 
+## Form field accessibility
+
+`aria-describedby` must sit on the control itself — on a `<label>` or a wrapping element it does
+not reach the field. Build the ids with `describedByIds` from `shared-utils/forms/described-by`,
+using the same base you pass as the wrapper's `forId`:
+
+```tsx
+const describedBy = describedByIds({
+  id: inputId,
+  hasHelptext: !!helptext,
+  hasCounter: showCounter,
+  ariaDescribedby,
+})
+```
+
+`PktInputWrapper` emits `aria-describedby` itself only when `hasFieldset` is set, where it
+describes the group. Otherwise the component alone is responsible for its control, and forgetting
+it fails silently — the helptext still renders and looks correct.
+
+Composite controls need it on every focusable part: `PktTimepicker` puts the same value on both
+spinbuttons, and `PktCombobox` puts it on the `role="combobox"` element in both the select-only
+(a `div`) and text-input (an `input`) modes.
+
+Keep the prop surface identical to Elements. `ariaDescribedby` was missing from `IPktCombobox`
+long after Elements had inherited it from `PktInputElement`, so the prop silently did nothing in
+React — worth checking against the Elements class when you touch a form component.
+
 ## Forbidden Patterns
 
 - **Avoid `forwardRef` for simple ref forwarding** — use `ref` as a regular prop instead (see template above). `forwardRef` is acceptable when `useImperativeHandle` requires a custom handle type.
