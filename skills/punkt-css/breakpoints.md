@@ -1,5 +1,9 @@
 # Breakpoints
 
+`phablet` (36rem) and `desktop` (100rem) are removed in Punkt 19. The other four keep their
+values. Do not use `phablet` or `desktop` in new code: round up to `tablet`, or pass a literal
+value to `bp-up()`. Classes ending in `-desktop-up` have no replacement at all.
+
 ## Breakpoint scale
 
 | Name         | Min-width | Pixels  |

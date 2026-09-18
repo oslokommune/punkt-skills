@@ -62,10 +62,10 @@ header, and will be snapped to `size-56` in a future major. Do not use it in new
 ### Half-steps — supported, but undocumented
 
 These sit between the Figma steps. They are not part of the approved scale and are not shown in
-the documentation, but they are in active use across several teams and will stay for now. Use the
-nearest scale value in new code.
+the documentation, but they are in heavy use across several teams and will stay. Use the nearest
+scale value in new code.
 
-`size-10` (10px), `size-20` (20px), `size-30` (30px), `size-60` (60px)
+`size-10` (10px), `size-20` (20px)
 
 ### Slated for removal
 
@@ -75,9 +75,15 @@ Same as above, but with almost no usage. These go in the next major.
 | ---------- | ------ | ------------ |
 | `size-5`   | 5px    | `size-6`     |
 | `size-15`  | 15px   | `size-16`    |
+| `size-30`  | 30px   | `size-32`    |
 | `size-50`  | 50px   | `size-48`    |
+| `size-52`  | 52px   | `size-56`    |
+| `size-60`  | 60px   | `size-64`    |
 | `size-75`  | 75px   | `size-72`    |
 | `size-100` | 100px  | `size-104`   |
+
+These go in Punkt 19, together with the `gap-size-*` utilities. Run
+`npx @oslokommune/punkt-migrate@next <path> --dry-run` to see what a codebase would need.
 
 ## Examples
 
@@ -97,8 +103,8 @@ Same as above, but with almost no usage. These go in the next major.
 <!-- Reset margin right to 0 -->
 <div class="mr-size-0">No right margin</div>
 
-<!-- Gap for flex/grid containers -->
-<div class="gap-size-16" style="display: flex;">...</div>
+<!-- Do not use gap-size-*. It is removed in Punkt 19 with no replacement.
+     Set gap in your own CSS, or use the grid class pkt-grid--gap-size-16. -->
 ```
 
 ## Responsive spacing
