@@ -83,7 +83,9 @@ Same as above, but with almost no usage. These go in the next major.
 | `size-100` | 100px  | `size-104`   |
 
 These go in Punkt 19, together with the `gap-size-*` utilities. Run
-`npx @oslokommune/punkt-migrate@next <path> --dry-run` to see what a codebase would need.
+`npx @oslokommune/punkt-migrate@next . --dry-run` from the project root to see what a
+codebase would need. The tool takes one path and scans everything under it, skipping
+`node_modules` and build output.
 
 ## Examples
 

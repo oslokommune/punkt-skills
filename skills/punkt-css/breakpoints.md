@@ -4,6 +4,10 @@
 values. Do not use `phablet` or `desktop` in new code: round up to `tablet`, or pass a literal
 value to `bp-up()`. Classes ending in `-desktop-up` have no replacement at all.
 
+To see what an existing codebase would need, run
+`npx @oslokommune/punkt-migrate@next . --dry-run` from the project root. The tool takes one
+path and scans everything under it, skipping `node_modules` and build output.
+
 ## Breakpoint scale
 
 | Name         | Min-width | Pixels  |
