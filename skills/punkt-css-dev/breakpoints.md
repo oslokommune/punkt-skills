@@ -5,11 +5,14 @@
 | Name | Value | Pixels |
 |---|---|---|
 | `mobile` | 0 | 0px |
-| `phablet` | 36rem | ~576px |
 | `tablet` | 48rem | ~768px |
 | `tablet-big` | 64rem | ~1024px |
 | `laptop` | 80rem | ~1280px |
-| `desktop` | 100rem | ~1600px |
+
+`phablet` (36rem) and `desktop` (100rem) were removed in Punkt 19. `bp('phablet')`,
+`bp('phablet-up')` and `bp('desktop-up')` raise an `@error`. Use `bp-up()` with a literal
+value when a component needs a threshold that is not in the map. Generator loops must skip
+the tier whose value is `0`, or they emit `--mobile-up` duplicates of the base class.
 
 ## The `bp()` mixin
 
@@ -95,8 +98,8 @@ and the `bp-up()` include **outside the value loop**:
 ```
 
 The wrong form orders output by value rather than by breakpoint, so with equal specificity the
-*widest* declared value wins instead of the narrowest breakpoint — `mb-size-32--phablet-up
-mb-size-16--tablet-up` gives 32px at tablet. It also emits one `@media` block per class instead
+*widest* declared value wins instead of the narrowest breakpoint — `mb-size-32--tablet-up
+mb-size-16--laptop-up` gives 32px at laptop. It also emits one `@media` block per class instead
 of one per breakpoint, which scatters near-identical rules across the file.
 
 **Don't go further and merge the remaining `@media` blocks.** Block count is not a size target:

@@ -14,10 +14,13 @@
 
 ### Grid width modifiers
 - `.pkt-grid--full` — full viewport width
-- `.pkt-grid--phablet` — max-width at phablet breakpoint
-- `.pkt-grid--tablet` — max-width at tablet breakpoint
-- `.pkt-grid--laptop` — max-width at laptop breakpoint (default)
-- `.pkt-grid--desktop` — max-width at desktop breakpoint
+- `.pkt-grid--phablet` — max-width 36rem
+- `.pkt-grid--tablet` — max-width 48rem
+- `.pkt-grid--laptop` — max-width 80rem (default)
+- `.pkt-grid--desktop` — max-width 100rem
+
+These are max-width values, not breakpoints. `--phablet` and `--desktop` are kept even though
+those breakpoints were removed in Punkt 19.
 
 ### Grid alignment
 - `.pkt-grid--left`
@@ -28,11 +31,11 @@
 - `.pkt-grid--gap-size-{token}` — both column and row gap
 - `.pkt-grid--colgap-size-{token}` — column gap only
 - `.pkt-grid--rowgap-size-{token}` — row gap only
-- Responsive: `.pkt-grid--gap-size-16--tablet-up`
+- Responsive: `.pkt-grid--gap-size-16-tablet-up`
 
 ### Cell spans
 - `.pkt-cell--span1` through `.pkt-cell--span12`
-- Responsive: `.pkt-cell--span6--tablet-up`, `.pkt-cell--span4--laptop-up`
+- Responsive: `.pkt-cell--span6-tablet-up`, `.pkt-cell--span4-laptop-up`
 
 ## Container
 

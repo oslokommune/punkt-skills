@@ -16,14 +16,15 @@
 | `.pkt-hide-{breakpoint}-up` | Hide at breakpoint and above |
 | `.pkt-show-{breakpoint}-up` | Show at breakpoint and above |
 
-Available breakpoints: `mobile`, `phablet`, `tablet`, `tablet-big`, `laptop`, `desktop`.
+Available breakpoints: `tablet`, `tablet-big`, `laptop`. `mobile` is the base tier and
+generates no `-mobile-up` classes, since they would duplicate the unsuffixed class.
 
 ### Common patterns
 
 **Show only on mobile (hide from tablet up):**
 
 ```html
-<p class="pkt-hide-tablet-up">Visible only on mobile and phablet</p>
+<p class="pkt-hide-tablet-up">Visible only below tablet</p>
 ```
 
 **Hide on mobile, show from tablet up:**

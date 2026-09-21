@@ -58,7 +58,7 @@ Add `--{breakpoint}-up` to apply a typography class at a specific breakpoint and
 <h1 class="pkt-txt-36 pkt-txt-54--tablet-up">Page Title</h1>
 ```
 
-Available breakpoints: `mobile`, `phablet`, `tablet`, `tablet-big`, `laptop`, `desktop` (see [Breakpoints](breakpoints.md)).
+Available breakpoints: `tablet`, `tablet-big`, `laptop` (see [Breakpoints](breakpoints.md)).
 
 ## Recommended heading sizes
 

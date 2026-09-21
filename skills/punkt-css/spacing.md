@@ -10,7 +10,9 @@
 | ------ | -------- |
 | `m`    | margin   |
 | `p`    | padding  |
-| `gap`  | gap      |
+
+There is no `gap` utility. The standalone `gap-size-*` classes were removed in Punkt 19 with
+no replacement: set `gap` in your own CSS, or use the grid class `pkt-grid--gap-size-16`.
 
 ### Direction
 
@@ -54,11 +56,6 @@ These 19 values are the approved scale and mirror Figma exactly. Use these in ne
 | `size-104` | 6.5rem   | 104px  |
 | `size-128` | 8rem     | 128px  |
 
-### Outside the scale
-
-`size-52` (3.25rem) exists in the CSS but is not in Figma. It is used internally by footer and
-header, and will be snapped to `size-56` in a future major. Do not use it in new code.
-
 ### Half-steps — supported, but undocumented
 
 These sit between the Figma steps. They are not part of the approved scale and are not shown in
@@ -67,9 +64,10 @@ scale value in new code.
 
 `size-10` (10px), `size-20` (20px)
 
-### Slated for removal
+### Removed in Punkt 19
 
-Same as above, but with almost no usage. These go in the next major.
+These were never in Figma and had almost no usage. They no longer exist. A `map.get` for one
+of them returns `null`, which makes the declaration vanish without a build error.
 
 | Token      | Pixels | Replace with |
 | ---------- | ------ | ------------ |
@@ -82,10 +80,9 @@ Same as above, but with almost no usage. These go in the next major.
 | `size-75`  | 75px   | `size-72`    |
 | `size-100` | 100px  | `size-104`   |
 
-These go in Punkt 19, together with the `gap-size-*` utilities. Run
-`npx @oslokommune/punkt-migrate@next . --dry-run` from the project root to see what a
-codebase would need. The tool takes one path and scans everything under it, skipping
-`node_modules` and build output.
+To migrate a codebase that is still on Punkt 18, run
+`npx @oslokommune/punkt-migrate@19 . --dry-run` from the project root. The tool takes one path
+and scans everything under it, skipping `node_modules` and build output.
 
 ## Examples
 
@@ -105,11 +102,17 @@ codebase would need. The tool takes one path and scans everything under it, skip
 <!-- Reset margin right to 0 -->
 <div class="mr-size-0">No right margin</div>
 
-<!-- Do not use gap-size-*. It is removed in Punkt 19 with no replacement.
-     Set gap in your own CSS, or use the grid class pkt-grid--gap-size-16. -->
 ```
 
 ## Responsive spacing
+
+These classes live in a separate file that is **not** included by `pkt` or `pkt-base`. Import
+`pkt-spacing-responsive` (or `pkt-spacing-responsive.layer` when using `@layer`) to get them:
+
+```scss
+@use '@oslokommune/punkt-css/dist/scss/pkt';
+@use '@oslokommune/punkt-css/dist/scss/pkt-spacing-responsive';
+```
 
 Add `--{breakpoint}-up` to apply spacing at a breakpoint and above:
 
@@ -137,3 +140,27 @@ Add `--{breakpoint}-up` to apply spacing at a breakpoint and above:
   margin-block-end: map.get(variables.$spacing, 'size-16');
 }
 ```
+
+## Adding your own values
+
+Punkt generates the utility classes from `$spacing`, so adding an entry gives you the classes
+for it. Use this to bring back a removed value, or to add one Punkt never had. The config
+**must live in its own file**, for the same reason as for breakpoints: Sass runs every `@use`
+before the rest of a file.
+
+```scss
+// punkt-config.scss
+@use 'sass:map';
+@use '@oslokommune/punkt-css/dist/scss/abstracts/variables' as v;
+
+v.$spacing: map.merge(v.$spacing, ('size-52': 3.25rem, 'size-200': 12.5rem));
+```
+
+```scss
+// main.scss
+@use 'punkt-config';
+@use '@oslokommune/punkt-css/dist/scss/pkt';
+```
+
+`map.merge` keeps Punkt's own entries, so components cannot lose a value they depend on. The
+order of `$spacing` decides which class wins when two of the same type sit on one element.

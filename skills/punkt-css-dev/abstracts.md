@@ -20,15 +20,11 @@ All shared abstracts live in `src/scss/abstracts/` and are imported with namespa
 ```scss
 $breakpoints: (
   'mobile': 0,
-  'phablet': 36rem,
-  // ~576px
   'tablet': 48rem,
   // ~768px
   'tablet-big': 64rem,
   // ~1024px
-  'laptop': 80rem,
-  // ~1280px
-  'desktop': 100rem, // ~1600px
+  'laptop': 80rem, // ~1280px
 );
 ```
 

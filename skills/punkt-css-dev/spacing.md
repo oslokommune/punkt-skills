@@ -73,9 +73,9 @@ All utility classes use `!important` (designed to override component styles).
 - `.pt-size-{token}`, `.pb-size-{token}`, `.pl-size-{token}`, `.pr-size-{token}`
 - `.px-size-{token}`, `.py-size-{token}`
 
-### Gap
-- `.gap-size-{token}` — flex/grid gap
-
 ### Responsive variants
-All spacing utilities have responsive suffixes:
-- `.m-size-16--tablet-up`, `.p-size-24--laptop-up`, `.gap-size-8--phablet-up`
+Margin and padding utilities have responsive suffixes, generated into a separate entry point
+(`pkt-spacing-responsive`) that is not part of `pkt` or `pkt-base`:
+- `.m-size-16--tablet-up`, `.p-size-24--laptop-up`
+
+There is no `gap` utility. The standalone `gap-size-*` family was removed in Punkt 19.

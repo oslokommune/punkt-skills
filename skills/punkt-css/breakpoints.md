@@ -1,11 +1,14 @@
 # Breakpoints
 
-`phablet` (36rem) and `desktop` (100rem) are removed in Punkt 19. The other four keep their
-values. Do not use `phablet` or `desktop` in new code: round up to `tablet`, or pass a literal
-value to `bp-up()`. Classes ending in `-desktop-up` have no replacement at all.
+`phablet` (36rem) and `desktop` (100rem) were removed in Punkt 19. The other four keep their
+values. `bp('phablet')`, `bp('phablet-up')` and `bp('desktop-up')` now raise a Sass `@error`
+that stops the build. Round up to `tablet`, pass a literal value to `bp-up()`, or add the
+breakpoint back to `$breakpoints` yourself. Classes ending in `-desktop-up` have no
+replacement at all, and `--mobile-up` classes no longer exist because they duplicated the
+base class.
 
-To see what an existing codebase would need, run
-`npx @oslokommune/punkt-migrate@next . --dry-run` from the project root. The tool takes one
+To migrate a codebase that is still on Punkt 18, run
+`npx @oslokommune/punkt-migrate@19 . --dry-run` from the project root. The tool takes one
 path and scans everything under it, skipping `node_modules` and build output.
 
 ## Breakpoint scale
@@ -13,11 +16,12 @@ path and scans everything under it, skipping `node_modules` and build output.
 | Name         | Min-width | Pixels  |
 | ------------ | --------- | ------- |
 | `mobile`     | 0         | 0       |
-| `phablet`    | 36rem     | ~576px  |
 | `tablet`     | 48rem     | ~768px  |
 | `tablet-big` | 64rem     | ~1024px |
 | `laptop`     | 80rem     | ~1280px |
-| `desktop`    | 100rem    | ~1600px |
+
+`mobile` is the base tier. It generates no `--mobile-up` classes, so the three responsive
+tiers are `tablet`, `tablet-big` and `laptop`.
 
 ## Usage in CSS classes
 
@@ -48,6 +52,38 @@ Set the base (mobile) style without a suffix, then override at larger breakpoint
 <div class="pkt-cell pkt-cell--span12 pkt-cell--span6-tablet-up">...</div>
 ```
 
+## Adding your own breakpoints
+
+> Requires SCSS embedding method.
+
+Punkt generates the responsive utility classes from `$breakpoints`, so adding an entry gives
+you the classes for it. Use this to bring back `phablet`, or to add a threshold Punkt never
+had. The config **must live in its own file**: Sass runs every `@use` before the rest of a
+file, so merging in the same file as `@use 'pkt'` happens after Punkt has already generated
+its classes, with no error and no effect.
+
+```scss
+// punkt-config.scss
+@use 'sass:map';
+@use '@oslokommune/punkt-css/dist/scss/abstracts/variables' as v;
+
+v.$breakpoints: map.merge(v.$breakpoints, ('phablet': 36rem));
+```
+
+```scss
+// main.scss
+@use 'punkt-config';
+@use '@oslokommune/punkt-css/dist/scss/pkt';
+```
+
+`map.merge` keeps Punkt's own entries, so components cannot lose a value they depend on.
+`@use ... with` does not work here: Sass refuses to configure a module that is already
+loaded, and reading the default loads it. The same pattern works for `$spacing`.
+
+Responsive spacing classes are the exception: a new breakpoint gives you typography, grid and
+visibility classes immediately, but spacing only if `pkt-spacing-responsive` is also
+imported.
+
 ## Custom breakpoints in CSS
 
 There is no CSS-only mechanism for custom breakpoints. The `--{breakpoint}-up` suffixes use the fixed scale above. For custom breakpoints in plain CSS, write your own media queries:
@@ -71,9 +107,6 @@ There is no CSS-only mechanism for custom breakpoints. The `--{breakpoint}-up` s
 ### Min-width queries (most common)
 
 ```scss
-@include bp('phablet-up') {
-  /* 576px+ */
-}
 @include bp('tablet-up') {
   /* 768px+ */
 }
@@ -83,19 +116,13 @@ There is no CSS-only mechanism for custom breakpoints. The `--{breakpoint}-up` s
 @include bp('laptop-up') {
   /* 1280px+ */
 }
-@include bp('desktop-up') {
-  /* 1600px+ */
-}
 ```
 
 ### Exact range queries
 
 ```scss
 @include bp('mobile') {
-  /* 0 – 575px */
-}
-@include bp('phablet') {
-  /* 576 – 767px */
+  /* 0 – 767px */
 }
 @include bp('tablet') {
   /* 768 – 1023px */
@@ -103,12 +130,15 @@ There is no CSS-only mechanism for custom breakpoints. The `--{breakpoint}-up` s
 @include bp('tablet-big') {
   /* 1024 – 1279px */
 }
-@include bp('laptop') {
-  /* 1280 – 1599px */
-}
 ```
 
+`laptop` is the top tier, so `bp('laptop')` has no upper bound and is identical to
+`bp('laptop-up')`.
+
 ### Range queries
+
+These still work but warn at build time, and go in Punkt 20. Write the media query directly
+in new code.
 
 ```scss
 @include bp("mobile-to-phablet") { ... }

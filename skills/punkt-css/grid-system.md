@@ -12,16 +12,20 @@ A centered wrapper that constrains content width and adds horizontal padding.
 
 ### Width modifiers
 
-| Modifier       | Max-width       | Activates at          |
-| -------------- | --------------- | --------------------- |
-| `--full`       | 100%            | Always                |
-| `--phablet`    | 36rem (576px)   | phablet-up            |
-| `--tablet`     | 48rem (768px)   | tablet-up             |
-| `--tablet-big` | 64rem (1024px)  | tablet-big-up         |
-| `--laptop`     | 80rem (1280px)  | laptop-up _(default)_ |
-| `--desktop`    | 100rem (1600px) | desktop-up            |
+| Modifier       | Max-width       | Activates at    |
+| -------------- | --------------- | --------------- |
+| `--full`       | 100%            | Always          |
+| `--phablet`    | 36rem (576px)   | 36rem           |
+| `--tablet`     | 48rem (768px)   | 48rem           |
+| `--tablet-big` | 64rem (1024px)  | 64rem           |
+| `--laptop`     | 80rem (1280px)  | 80rem _(default)_ |
+| `--desktop`    | 100rem (1600px) | 100rem          |
 
-Below the activation breakpoint, the container is always 100% width.
+Below the activation width, the container is always 100% width.
+
+These are max-width values, not breakpoints. `--phablet` and `--desktop` still exist even
+though the `phablet` and `desktop` breakpoints were removed in Punkt 19: the name is the only
+thing they ever shared.
 
 ### Alignment modifiers
 
@@ -61,6 +65,7 @@ A 12-column CSS Grid for laying out content in columns.
 ### Width modifiers
 
 Same as container: `--full`, `--phablet`, `--tablet`, `--tablet-big`, `--laptop`, `--desktop`.
+All six are kept, including the two whose names no longer match a breakpoint.
 
 ### Alignment modifiers
 
@@ -168,11 +173,11 @@ Grid children that control column spanning and alignment.
 
 How each width modifier behaves across breakpoints:
 
-| Modifier       | < phablet | phablet | tablet | tablet-big | laptop | desktop |
-| -------------- | --------- | ------- | ------ | ---------- | ------ | ------- |
-| `--phablet`    | 100%      | 36rem   | 36rem  | 36rem      | 36rem  | 36rem   |
-| `--tablet`     | 100%      | 100%    | 48rem  | 48rem      | 48rem  | 48rem   |
-| `--tablet-big` | 100%      | 100%    | 100%   | 64rem      | 64rem  | 64rem   |
-| `--laptop`     | 100%      | 100%    | 100%   | 100%       | 80rem  | 80rem   |
-| `--desktop`    | 100%      | 100%    | 100%   | 100%       | 100%   | 100rem  |
-| `--full`       | 100%      | 100%    | 100%   | 100%       | 100%   | 100%    |
+| Modifier       | < 36rem | 36rem | 48rem | 64rem | 80rem | 100rem |
+| -------------- | ------- | ----- | ----- | ----- | ----- | ------ |
+| `--phablet`    | 100%    | 36rem | 36rem | 36rem | 36rem | 36rem  |
+| `--tablet`     | 100%    | 100%  | 48rem | 48rem | 48rem | 48rem  |
+| `--tablet-big` | 100%    | 100%  | 100%  | 64rem | 64rem | 64rem  |
+| `--laptop`     | 100%    | 100%  | 100%  | 100%  | 80rem | 80rem  |
+| `--desktop`    | 100%    | 100%  | 100%  | 100%  | 100%  | 100rem |
+| `--full`       | 100%    | 100%  | 100%  | 100%  | 100%  | 100%   |
