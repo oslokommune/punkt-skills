@@ -8,7 +8,7 @@ Tabs organize content into separate views where only one tab panel is visible at
 | -------------- | --------- | ----------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktTabs>` + `<PktTabItem>` — `import { PktTabs, PktTabItem } from '@oslokommune/punkt-react'` |
 | Elements       | Yes       | `<pkt-tabs>` + `<pkt-tab-item>` — `import '@oslokommune/punkt-elements/dist/pkt-tabs.js'`       |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-tabs.js" type="module">`    |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-tabs.js" type="module">`    |
 
 Dark mode: No
 

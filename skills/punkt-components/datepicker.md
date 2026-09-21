@@ -8,7 +8,7 @@ Datepicker lets the user select a date, multiple dates, or a date range. The use
 | -------------- | --------- | -------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktDatepicker>` — `import { PktDatepicker } from '@oslokommune/punkt-react'`                     |
 | Elements       | Yes       | `<pkt-datepicker>` — `import '@oslokommune/punkt-elements/dist/pkt-datepicker.js'`                 |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-datepicker.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-datepicker.js" type="module">` |
 
 Dark mode: Yes
 

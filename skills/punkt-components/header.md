@@ -10,7 +10,7 @@ Both variants are rendered by the same component and selected with the `type` pr
 | -------------- | --------- | ---------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktHeader>` — `import { PktHeader } from '@oslokommune/punkt-react'`                         |
 | Elements       | Yes       | `<pkt-header>` — `import '@oslokommune/punkt-elements/dist/pkt-header.js'`                     |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-header.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-header.js" type="module">` |
 
 Dark mode: Yes
 

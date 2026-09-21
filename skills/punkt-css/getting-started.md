@@ -7,7 +7,7 @@
 Add the stylesheet to your HTML `<head>`. Fonts are served from the CDN automatically.
 
 ```html
-<link href="https://punkt-cdn.oslo.kommune.no/18/css/pkt.min.css" rel="stylesheet" />
+<link href="https://punkt-cdn.oslo.kommune.no/19/css/pkt.min.css" rel="stylesheet" />
 ```
 
 This includes everything: normalise, base styles, element styles, and component styles.
@@ -48,7 +48,7 @@ Put Punkt in a CSS cascade layer and your own styles win without you having to m
 The simplest option is the pre-wrapped stylesheet, which is all of Punkt already inside `@layer punkt`:
 
 ```html
-<link href="https://punkt-cdn.oslo.kommune.no/18/css/pkt.layer.min.css" rel="stylesheet" />
+<link href="https://punkt-cdn.oslo.kommune.no/19/css/pkt.layer.min.css" rel="stylesheet" />
 ```
 
 Then write your own styles in a later layer:
@@ -70,10 +70,10 @@ You can also import the regular file into a layer yourself, which is what you ne
 ```css
 @layer punkt, app;
 
-@import url('https://punkt-cdn.oslo.kommune.no/18/css/pkt-normalise.min.css') layer(punkt);
-@import url('https://punkt-cdn.oslo.kommune.no/18/css/pkt-base.min.css') layer(punkt);
-@import url('https://punkt-cdn.oslo.kommune.no/18/css/pkt-elements.min.css') layer(punkt);
-@import url('https://punkt-cdn.oslo.kommune.no/18/css/pkt-components.min.css') layer(punkt);
+@import url('https://punkt-cdn.oslo.kommune.no/19/css/pkt-normalise.min.css') layer(punkt);
+@import url('https://punkt-cdn.oslo.kommune.no/19/css/pkt-base.min.css') layer(punkt);
+@import url('https://punkt-cdn.oslo.kommune.no/19/css/pkt-elements.min.css') layer(punkt);
+@import url('https://punkt-cdn.oslo.kommune.no/19/css/pkt-components.min.css') layer(punkt);
 ```
 
 Keep that file order — it matches the order inside `pkt.min.css`.

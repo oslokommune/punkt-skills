@@ -8,7 +8,7 @@ Accordion (also called expandable or collapsible panel) groups content that can 
 | -------------- | --------- | --------------------------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktAccordion>` + `<PktAccordionItem>` — `import { PktAccordion, PktAccordionItem } from '@oslokommune/punkt-react'` |
 | Elements       | Yes       | `<pkt-accordion>` + `<pkt-accordion-item>` — `import '@oslokommune/punkt-elements/dist/pkt-accordion.js'`             |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-accordion.js" type="module">`                     |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-accordion.js" type="module">`                     |
 
 Dark mode: Yes
 

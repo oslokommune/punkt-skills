@@ -8,7 +8,7 @@ Loader displays a loading animation while content is being fetched or processed.
 | -------------- | --------- | ---------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktLoader>` — `import { PktLoader } from '@oslokommune/punkt-react'`                         |
 | Elements       | Yes       | `<pkt-loader>` — `import '@oslokommune/punkt-elements/dist/pkt-loader.js'`                     |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-loader.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-loader.js" type="module">` |
 
 Dark mode: Yes
 

@@ -8,7 +8,7 @@ Modal displays content in an overlay dialog or drawer that requires the user's a
 | -------------- | --------- | --------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktModal>` — `import { PktModal } from '@oslokommune/punkt-react'`                          |
 | Elements       | Yes       | `<pkt-modal>` — `import '@oslokommune/punkt-elements/dist/pkt-modal.js'`                      |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-modal.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-modal.js" type="module">` |
 
 Dark mode: No
 

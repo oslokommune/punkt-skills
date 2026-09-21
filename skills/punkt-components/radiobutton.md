@@ -8,7 +8,7 @@ Radio Button lets the user select exactly one option from a group of mutually ex
 | -------------- | --------- | --------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktRadioButton>` — `import { PktRadioButton } from '@oslokommune/punkt-react'`                    |
 | Elements       | Yes       | `<pkt-radiobutton>` — `import '@oslokommune/punkt-elements/dist/pkt-radiobutton.js'`                |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-radiobutton.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-radiobutton.js" type="module">` |
 
 Dark mode: Yes
 

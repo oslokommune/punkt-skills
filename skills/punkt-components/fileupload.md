@@ -8,7 +8,7 @@ File Upload lets the user attach files, either by dropping them on a drop zone o
 | -------------- | --------- | --------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktFileUpload>` — `import { PktFileUpload } from '@oslokommune/punkt-react'`                    |
 | Elements       | Yes       | `<pkt-fileupload>` — `import '@oslokommune/punkt-elements/dist/pkt-fileupload.js'`                |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-fileupload.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-fileupload.js" type="module">` |
 
 Dark mode: Yes
 

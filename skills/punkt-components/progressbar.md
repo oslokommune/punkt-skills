@@ -8,7 +8,7 @@ Progress Bar shows the user how far along a process or measurement is. It can be
 | -------------- | --------- | --------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktProgressbar>` — `import { PktProgressbar } from '@oslokommune/punkt-react'`                    |
 | Elements       | Yes       | `<pkt-progressbar>` — `import '@oslokommune/punkt-elements/dist/pkt-progressbar.js'`                |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-progressbar.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-progressbar.js" type="module">` |
 
 Dark mode: Yes
 

@@ -8,7 +8,7 @@ Checkbox lets the user select one or more options from a group of choices. You c
 | -------------- | --------- | ------------------------------------------------------------------------------------------------ |
 | React          | Yes       | `<PktCheckbox>` — `import { PktCheckbox } from '@oslokommune/punkt-react'`                       |
 | Elements       | Yes       | `<pkt-checkbox>` — `import '@oslokommune/punkt-elements/dist/pkt-checkbox.js'`                   |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-checkbox.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-checkbox.js" type="module">` |
 
 Dark mode: Yes
 

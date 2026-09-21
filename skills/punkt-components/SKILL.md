@@ -54,8 +54,8 @@ For reactive slot content (content that changes programmatically), wrap it in a 
 No build step required. Include CSS and component scripts directly:
 
 ```html
-<link href="https://punkt-cdn.oslo.kommune.no/18/css/pkt.min.css" rel="stylesheet" />
-<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-button.js" type="module"></script>
+<link href="https://punkt-cdn.oslo.kommune.no/19/css/pkt.min.css" rel="stylesheet" />
+<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-button.js" type="module"></script>
 ```
 
 If using CSP, see the [CSP section](#content-security-policy-csp) below.

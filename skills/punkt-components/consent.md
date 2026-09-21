@@ -10,7 +10,7 @@ You can also use Oslo municipality's cookie banner directly without this compone
 | -------------- | --------- | ----------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktConsent>` — `import { PktConsent } from '@oslokommune/punkt-react'`                        |
 | Elements       | Yes       | `<pkt-consent>` — `import '@oslokommune/punkt-elements/dist/pkt-consent.js'`                    |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-consent.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-consent.js" type="module">` |
 
 Dark mode: Yes
 

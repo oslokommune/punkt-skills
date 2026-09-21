@@ -8,7 +8,7 @@ Link Card is a simple card-style link with a title, optional description, icon, 
 | -------------- | --------- | ------------------------------------------------------------------------------------------------ |
 | React          | Yes       | `<PktLinkCard>` — `import { PktLinkCard } from '@oslokommune/punkt-react'`                       |
 | Elements       | Yes       | `<pkt-linkcard>` — `import '@oslokommune/punkt-elements/dist/pkt-linkcard.js'`                   |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/18/elements/pkt-linkcard.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-linkcard.js" type="module">` |
 
 Dark mode: Yes
 
