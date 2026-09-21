@@ -106,7 +106,7 @@ The catalogue is two levels: namespace → key.
 | `backlink`    | `label`                                                      |
 | `breadcrumbs` | `ariaLabel`                                                  |
 | `tag`         | `remove`                                                     |
-| `header`      | `search`, `menu`, `openMenu`, `openSearch`                   |
+| `header`      | Search, menu, logo labels, and the user menu                 |
 
 All keys and their values live in `shared-strings/nb.ts` in the monorepo, or you can
 import the catalogue:
