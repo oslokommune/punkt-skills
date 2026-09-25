@@ -7,6 +7,7 @@
 46 tokens representing the visual identity. These do not change between light and dark mode.
 
 Categories:
+
 - **Blues**: `brand-blue-100/200/300/500/1000`, `brand-dark-blue-700/1000`, `brand-warm-blue-1000`
 - **Greens**: `brand-green-400/1000`, `brand-light-green-400/1000`, `brand-dark-green-1000`
 - **Yellows**: `brand-yellow-500/1000`
@@ -22,16 +23,16 @@ The neutral scale runs light to dark with ascending numbers.
 **Deprecated:** `grays-gray-100` through `grays-gray-1000` still resolve, but are superseded by the
 neutral scale. Map old to new by value, not by number:
 
-| Deprecated | Use instead |
-| --- | --- |
-| `grays-gray-100` | `brand-neutrals-200` |
-| `grays-gray-200` | `brand-neutrals-300` |
-| `grays-gray-300` | `brand-neutrals-400` |
-| `grays-gray-400` | `brand-neutrals-500` |
-| `grays-gray-500` | `brand-neutrals-600` |
-| `grays-gray-600` | `brand-neutrals-700` |
-| `grays-gray-700` | `brand-neutrals-800` |
-| `grays-gray-800` | `brand-neutrals-900` |
+| Deprecated        | Use instead           |
+| ----------------- | --------------------- |
+| `grays-gray-100`  | `brand-neutrals-200`  |
+| `grays-gray-200`  | `brand-neutrals-300`  |
+| `grays-gray-300`  | `brand-neutrals-400`  |
+| `grays-gray-400`  | `brand-neutrals-500`  |
+| `grays-gray-500`  | `brand-neutrals-600`  |
+| `grays-gray-600`  | `brand-neutrals-700`  |
+| `grays-gray-700`  | `brand-neutrals-800`  |
+| `grays-gray-800`  | `brand-neutrals-900`  |
 | `grays-gray-1000` | `brand-neutrals-1000` |
 
 ### 2. Semantic colors — purpose-mapped
@@ -49,7 +50,7 @@ $pkt-semantic-color-modes: (
   // identical in both modes
   surface-strong-blue: (brand-blue-1000, null),
   // flips in dark mode
-  text-body-default: (brand-dark-blue-1000, brand-neutrals-white),
+  text-body-default: (brand-dark-blue-1000, brand-neutrals-200)
 );
 ```
 
@@ -67,13 +68,14 @@ value, the dark map holds the light colour, so a lookup always returns a colour.
 @use '@oslokommune/punkt-css/dist/scss/abstracts/variables';
 
 $light: map.get(variables.$pkt-semantic-colors, 'text-body-default'); // #2a2859
-$dark: map.get(variables.$pkt-semantic-colors-dark, 'text-body-default'); // #ffffff
+$dark: map.get(variables.$pkt-semantic-colors-dark, 'text-body-default'); // #e6e6e6
 ```
 
 `base/_colors-tokens.scss` emits the light map on `:root`, then emits from the dark map only the
 tokens whose value actually differs — so overriding either map takes effect.
 
 Categories:
+
 - `background-*` — page/card/section backgrounds
 - `border-*` — borders, dividers, input borders
 - `surface-*` — surface colors (cards, panels). These no longer flip in dark mode
@@ -144,6 +146,61 @@ Always reference CSS custom properties, not Sass variables directly:
 }
 ```
 
+## Icon colours use `--fg-color`, not `color`
+
+Punkt's SVG icons have `fill: var(--fg-color, #2A2859)` baked in. An icon therefore stays dark blue
+no matter what `color` the surrounding element has, unless something sets `--fg-color`. The symptom
+is an icon that looks correct in light mode and wrong in dark mode.
+
+Set it alongside `color`:
+
+```scss
+.pkt-component {
+  color: var(--pkt-color-input-text-normal);
+  --fg-color: var(--pkt-color-input-text-normal);
+}
+```
+
+Prefer `--fg-color: currentColor` when the icon should simply follow the text in every state —
+it then picks up hover and disabled colours for free:
+
+```scss
+.pkt-component__icon {
+  --fg-color: currentColor;
+}
+```
+
+The same trick works for hairline dividers drawn with `background-color`, which otherwise need a
+rule per state.
+
+When debugging, measure rather than guess: check the computed `fill` on the `<path>`, not the
+`<svg>`. The `<svg>` element reports `fill: rgb(0, 0, 0)` — its unused initial value — while the
+`<path>` carries the real colour.
+
+### Icons in `background-image` cannot be coloured
+
+An SVG loaded via `url()` in CSS is rendered in isolation: `--fg-color`, `color` and tokens never
+reach it. Older rules tint these with `filter` chains, which only approximate a colour and also
+tint anything else on the same pseudo-element.
+
+Don't swap in `mask-image` either. A CDN URL needs CORS once `$icon-path` points elsewhere, and a
+`data:` URI is blocked by the CSP we recommend (`img-src` has no `data:`). For simple shapes, draw
+the icon with `clip-path: polygon()` on a pseudo-element and colour it with `background-color`. It
+is pure geometry, so neither CORS nor CSP applies. Convert the SVG path's points to percentages of
+the viewBox. `$check-medium-shape` and `$minus-sign-shape` in `elements/_checkbox-radio.scss` are
+the reference, used by the checkbox, indeterminate and switch marks.
+
+`<select>` has no pseudo-elements, so its chevron in `elements/_input.scss` is drawn instead with
+two `linear-gradient` stroke layers coloured with `currentColor`. Each stroke's tile ends at the centre
+line (overlapping the other by half a pixel, else a seam shows) so the two strokes meet in a sharp
+point; the angle is explicit rather than a
+corner keyword so the tile can extend below the tip without moving the line. Because it has
+several layers, never set a single `background-position` or `background-size` on a select; change
+`--pkt-select-chevron-size`, `--pkt-select-chevron-offset` or `--pkt-select-chevron-shift` (the
+hover nudge, which `background-position` transitions) instead. `--pkt-select-chevron-color`
+defaults to `currentColor`; hover sets it to `input-text-hover` without recolouring the selected
+text.
+
 ## Component-specific tokens
 
 Components can define their own CSS custom properties scoped to the block, then override in modifiers:
@@ -170,6 +227,7 @@ beige, yellow, red) have no design tokens of their own and reference brand color
 ## Utility classes
 
 Generated for all brand + semantic colors:
+
 - `.pkt-color-bg-{name}` — background-color
 - `.pkt-color-txt-{name}` — color
 - `.pkt-color-border-{name}` — border-color
