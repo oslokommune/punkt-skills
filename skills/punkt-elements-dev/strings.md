@@ -2,7 +2,7 @@
 
 All UI text in the design system is defined in `shared-strings/nb.ts` and looked up from
 there. Never write a Norwegian string literal in a component — `npm run check-strings`
-fails on it in CI.
+fails on it. No workflow runs it yet, so run it yourself before you finish.
 
 ## The catalogue
 

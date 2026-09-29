@@ -100,13 +100,14 @@ The catalogue is two levels: namespace → key.
 | `datepicker`  | `openPicker`, `deleteDate`                                   |
 | `timepicker`  | `hours`, `minutes`, `openPicker`, `prevTime`, `nextTime`     |
 | `searchinput` | `placeholder`, `submit`                                      |
-| `listbox`     | `searchLabel`, `searchPlaceholder`                           |
+| `listbox`     | Search field, empty list, add value, max reached             |
 | `combobox`    | Status messages for selection, search and the max limit      |
-| `fileupload`  | Drop zone, validation and screen reader announcements        |
+| `fileupload`  | Drop zone, queue actions, preview and announcements          |
 | `backlink`    | `label`                                                      |
 | `breadcrumbs` | `ariaLabel`                                                  |
 | `tag`         | `remove`                                                     |
-| `header`      | Search, menu, logo labels, and the user menu                 |
+| `card`        | `tagsLabelOne`, `tagsLabelOther` (label for the tag list)    |
+| `header`      | Search, menu, logo labels, user menu, menu loading/error     |
 
 All keys and their values live in `shared-strings/nb.ts` in the monorepo, or you can
 import the catalogue:
