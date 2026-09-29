@@ -44,16 +44,19 @@ The consent modal itself is always the same, but the trigger to reopen settings 
 
 ## Props / Attributes
 
-| Prop (React)        | Attribute (Elements) | Type                               | Default | Description                                     |
-| ------------------- | -------------------- | ---------------------------------- | ------- | ----------------------------------------------- |
-| `triggerType`       | `triggerType`        | `"button"` \| `"link"` \| `"icon"` | —       | Type of element used to reopen consent settings |
-| `triggerText`       | `triggerText`        | string                             | —       | Text displayed on the trigger element           |
-| `googleAnalyticsId` | `googleAnalyticsId`  | string                             | —       | Google Analytics or Google Tag Manager ID       |
-| `hotjarId`          | `hotjarId`           | string                             | —       | Hotjar ID                                       |
-| `devMode`           | `devMode`            | boolean                            | —       | Enables dev mode for testing consent settings   |
-| `cookieDomain`      | `cookieDomain`       | string                             | —       | Domain for cookies                              |
-| `cookieSecure`      | `cookieSecure`       | boolean                            | —       | Set cookies as secure (HTTPS only)              |
-| `cookieExpiryDays`  | `cookieExpiryDays`   | string                             | —       | Number of days before cookies expire            |
+| Prop (React)        | Attribute (Elements) | Type                               | Default                                   | Description                                                            |
+| ------------------- | -------------------- | ---------------------------------- | ----------------------------------------- | ---------------------------------------------------------------------- |
+| `triggerType`       | `triggerType`        | `"button"` \| `"link"` \| `"icon"` | `"button"`                                | Type of element used to reopen consent settings                        |
+| `triggerText`       | `triggerText`        | string                             | `"Innstillinger for informasjonskapsler"` | Text displayed on the trigger element. Default follows `i18nLanguage`  |
+| `i18nLanguage`      | `i18nLanguage`       | `"nb"` \| `"en"`                   | `"nb"`                                    | Language of the consent dialog and the default trigger text            |
+| `googleAnalyticsId` | `googleAnalyticsId`  | string                             | —                                         | Google Analytics or Google Tag Manager ID                              |
+| `hotjarId`          | `hotjarId`           | string                             | —                                         | Hotjar ID                                                              |
+| `devMode`           | `devMode`            | boolean                            | `false`                                   | Enables dev mode for testing consent settings                          |
+| `cookieDomain`      | `cookieDomain`       | string                             | —                                         | Domain for cookies                                                     |
+| `cookieSecure`      | `cookieSecure`       | string                             | —                                         | Set cookies as secure (HTTPS only)                                     |
+| `cookieExpiryDays`  | `cookieExpiryDays`   | string                             | —                                         | Number of days before cookies expire                                   |
+
+`triggerType` also accepts `"footerlink"`, which PktFooter and PktFooterSimple use internally for the footer's cookie-settings link.
 
 ## Events
 
