@@ -5,7 +5,7 @@ Form input components are the most complex part of the elements package. They us
 ## Class hierarchy for inputs
 
 ```
-PktElement (light DOM)
+PktElementWithSlot (light DOM, slot content)
   └─ PktInputElement (form association, validation, events)
       └─ PktOptionsInputElement (option management for selects/comboboxes)
 ```
@@ -13,7 +13,7 @@ PktElement (light DOM)
 ## PktInputElement
 
 **File:** `src/base-elements/input-element.ts`
-**Extends:** `PktElement`
+**Extends:** `PktElementWithSlot`
 
 ### Form association
 
@@ -122,7 +122,6 @@ PktInputElement declares a large set of properties that all input subclasses inh
 
 **Controller declarations:**
 ```typescript
-declare slotController?: PktSlotController
 declare optionsController?: PktOptionsSlotController
 ```
 
@@ -279,19 +278,13 @@ import { customElement, property } from 'lit/decorators.js'
 import { Ref, createRef, ref } from 'lit/directives/ref.js'
 import { ifDefined } from 'lit/directives/if-defined.js'
 import { PktInputElement } from '@/base-elements/input-element'
-import { PktSlotController } from '@/controllers/pkt-slot-controller'
+import { slotContent } from '@/directives/slot-content'
 import '@/components/input-wrapper'
 
 export class PktTextinput extends PktInputElement<Props> {
   inputRef: Ref<HTMLInputElement> = createRef()
-  private helptextSlot: Ref<HTMLElement> = createRef()
 
   @property({ type: String, reflect: true }) value: string = ''
-
-  constructor() {
-    super()
-    this.slotController = new PktSlotController(this, this.helptextSlot)
-  }
 
   attributeChangedCallback(name: string, _old: string, value: string): void {
     if (name === 'value' && this.value !== _old) {
@@ -340,7 +333,7 @@ export class PktTextinput extends PktInputElement<Props> {
             e.stopImmediatePropagation()
           }}
         />
-        <div class="pkt-contents" ${ref(this.helptextSlot)} name="helptext" slot="helptext"></div>
+        <div class="pkt-contents" slot="helptext">${slotContent(this, 'helptext')}</div>
       </pkt-input-wrapper>
     `
   }
@@ -427,18 +420,14 @@ Helper methods for option lookup.
 ### Building an options component
 
 ```typescript
-@customElement('pkt-select')
 export class PktSelect extends PktOptionsInputElement<{}, TSelectOption> {
   inputRef: Ref<HTMLSelectElement> = createRef()
-  private helptextSlot: Ref<HTMLElement> = createRef()
 
   @property({ type: String }) value: string = ''
 
   constructor() {
     super()
     this.optionsController = new PktOptionsSlotController(this)
-    this.slotController = new PktSlotController(this, this.helptextSlot)
-    this.slotController.skipOptions = true  // Don't treat <option> as slot content
   }
 
   connectedCallback(): void {
@@ -470,7 +459,15 @@ export class PktSelect extends PktOptionsInputElement<{}, TSelectOption> {
     `
   }
 }
+
+try {
+  customElement('pkt-select')(PktSelect)
+} catch (e) {
+  console.warn('Forsøker å definere <pkt-select>, men den er allerede definert')
+}
 ```
+
+`slotContent` skips `<option>` and `<data>` children automatically, so the options never leak into a named slot.
 
 Consumer can provide options as props or as children:
 

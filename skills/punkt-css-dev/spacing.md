@@ -17,9 +17,20 @@ Base-8 system using rem units:
 | `size-32` | 2rem | 32px |
 | `size-40` | 2.5rem | 40px |
 | `size-48` | 3rem | 48px |
+| `size-56` | 3.5rem | 56px |
 | `size-64` | 4rem | 64px |
+| `size-72` | 4.5rem | 72px |
 | `size-80` | 5rem | 80px |
+| `size-88` | 5.5rem | 88px |
+| `size-96` | 6rem | 96px |
+| `size-104` | 6.5rem | 104px |
 | `size-128` | 8rem | 128px |
+
+The map also holds two undocumented half-steps, `size-10` (10px) and `size-20` (20px). They stay
+because several teams depend on them, but do not use them in new component styles.
+
+Removed in Punkt 19: `size-5`, `size-15`, `size-30`, `size-50`, `size-52`, `size-60`, `size-75`,
+`size-100`. `map.get()` on one of them returns `null`, which silently drops the declaration.
 
 ## Usage in component SCSS
 

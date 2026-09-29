@@ -60,7 +60,7 @@ export class PktElement<T = {}> extends PktShadowElement<T> {
 
 ## PktElementWithSlot
 
-**File:** `src/base-elements/element.ts`
+**File:** `src/base-elements/element-with-slot.ts`
 **Extends:** `PktElement`
 **DOM:** Light DOM
 

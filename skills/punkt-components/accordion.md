@@ -166,31 +166,33 @@ Note: In React, the component internally calls `e.preventDefault()` to prevent t
 
 For single-open mode in Elements, manage state and bind `isOpen` and a click handler:
 
-```js
-// In a Lit component or similar
-@state() private openedItem = '';
+```ts
+// In a Lit component
+@state() private openedItem = ''
 
-toggleCurrentOpenItem(e, id) {
-  e.preventDefault();
-  this.openedItem = this.openedItem === id ? '' : id;
+toggleCurrentOpenItem(e: MouseEvent, id: string) {
+  e.preventDefault()
+  this.openedItem = this.openedItem === id ? '' : id
+}
+
+render() {
+  return html`
+    <pkt-accordion skin="blue">
+      ${this.items.map(
+        (item) => html`
+          <pkt-accordion-item
+            id=${item.id}
+            title=${item.title}
+            .isOpen=${this.openedItem === item.id}
+            @click=${(e: MouseEvent) => this.toggleCurrentOpenItem(e, item.id)}
+          >
+            <p>${item.content}</p>
+          </pkt-accordion-item>
+        `,
+      )}
+    </pkt-accordion>
+  `
 }
 ```
 
-```html
-<pkt-accordion skin="blue">
-  <pkt-accordion-item
-    id="item-1"
-    title="First item"
-    .isOpen="${this.openedItem"
-    =""
-    =""
-    ="item-1"
-    }
-    @click="${(e)"
-    =""
-  >
-    this.toggleCurrentOpenItem(e, 'item-1')} >
-    <p>Content for first item.</p>
-  </pkt-accordion-item>
-</pkt-accordion>
-```
+`e.preventDefault()` stops the native `<details>` toggle from fighting the controlled `isOpen` state.

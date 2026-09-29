@@ -20,10 +20,10 @@ Rules:
 ```tsx
 import { usePktStrings } from '../../hooks/usePktStrings'
 
-export const PktSearchInput = forwardRef(({ placeholder, strings, ...rest }, ref) => {
+export const PktSearchInput = ({ placeholder, strings, ref, ...rest }: IPktSearchInput) => {
   const s = usePktStrings(['searchinput'], strings)
-  return <input placeholder={placeholder ?? s.searchinput.placeholder} />
-})
+  return <input {...rest} ref={ref} placeholder={placeholder ?? s.searchinput.placeholder} />
+}
 ```
 
 The hook takes the namespaces the component uses plus the component's own `strings` prop.

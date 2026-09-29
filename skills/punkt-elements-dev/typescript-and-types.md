@@ -26,8 +26,8 @@ Key `tsconfig.json` settings for Lit:
 
 Use `@/` prefix for internal imports:
 ```typescript
-import { PktElement } from '@/base-elements/element'
-import { PktSlotController } from '@/controllers/pkt-slot-controller'
+import { PktElementWithSlot } from '@/base-elements/element-with-slot'
+import { slotContent } from '@/directives/slot-content'
 import '@/components/icon'
 ```
 
@@ -51,9 +51,10 @@ export interface IPktButton {
 The class both extends the base with `<IPktButton>` and `implements IPktButton`:
 
 ```typescript
-@customElement('pkt-button')
-export class PktButton extends PktElement<IPktButton> implements IPktButton {
+export class PktButton extends PktElementWithSlot<IPktButton> implements IPktButton {
 ```
+
+Register the element after the class with the guarded `customElement('pkt-button')(PktButton)` call, not as a decorator (see [Component Implementation](component-implementation.md)).
 
 ### Type aliases for string unions
 

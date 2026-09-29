@@ -19,31 +19,34 @@ Dark mode is activated by setting `data-mode="dark"` on any HTML element. Everyt
 
 ## How it works
 
-Under `[data-mode="dark"]`, all **semantic color** CSS custom properties are overridden with dark-appropriate values. For example:
+Under `[data-mode="dark"]`, **semantic color** CSS custom properties that need a different value are overridden with dark-appropriate ones. For example:
 
 - `--pkt-color-background-default` changes from white to a dark color
 - `--pkt-color-text-body-default` changes from dark blue to a light color
 - `--pkt-color-border-default` adjusts for dark backgrounds
 
-This means any element using semantic color variables or semantic color helper classes automatically adapts to dark mode without any additional CSS.
+This means any element using semantic color variables or semantic color helper classes gets the right colour in both modes without any additional CSS.
 
 ## What changes and what doesn't
 
-|                                                                        | Dark mode behavior       |
-| ---------------------------------------------------------------------- | ------------------------ |
-| **Semantic colors**                                                    | Automatically overridden |
-| **Brand colors**                                                       | Do NOT change            |
-| **Semantic helper classes** (`.pkt-color-bg-background-default`, etc.) | Adapt automatically      |
-| **Brand helper classes** (`.pkt-color-bg-brand-blue-1000`, etc.)       | Stay the same            |
+|                                                                        | Dark mode behavior           |
+| ---------------------------------------------------------------------- | ---------------------------- |
+| **Semantic colors** (`background-*`, `text-*`, `border-*`, …)          | Overridden where needed      |
+| **Surface colors** (`surface-*`)                                       | Do NOT change                |
+| **Brand colors**                                                       | Do NOT change                |
+| **Semantic helper classes** (`.pkt-color-bg-background-default`, etc.) | Follow their token           |
+| **Brand helper classes** (`.pkt-color-bg-brand-blue-1000`, etc.)       | Stay the same                |
 
-This is the main reason to **prefer semantic colors over brand colors**: semantic colors respond to dark mode, brand colors do not.
+Not every semantic token flips. Surfaces never do, and neither do tokens that are already a fixed brand colour by intent, such as `border-states-focus`, `text-body-dark`, `input-text-error` and the coloured `border-*` tokens.
+
+This is the main reason to **prefer semantic colors over brand colors**: a semantic token carries the decision about dark mode, a brand colour does not.
 
 ## Usage with semantic colors
 
 ```html
 <div data-mode="dark" class="pkt-color-bg-background-default p-size-32">
   <p class="pkt-color-txt-text-body-default">This text automatically uses light-on-dark colors.</p>
-  <div class="pkt-color-bg-surface-subtle-grey p-size-16">Surface colors also adapt.</div>
+  <div class="pkt-color-bg-background-card p-size-16">Background colors adapt too.</div>
 </div>
 ```
 

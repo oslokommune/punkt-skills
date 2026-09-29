@@ -137,16 +137,21 @@ There is no CSS-only mechanism for custom breakpoints. The `--{breakpoint}-up` s
 
 ### Range queries
 
-These still work but warn at build time, and go in Punkt 20. Write the media query directly
-in new code.
+These are supported:
+
+```scss
+@include bp("mobile-to-tablet") { ... }
+@include bp("mobile-to-laptop") { ... }
+@include bp("tablet-to-tablet-big") { ... }
+@include bp("tablet-to-laptop") { ... }
+```
+
+These three still work but warn at build time and will be removed in a later version. Write the
+media query directly instead:
 
 ```scss
 @include bp("mobile-to-phablet") { ... }
-@include bp("mobile-to-tablet") { ... }
-@include bp("mobile-to-laptop") { ... }
 @include bp("phablet-to-tablet-big") { ... }
-@include bp("tablet-to-tablet-big") { ... }
-@include bp("tablet-to-laptop") { ... }
 @include bp("tablet-big-to-laptop") { ... }
 ```
 

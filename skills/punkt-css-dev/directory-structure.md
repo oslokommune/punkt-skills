@@ -7,15 +7,16 @@ packages/css/
 ├── src/scss/                # All SCSS source
 │   ├── abstracts/           # Variables, mixins, functions, placeholders
 │   ├── base/                # Global defaults, typography, colors, spacing utilities
-│   ├── components/          # Higher-level component styles (31 files)
-│   ├── elements/            # Base element styles (11 files)
+│   ├── components/          # Higher-level component styles
+│   ├── elements/            # Base element styles
 │   ├── normalise/           # CSS normalize/reset
 │   ├── pkt.scss             # Main entry (everything)
 │   ├── pkt.layer.scss       # Main entry wrapped in @layer punkt
 │   ├── pkt-base.scss        # Base styles only
 │   ├── pkt-components.scss  # Components only
 │   ├── pkt-elements.scss    # Elements only
-│   └── pkt-normalise.scss   # Normalize only
+│   ├── pkt-normalise.scss   # Normalize only
+│   └── …                    # Granular entries, see the table below
 ├── dist/                    # Build output
 │   ├── css/                 # Compiled CSS (regular + .min.css)
 │   │   ├── components/      # Individual component CSS
@@ -28,8 +29,8 @@ packages/css/
 
 ## Components vs Elements
 
-- **Elements** (`elements/`): Styles for basic HTML-level controls — button, checkbox, radio, input, select, table, form, list, image, hr, section.
-- **Components** (`components/`): Styles for higher-level UI patterns — accordion, alert, badge, card, modal, tabs, header, footer, etc.
+- **Elements** (`elements/`): Styles for basic HTML-level controls — button, checkbox-radio, input (which also styles `<select>`), table, form, list, image, hr, section.
+- **Components** (`components/`): Styles for higher-level UI patterns — accordion, alert, card, modal, tabs, header, footer, etc.
 
 ## Entry points
 
@@ -44,6 +45,8 @@ packages/css/
 | `pkt-tokens.scss` | Color variables, dark mode, `@font-face` |
 | `pkt-utilities.scss` | Spacing, color and visibility helper classes. Requires `pkt-tokens` |
 | `pkt-grid.scss` | Containers, grid and layouts. Requires `pkt-tokens` |
+| `pkt-spacing-responsive.scss` | Responsive margin/padding utilities (`--{bp}-up`). Not in `pkt` or `pkt-base`. Requires `pkt-tokens` |
+| `pkt-spacing-responsive.layer.scss` | The same, wrapped in `@layer punkt` |
 | `pkt-docs.scss` | Everything plus docs-only styles. Internal to the documentation site |
 
 `pkt-tokens`, `pkt-utilities` and `pkt-grid` are the granular entries, so a consumer can take the design tokens and grid without pulling in every component style. Both `pkt-utilities` and `pkt-grid` depend on the custom properties in `pkt-tokens` — load it first or they resolve against nothing.
@@ -84,7 +87,7 @@ Every directory has an `_index.scss` that `@forward`s all its partials. When add
 tokens      oslo-sans, colors-tokens
 reset       defaults
 typography  typography, link
-grid        containers, grid, layouts
+grid        containers, grid, grid-responsive, layouts
 utilities   colors-utilities, spacing, visibility
 a11y        accessibility
 ```
@@ -101,9 +104,10 @@ would not, and the breakage would be silent.
 
 `base/_spacing-responsive.scss` and `base/_grid-responsive.scss` hold the per-breakpoint variants
 of the spacing and grid utilities — the bulk of the classes in both. They are separate files so
-they can be dropped from `pkt-base` by removing a single `@forward` from `base/_index.scss`, where
-both are currently forwarded. Put new responsive utility loops in these files rather than beside
-the non-responsive ones.
+each can be dropped from `pkt-base` by removing a single `@forward` from `base/_index.scss`.
+That has already happened to spacing: `base/_index.scss` forwards only `grid-responsive`, and the
+responsive spacing classes ship solely through the `pkt-spacing-responsive` entry. Put new
+responsive utility loops in these files rather than beside the non-responsive ones.
 
 `base/_defaults.scss` holds `.pkt-contents` (`display: contents`). It is not a utility — around
 eleven components emit it as a slot wrapper, so it has to load whenever components do. `pkt-base`

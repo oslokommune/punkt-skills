@@ -201,7 +201,7 @@ For alternating background colors, leave `<main>` unconstrained and place a `.pk
 <div class="pkt-layout">
   <pkt-header>...</pkt-header>
   <main>
-    <section class="pkt-color-bg-surface-subtle-grey py-size-64">
+    <section class="pkt-color-bg-surface-subtle-gray py-size-64">
       <div class="pkt-container">
         <h2>Hero Section</h2>
       </div>
@@ -229,7 +229,7 @@ Full-width container with a grid for sidebar navigation and content area:
   <pkt-header>...</pkt-header>
   <main class="pkt-container pkt-container--full">
     <div class="pkt-grid pkt-grid--full pkt-grid--gap-size-0">
-      <aside class="pkt-cell pkt-cell--span2-tablet-up pkt-color-bg-surface-subtle-grey">
+      <aside class="pkt-cell pkt-cell--span2-tablet-up pkt-color-bg-surface-subtle-gray">
         App navigation
       </aside>
       <div class="pkt-cell pkt-cell--span10-tablet-up p-size-24 p-size-32--laptop-up">

@@ -19,7 +19,7 @@ Punkt is a monorepo design system by Oslo kommune. The Elements package provides
 1. **Light DOM by default** — `PktElement` renders in light DOM for global CSS access and style penetration. Only use `PktShadowElement` when encapsulation is explicitly needed.
 2. **External CSS** — all styling via BEM classes from `@oslokommune/punkt-css`. No `static styles` or scoped CSS.
 3. **Form participation** — input elements use the `ElementInternals` API for native `<form>` integration.
-4. **Slot simulation** — `PktSlotController` provides slot-like content distribution without Shadow DOM.
+4. **Slot simulation** — the `slotContent` directive (with `PktElementWithSlot`) provides slot-like content distribution without Shadow DOM.
 5. **Framework agnostic** — components work with vanilla JS, React, Vue, and any other framework.
 
 ## Base Class Hierarchy
@@ -28,8 +28,9 @@ Punkt is a monorepo design system by Oslo kommune. The Elements package provides
 LitElement (from 'lit')
   └─ PktShadowElement  (shadow DOM, string catalogue, HMR)
       └─ PktElement  (light DOM override)
-          └─ PktInputElement  (form-associated, validation)
-              └─ PktOptionsInputElement  (select/combobox options)
+          └─ PktElementWithSlot  (slot content via slotContent())
+              └─ PktInputElement  (form-associated, validation)
+                  └─ PktOptionsInputElement  (select/combobox options)
 ```
 
 See [Base Classes](base-classes.md) for full details.

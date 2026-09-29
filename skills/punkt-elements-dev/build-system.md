@@ -37,6 +37,7 @@ resolve: {
   alias: {
     'shared-types': '../../shared-types/',
     'shared-utils': '../../shared-utils/',
+    'shared-strings': '../../shared-strings/',
     '@': path.resolve(__dirname, 'src'),
     'pkt': '@oslokommune/punkt-css/dist',
     'pktAssets': '@oslokommune/punkt-assets/dist',
@@ -74,14 +75,17 @@ import '@oslokommune/punkt-elements'
 
 ## Adding a new component to the build
 
-When creating a new component, add its entry to `vite.config.ts`:
+Nothing to do. `vite.config.ts` reads `src/components/` and creates one entry per directory, plus `index`:
 
 ```typescript
-lib: {
-  entry: {
-    index: './src/components/index.ts',
-    // ... existing entries
-    'new-component': './src/components/new-component',
-  }
+const components = fs
+  .readdirSync(baseFolder)
+  .filter((f) => fs.statSync(path.join(baseFolder, f)).isDirectory())
+
+const entries = {
+  index: baseFolder + 'index.ts',
+  ...components.reduce((obj, name) => ({ ...obj, [name]: baseFolder + name }), {}),
 }
 ```
+
+Every directory in `src/components/` therefore needs an `index.ts`, or the build fails.

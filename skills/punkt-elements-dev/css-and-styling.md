@@ -183,7 +183,7 @@ file's `OMITTED` list with a reason.
 
 ## Styling changes
 
-When visual changes are needed, update the corresponding SCSS in `packages/css/src/scss/` — do **not** add inline styles or component-scoped CSS. See the [css-dev skill](../punkt-css-dev.md) for CSS development patterns.
+When visual changes are needed, update the corresponding SCSS in `packages/css/src/scss/` — do **not** add inline styles or component-scoped CSS. See the punkt-css-dev skill for CSS development patterns.
 
 ## Forbidden
 

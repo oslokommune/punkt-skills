@@ -103,7 +103,7 @@ Grid children that control column spanning and alignment.
 
 ### Column spanning
 
-`--span{n}` where n is 2–12. Default is 1 column (no modifier needed).
+`--span{n}` where n is 1–12. Default is 1 column, so `--span1` is only needed to reset a wider span, e.g. `pkt-cell--span12 pkt-cell--span1-tablet-up`.
 
 ```html
 <div class="pkt-grid">

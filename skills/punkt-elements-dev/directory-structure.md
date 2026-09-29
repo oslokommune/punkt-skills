@@ -8,6 +8,7 @@ packages/elements/
 │   ├── index.ts                  # Main entry: re-exports components + types
 │   ├── base-elements/            # Base classes
 │   │   ├── element.ts            # PktShadowElement + PktElement
+│   │   ├── element-with-slot.ts  # PktElementWithSlot (slot content)
 │   │   ├── input-element.ts      # PktInputElement (form inputs)
 │   │   └── options-input-element.ts  # PktOptionsInputElement (select/combobox)
 │   ├── components/               # All components
@@ -23,11 +24,14 @@ packages/elements/
 │   │   │   ├── tabs-context.ts   # Context definition
 │   │   │   ├── tabs.test.ts
 │   │   │   └── index.ts
-│   │   └── ...                   # 29 component directories
+│   │   └── ...                   # One directory per component
 │   ├── controllers/              # Reactive controllers
-│   │   ├── pkt-slot-controller.ts
-│   │   ├── pkt-options-controller.ts
+│   │   ├── pkt-options-controller.ts   # <option>/<data> children → options
+│   │   ├── strings-controller.ts       # pktStrings (shared-strings lookup)
+│   │   ├── focus-modality-controller.ts
 │   │   └── pkt-slot-utils.ts
+│   ├── directives/
+│   │   └── slot-content.ts       # slotContent() directive + SlotManager
 │   ├── helpers/
 │   │   └── converters.ts         # Attribute converters (CSV, date)
 │   ├── types/
@@ -42,7 +46,7 @@ packages/elements/
 │   └── docs/                     # Demo/documentation components (excluded from lint)
 ├── eslint.config.js
 ├── tsconfig.json
-├── vite.config.ts                # Library build
+├── vite.config.ts                # Library build (one entry per component directory)
 ├── vite.config-app.ts            # Dev app build
 ├── vitest.config.ts
 └── package.json
@@ -54,7 +58,7 @@ Every component follows this structure:
 
 ```
 component-name/
-├── component-name.ts             # Implementation + types + @customElement
+├── component-name.ts             # Implementation + types + guarded customElement() registration
 ├── component-name.test.ts        # Tests
 ├── index.ts                      # Re-exports class + types, default export
 └── helpers/                      # Optional: complex components may have helpers

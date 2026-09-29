@@ -51,6 +51,12 @@ the tier whose value is `0`, or they emit `--mobile-up` duplicates of the base c
 }
 ```
 
+Supported without warning: `mobile-to-tablet`, `mobile-to-laptop`, `tablet-to-tablet-big`,
+`tablet-to-laptop`. Three more still work but raise a `@warn` and will be removed in a later
+version: `mobile-to-phablet`, `phablet-to-tablet-big`, `tablet-big-to-laptop`. Don't use those
+in new code. For the list itself, see `$-removed-in-later-version` in
+`abstracts/mixins/_breakpoints.scss`.
+
 ## The `bp-up()` mixin — for loops over `$breakpoints`
 
 `bp()` takes a **name**. `bp-up()` takes a **raw value** and is what you want when generating

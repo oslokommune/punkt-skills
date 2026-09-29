@@ -43,11 +43,21 @@ $spacing: (
   'size-32': 2rem,
   'size-40': 2.5rem,
   'size-48': 3rem,
+  'size-56': 3.5rem,
   'size-64': 4rem,
+  'size-72': 4.5rem,
   'size-80': 5rem,
+  'size-88': 5.5rem,
+  'size-96': 6rem,
+  'size-104': 6.5rem,
   'size-128': 8rem,
+  // Half-steps, undocumented
+  'size-10': 0.625rem,
+  'size-20': 1.25rem,
 );
 ```
+
+See [Spacing](spacing.md) for which values to use and which were removed in Punkt 19.
 
 Usage: `map.get(variables.$spacing, 'size-16')`
 

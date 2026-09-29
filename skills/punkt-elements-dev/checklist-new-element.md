@@ -2,7 +2,8 @@
 
 1. Read the component spec in `component-specs/{name}.json` for required props, types, and modifiers.
 2. Decide the base class:
-   - `PktElement` for display components
+   - `PktElementWithSlot` for display components that accept children
+   - `PktElement` for display components without children
    - `PktInputElement` for form inputs
    - `PktOptionsInputElement` for select/combobox-style inputs
    - `PktShadowElement` only if Shadow DOM encapsulation is explicitly needed
@@ -10,8 +11,8 @@
 4. Create the implementation file `{name}.ts`:
    - Define types and interface (`IPkt*`, `T*`)
    - Extend the correct base class with `<Interface>` and `implements Interface`
-   - Initialize `PktSlotController` in constructor if the component accepts children
-   - Initialize `PktOptionsSlotController` if the component accepts `<option>` children (set `slotController.skipOptions = true`)
+   - Place children with `${slotContent(this)}` / `${slotContent(this, 'name')}` in the template
+   - Initialize `PktOptionsSlotController` in the constructor if the component accepts `<option>` children
    - Use `classMap()` for dynamic CSS classes
    - Use `ref()` for DOM references
    - Add `export default` at the bottom
@@ -27,7 +28,6 @@
    - Create a component-specific test helper using `createElementTest()`
    - Test rendering, properties, states, events
    - Include at least one `axe` accessibility test
-9. Add the build entry in `vite.config.ts` under `lib.entry`.
-10. Verify the CSS classes exist in `@oslokommune/punkt-css` — if not, create them using the [css-dev skill](../punkt-css-dev.md).
-11. Run `npm run build` to verify compilation.
-12. Run `npm run test:run` to verify tests pass.
+9. Verify the CSS classes exist in `@oslokommune/punkt-css` — if not, create them using the punkt-css-dev skill.
+10. Run `npm run build` to verify compilation. The build entry is picked up from the component directory automatically.
+11. Run `npm run test:run` to verify tests pass.

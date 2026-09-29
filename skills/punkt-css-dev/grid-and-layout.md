@@ -16,6 +16,7 @@
 - `.pkt-grid--full` — full viewport width
 - `.pkt-grid--phablet` — max-width 36rem
 - `.pkt-grid--tablet` — max-width 48rem
+- `.pkt-grid--tablet-big` — max-width 64rem
 - `.pkt-grid--laptop` — max-width 80rem (default)
 - `.pkt-grid--desktop` — max-width 100rem
 

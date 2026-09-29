@@ -13,12 +13,11 @@
 ## Component template (display component)
 
 ```typescript
-import { PktElement } from '@/base-elements/element'
-import { PktSlotController } from '@/controllers/pkt-slot-controller'
+import { PktElementWithSlot } from '@/base-elements/element-with-slot'
+import { slotContent } from '@/directives/slot-content'
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js'
-import { createRef, Ref, ref } from 'lit/directives/ref.js'
 
 export type TPktExampleSkin = 'primary' | 'secondary'
 
@@ -27,17 +26,9 @@ export interface IPktExample {
   label?: string
 }
 
-export class PktExample extends PktElement<IPktExample> implements IPktExample {
-  defaultSlot: Ref<HTMLElement> = createRef()
-  slotController: PktSlotController
-
+export class PktExample extends PktElementWithSlot<IPktExample> implements IPktExample {
   @property({ type: String }) skin: TPktExampleSkin = 'primary'
   @property({ type: String }) label: string = ''
-
-  constructor() {
-    super()
-    this.slotController = new PktSlotController(this, this.defaultSlot)
-  }
 
   render() {
     const classes = {
@@ -48,7 +39,7 @@ export class PktExample extends PktElement<IPktExample> implements IPktExample {
     return html`
       <div class=${classMap(classes)}>
         <span class="pkt-example__label">${this.label}</span>
-        <div class="pkt-example__content" ${ref(this.defaultSlot)}></div>
+        <div class="pkt-example__content">${slotContent(this)}</div>
       </div>
     `
   }
@@ -66,12 +57,12 @@ try {
 ## Required patterns
 
 1. **Conditional custom element registration** after the class definition — wrap `customElement('pkt-*')(ClassName)` in a `try/catch` to prevent duplicate registration errors and handle SSR environments gracefully.
-2. **Extend the correct base class** — `PktElement` for display, `PktInputElement` for form inputs, `PktOptionsInputElement` for option-based inputs.
+2. **Extend the correct base class** — `PktElementWithSlot` for display components with children, `PktElement` for display components without, `PktInputElement` for form inputs, `PktOptionsInputElement` for option-based inputs. See [Base Classes](base-classes.md).
 3. **`implements IPkt*`** — implement the component's public interface for type safety.
 4. **Generic type parameter** — pass the interface as `<IPktExample>` to the base class.
-5. **`PktSlotController`** in constructor for any component accepting children.
+5. **`slotContent(this)`** directive to place children (`slotContent(this, 'name')` for named slots). See [Light DOM & Slots](light-dom-and-slots.md).
 6. **`classMap()`** directive for dynamic CSS classes.
-7. **`ref()`** directive for DOM references (slot containers, input refs).
+7. **`ref()`** directive for DOM references (input refs).
 8. **Default export** at the bottom of the file.
 
 ## Decorators
@@ -138,7 +129,7 @@ Query elements from the rendered output. Rarely used — prefer `Ref` with `ref(
 // 1. Constructor — initialize controllers
 constructor() {
   super()
-  this.slotController = new PktSlotController(this, this.defaultSlot)
+  this.optionsController = new PktOptionsSlotController(this)
 }
 
 // 2. connectedCallback — setup listeners, parse initial state
@@ -185,7 +176,7 @@ attributeChangedCallback(name: string, _old: string | null, value: string | null
 ```typescript
 render() {
   const classes = { 'pkt-tag': true, [`pkt-tag--${this.skin}`]: !!this.skin }
-  return html`<span class=${classMap(classes)} ${ref(this.defaultSlot)}></span>`
+  return html`<span class=${classMap(classes)}>${slotContent(this)}</span>`
 }
 ```
 

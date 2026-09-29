@@ -33,7 +33,7 @@ A Lit `AsyncDirective` that provides declarative slot-like content distribution 
 ### Basic usage (single default slot)
 
 ```typescript
-import { PktElementWithSlot } from '@/base-elements/element'
+import { PktElementWithSlot } from '@/base-elements/element-with-slot'
 import { slotContent } from '@/directives/slot-content'
 import { html } from 'lit'
 import { customElement } from 'lit/decorators.js'
