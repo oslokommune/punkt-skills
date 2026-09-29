@@ -79,11 +79,11 @@ Dark mode: Yes
 | `disabled`       | `disabled`           | boolean               | `false`        | Disables the checkbox                                         |
 | `hasError`       | `hasError`           | boolean               | `false`        | Shows error state                                             |
 | `isSwitch`       | `isSwitch`           | boolean               | `false`        | Renders as a switch toggle (see Switch component)             |
-| `labelPosition`  | `labelPosition`      | `"right"` \| `"left"` | —              | Position of the label relative to the checkbox                |
+| `labelPosition`  | `labelPosition`      | `"right"` \| `"left"` | `"right"`      | Position of the label relative to the checkbox                |
 | `hideLabel`      | `hideLabel`          | boolean               | `false`        | Visually hides the label (still accessible to screen readers) |
 | `requiredTag`    | `requiredTag`        | boolean               | `false`        | Show "Required" tag next to label                             |
 | `requiredText`   | `requiredText`       | string                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                      |
-| `optionalTag`    | `optionalTag`        | boolean               | —              | Show "Optional" tag next to label                             |
+| `optionalTag`    | `optionalTag`        | boolean               | `false`        | Show "Optional" tag next to label                             |
 | `optionalText`   | `optionalText`       | string                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                      |
 | `tagText`        | `tagText`            | string                | —              | Custom tag text next to label                                 |
 

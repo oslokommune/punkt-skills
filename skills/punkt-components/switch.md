@@ -40,7 +40,7 @@ Switch is not a separate component — it is the Checkbox component with `isSwit
 | `checked`        | `checked`            | boolean               | `false`        | Controlled on/off state                        |
 | `defaultChecked` | `defaultChecked`     | boolean               | `false`        | Initially on (uncontrolled)                    |
 | `disabled`       | `disabled`           | boolean               | `false`        | Disables the switch                            |
-| `labelPosition`  | `labelPosition`      | `"right"` \| `"left"` | —              | Position of the label                          |
+| `labelPosition`  | `labelPosition`      | `"right"` \| `"left"` | `"right"`      | Position of the label                          |
 
 ## Events
 
