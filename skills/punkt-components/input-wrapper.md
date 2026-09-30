@@ -56,9 +56,13 @@ Dark mode: No
 
 ## Slots
 
-| Slot    | Description                                   |
-| ------- | --------------------------------------------- |
-| default | The form element or group of elements to wrap |
+| Slot       | Description                                                                 |
+| ---------- | --------------------------------------------------------------------------- |
+| default    | The form element or group of elements to wrap                               |
+| `helptext` | Elements only. Rich help text, as an alternative to the `helptext` attribute |
+
+Slotted helptext can be added or removed after the first render; the wrapper and the field's
+`aria-describedby` follow.
 
 ## Accessibility
 

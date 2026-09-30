@@ -278,7 +278,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { Ref, createRef, ref } from 'lit/directives/ref.js'
 import { ifDefined } from 'lit/directives/if-defined.js'
 import { PktInputElement } from '@/base-elements/input-element'
-import { slotContent } from '@/directives/slot-content'
+import { forwardSlots } from '@/directives/slot-content'
 import '@/components/input-wrapper'
 
 export class PktTextinput extends PktInputElement<Props> {
@@ -296,6 +296,7 @@ export class PktTextinput extends PktInputElement<Props> {
   render() {
     return html`
       <pkt-input-wrapper
+        ${forwardSlots(this, ['helptext'])}
         ?disabled=${this.disabled}
         ?hasError=${this.hasError}
         ?required=${this.required}
@@ -333,7 +334,6 @@ export class PktTextinput extends PktInputElement<Props> {
             e.stopImmediatePropagation()
           }}
         />
-        <div class="pkt-contents" slot="helptext">${slotContent(this, 'helptext')}</div>
       </pkt-input-wrapper>
     `
   }
@@ -344,6 +344,7 @@ Key patterns:
 - **`inputRef`** — Ref to the native `<input>` for validation
 - **`e.stopImmediatePropagation()`** — prevents duplicate events bubbling from both native input and custom element
 - **`pkt-input-wrapper`** — wraps the input with label, helptext, error display
+- **`forwardSlots(this, ['helptext'])`** — hands slotted helptext to the wrapper without a holder element (see [Light DOM & Slots](light-dom-and-slots.md))
 - **`forId`** — associates wrapper label with the input's ID
 
 ### Event handling in input renders

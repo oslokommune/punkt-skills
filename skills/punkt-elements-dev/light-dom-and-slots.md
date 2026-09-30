@@ -21,14 +21,18 @@ A Lit `AsyncDirective` that provides declarative slot-like content distribution 
 2. `PktElementWithSlot.connectedCallback()` calls `SlotManager.collectNodes()` to capture children before Lit renders
 3. The component's template uses `${slotContent(this)}` to place default slot content
 4. Named slots use `${slotContent(this, 'slotName')}`
-5. A `MutationObserver` watches for dynamic child changes and re-distributes
-6. The directive uses a generation counter to avoid unnecessary DOM updates
+5. A `MutationObserver` watches the host's subtree. New content counts when it is added as a direct child of the host; removal counts wherever the node sits (including after it has been distributed into the template)
+6. Every slot change calls `requestUpdate()` on the host, so anything computed from slot content in `render()` (like `hasSlotContent()`) stays reactive in both directions: none → some and some → none
+7. The directive uses a generation counter to avoid unnecessary DOM updates
 
 ### Architecture
 
-- **`SlotManager`** — Per-host singleton (stored in a `WeakMap`). Collects and categorizes children by `slot` attribute, observes mutations, notifies registered directives.
+- **`SlotManager`** — Per-host singleton (stored in a `WeakMap`). Collects and categorizes children by `slot` attribute, observes mutations, notifies registered directives, and notifies other managers that receive its slots via `forwardSlots()`.
 - **`SlotContentDirective`** — `AsyncDirective` that renders collected nodes at its position. Returns `noChange` when content hasn't changed.
+- **`ForwardSlotsDirective`** (`forwardSlots()`) — Element directive that hands a host's slot content to a child element's SlotManager without any intermediate element.
 - **`getSlotManager(host)`** — Returns or creates the SlotManager for a host element.
+
+**Known race:** the observer is started in a `setTimeout(0)` after the first render, because Lit's own light DOM render would otherwise be mistaken for user content. Content appended in the same tick as the first render is not picked up. Tests that add slot content dynamically must wait a macrotask first.
 
 ### Basic usage (single default slot)
 
@@ -100,16 +104,19 @@ render() {
 }
 ```
 
-### Forwarding helptext slots through component layers
+`hasSlotContent()` includes content forwarded to the element with `forwardSlots()`, and it is reactive: the host re-renders when content is added or removed.
 
-Several input components (textinput, textarea, datepicker, select, combobox) forward a `helptext` named slot through to `pkt-input-wrapper`, which in turn forwards it to `pkt-helptext`. The pattern is:
+### Forwarding slots to a child element (`forwardSlots`)
+
+To pass a host's slot content on to a child component, use the `forwardSlots()` element directive on the child. **Do not render a holder element** like `<div slot="helptext">${slotContent(this, 'helptext')}</div>` inside the child: the holder keeps its `slot` attribute when the child forwards it further, so the next level files it under the wrong slot. That bug made all slotted helptext render outside `.pkt-inputwrapper__helptext` before `forwardSlots()` existed.
 
 ```typescript
-// In textinput/textarea/etc:
+import { forwardSlots } from '@/directives/slot-content'
+
+// In textinput/textarea/select/combobox/datepicker/timepicker: same slot name in the child
 render() {
   return html`
-    <pkt-input-wrapper ...>
-      <div class="pkt-contents" slot="helptext">${slotContent(this, 'helptext')}</div>
+    <pkt-input-wrapper ${forwardSlots(this, ['helptext'])} ...>
       <!-- other content -->
     </pkt-input-wrapper>
   `
@@ -117,11 +124,19 @@ render() {
 ```
 
 ```typescript
-// In input-wrapper:
+// In input-wrapper: the host's helptext slot becomes pkt-helptext's default slot (null)
 const helptextElement = () => {
-  return html` <pkt-helptext ...>${slotContent(this, 'helptext')}</pkt-helptext> `
+  if (!hasHelptext && !this.helptextDropdown) return nothing
+  return html`<pkt-helptext ${forwardSlots(this, { helptext: null })} ...></pkt-helptext>`
 }
 ```
+
+Rules:
+
+- The child renders the forwarded nodes with its own `slotContent()`. The parent must not render the same slot with `slotContent()` as well.
+- Forwarding chains: textinput → input-wrapper → pkt-helptext works, and changes propagate through every level.
+- Rendering the child conditionally is safe. The forwarded content is handed over again when the child is rendered anew, and the parent keeps observing its own children while any child subscribes.
+- A component that describes its control with the helptext must include slotted helptext: `hasHelptext: !!this.helptext || this.hasSlotContent('helptext')`.
 
 ## Slot content reactivity
 
@@ -168,7 +183,7 @@ A reactive controller for components that accept `<option>` or `<data>` elements
 
 ```typescript
 import { PktOptionsSlotController } from '@/controllers/pkt-options-controller'
-import { slotContent } from '@/directives/slot-content'
+import { forwardSlots } from '@/directives/slot-content'
 
 export class PktSelect extends PktOptionsInputElement<{}, TSelectOption> {
   constructor() {
@@ -183,8 +198,7 @@ export class PktSelect extends PktOptionsInputElement<{}, TSelectOption> {
 
   render() {
     return html`
-      <pkt-input-wrapper ...>
-        <div class="pkt-contents" slot="helptext">${slotContent(this, 'helptext')}</div>
+      <pkt-input-wrapper ${forwardSlots(this, ['helptext'])} ...>
         <!-- select UI -->
       </pkt-input-wrapper>
     `

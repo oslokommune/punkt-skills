@@ -114,6 +114,7 @@ import '@/components/input-wrapper'
 render() {
   return html`
     <pkt-input-wrapper
+      ${forwardSlots(this, ['helptext'])}
       ?disabled=${this.disabled}
       ?hasError=${this.hasError}
       label=${ifDefined(this.label)}
@@ -149,14 +150,21 @@ exist, and nothing fails loudly — check the ids resolve.
 
 ```typescript
 aria-describedby=${ifDefined(
-  describedByIds({ id: this.id + '-input', hasHelptext: !!this.helptext, hasCounter: showCounter }),
+  describedByIds({
+    id: this.id + '-input',
+    hasHelptext: !!this.helptext || this.hasSlotContent('helptext'),
+    hasCounter: showCounter,
+  }),
 )}
 ```
 
+`hasHelptext` must include slotted helptext, or helptext given with `slot="helptext"` renders but
+never reaches the control.
+
 The wrapper only emits `aria-describedby` itself on the `hasFieldset` branch, where it describes
-the group. In the non-fieldset branch it emits nothing, so the component alone is responsible for
-describing its control — forgetting it fails silently, since the helptext still renders and looks
-right.
+the group with the helptext (prop or slot). In the non-fieldset branch it emits nothing, so the
+component alone is responsible for describing its control — forgetting it fails silently, since
+the helptext still renders and looks right.
 
 Composite controls need this on every focusable part, and the id still comes from `forId`:
 `pkt-timepicker` passes `forId={id}-hours` and puts the same `aria-describedby` on both
