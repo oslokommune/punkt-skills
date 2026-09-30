@@ -65,6 +65,18 @@ Dark mode: Yes
 | ------------- | ---------------- | --------------------------------------------- |
 | `onChange`    | `change`         | Fires when the radio button selection changes |
 
+Like a native radio, `change` fires only on the radio that becomes selected, not on the one that
+is deselected. Setting `checked` from code fires no event.
+
+## Form behaviour
+
+Radio buttons behave like native `<input type="radio">` in both React and Elements:
+
+- `required` on one radio makes the whole group (same `name` and form) required. The requirement is met as soon as any radio in the group is selected
+- Form reset restores the default selection (`defaultChecked`)
+- Inside `<fieldset disabled>` the radios are disabled and left out of the submitted form data
+- Always give radios in a group the same `name`. A radio without `name` becomes its own group
+
 ## Accessibility
 
 - Group radio buttons with `fieldset` and `legend` (via Input Wrapper)

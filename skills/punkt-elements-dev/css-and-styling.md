@@ -115,7 +115,7 @@ render() {
   return html`
     <pkt-input-wrapper
       ${forwardSlots(this, ['helptext'])}
-      ?disabled=${this.disabled}
+      ?disabled=${this.isDisabled}
       ?hasError=${this.hasError}
       label=${ifDefined(this.label)}
       errorMessage=${ifDefined(this.errorMessage)}
@@ -162,9 +162,13 @@ aria-describedby=${ifDefined(
 never reaches the control.
 
 The wrapper only emits `aria-describedby` itself on the `hasFieldset` branch, where it describes
-the group with the helptext (prop or slot). In the non-fieldset branch it emits nothing, so the
-component alone is responsible for describing its control — forgetting it fails silently, since
-the helptext still renders and looks right.
+the group with the helptext (prop or slot) and, when `hasError` and `errorMessage` are set, the
+error message (`{forId}-error`). In the non-fieldset branch it emits nothing, so the component
+alone is responsible for describing its control — forgetting it fails silently, since the helptext
+still renders and looks right.
+
+With `hasFieldset` and `useWrapper={false}`, the wrapper renders a visually hidden `<legend>`, not
+a `<label>`: a label cannot name a fieldset.
 
 Composite controls need this on every focusable part, and the id still comes from `forId`:
 `pkt-timepicker` passes `forId={id}-hours` and puts the same `aria-describedby` on both

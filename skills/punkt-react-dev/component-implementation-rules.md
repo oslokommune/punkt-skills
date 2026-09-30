@@ -82,8 +82,12 @@ const describedBy = describedByIds({
 ```
 
 `PktInputWrapper` emits `aria-describedby` itself only when `hasFieldset` is set, where it
-describes the group. Otherwise the component alone is responsible for its control, and forgetting
-it fails silently — the helptext still renders and looks correct.
+describes the group with the helptext and, when `hasError` and `errorMessage` are set, the error
+message (`{forId}-error`). Otherwise the component alone is responsible for its control, and
+forgetting it fails silently — the helptext still renders and looks correct.
+
+With `hasFieldset` and `useWrapper={false}`, the wrapper renders a visually hidden `<legend>`, not
+a `<label>`: a label cannot name a fieldset.
 
 Composite controls need it on every focusable part: `PktTimepicker` puts the same value on both
 spinbuttons, and `PktCombobox` puts it on the `role="combobox"` element in both the select-only

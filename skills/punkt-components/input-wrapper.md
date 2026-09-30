@@ -69,6 +69,8 @@ Slotted helptext can be added or removed after the first render; the wrapper and
 - The label is automatically connected to the form element via `forId`
 - Help text and error messages are connected via `aria-describedby` (handled automatically)
 - Use `hasFieldset` when wrapping groups of checkboxes or radio buttons — renders a `fieldset` with `legend` for proper screen reader grouping
+- With `hasFieldset`, the fieldset is described by the help text and, when `hasError` is set, by the error message
+- With `hasFieldset` and `useWrapper={false}`, the legend is visually hidden but still names the group
 - Input Wrapper itself takes `counter` and `hasFieldset` as plain booleans. The **components** that
   use it (Text Input, Combobox, Datepicker …) treat them as tri-state: unset means "derive a
   sensible default", explicit `false` always turns it off

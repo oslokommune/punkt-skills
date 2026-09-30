@@ -185,19 +185,32 @@ protected valueChanged(value: string | string[] | null, _old: string | string[] 
 
 #### `valueChecked(value)` — Checkbox/radio handler
 
-For checkable inputs only. Updates checked state and form value:
+For checkable inputs only, called on user interaction. Updates checked state and form value:
 
-1. Coordinates radio groups (unchecks other radios with same name)
-2. Updates `checked` property and `ariaChecked`
-3. Sets form value (`value` string when checked, `null` when unchecked)
-4. Manages `CustomStates` (`--checked`)
-5. Dispatches change events
+1. Coordinates radio groups (unchecks other radios with same name and form owner)
+2. Updates `checked`, then calls `syncCheckedState()`: `ariaChecked`, form value (`value` string when checked, `'on'` without a value, `null` when unchecked), `CustomStates` (`--checked`) and the inner `<input>`
+3. Revalidates (the whole name group for radios)
+4. Dispatches change events
+
+It does **not** call `reportValidity()`: like native inputs, validity updates on change and is reported on submit.
 
 ```typescript
 protected valueChecked(value: string | boolean | null): void
 ```
 
 **Do not use `valueChanged` or `onChange` for checkboxes and radios** — use `valueChecked` instead.
+
+Setting `checked`, `value`, `required` or `name` from code is picked up in `updated()`, which runs `syncCheckedState()` and revalidates **without dispatching events** — the same as setting `checked` on a native input.
+
+#### Native parity for checkable inputs
+
+Checkbox and radio follow plain HTML. Keep it that way; `src/base-elements/checkable-native-parity.test.ts` and `packages/e2e/tests/native-parity.spec.ts` (which compares against plain HTML on the same page) guard it.
+
+- `required` on a checkbox: `valueMissing` while unchecked
+- `required` on a radio makes the whole name group (same `name` and form owner) required; the requirement is met when any radio in the group is checked, and every radio in the group reports the same validity
+- `change` fires only on the radio that becomes checked, never on the one that is unchecked
+- Form reset restores the default checked state (`defaultChecked`, or `checked` in the markup) and fires no events
+- A radio without `name` gets `name = id`, i.e. its own group. This fallback is deliberate: without a name there is no way to know what belongs together
 
 #### `setFormValue(value)` — Updates the form value
 
@@ -218,7 +231,7 @@ protected setFormValue(value: string | string[]): void {
 #### `manageValidity(input)` — Validation
 
 Validates the input and sets the `ElementInternals` validity state. Checks, in order:
-1. `required` + empty value → `valueMissing`
+1. `required` + empty value → `valueMissing` (checkbox: unchecked; radio: no radio in the name group checked)
 2. `typeMismatch` / `badInput` → `typeMismatch`
 3. `patternMismatch` → `patternMismatch`
 4. `tooShort` / `minlength` → `tooShort`
@@ -255,9 +268,15 @@ Dispatch corresponding native events. Call these from event handlers in the rend
 Called automatically by the browser when the parent `<form>` is reset. Resets:
 - `touched` state
 - Options (clears `selected`)
-- Checkbox/radio (unchecks)
+- Checkbox/radio (back to the default checked state, no events)
 - Value (reverts to `defaultValue`)
 - Validity
+
+#### `formDisabledCallback()` and `isDisabled`
+
+The browser calls `formDisabledCallback(disabled)` when the element is disabled by an ancestor `<fieldset disabled>` (or its own `disabled` attribute). The base class stores it, and `isDisabled` combines it with the `disabled` property.
+
+**Render and guard interaction from `this.isDisabled`, never `this.disabled`.** Native inner inputs are disabled by the fieldset anyway, but Punkt's own state is not: wrapper and label classes, tile classes, and non-native controls like the select-only combobox (a `div` with `tabindex`) would otherwise stay active inside a disabled fieldset. Never assign to `disabled` from the callback: it is reflected, and the host's own `disabled` attribute would keep it disabled when the fieldset is enabled again.
 
 #### `firstUpdated()`
 
@@ -297,7 +316,7 @@ export class PktTextinput extends PktInputElement<Props> {
     return html`
       <pkt-input-wrapper
         ${forwardSlots(this, ['helptext'])}
-        ?disabled=${this.disabled}
+        ?disabled=${this.isDisabled}
         ?hasError=${this.hasError}
         ?required=${this.required}
         label=${ifDefined(this.label)}
@@ -312,7 +331,7 @@ export class PktTextinput extends PktInputElement<Props> {
           id=${this.id + '-input'}
           name=${this.name || this.id}
           value=${this.value}
-          ?disabled=${this.disabled}
+          ?disabled=${this.isDisabled}
           ?readonly=${this.readonly}
           ?required=${this.required}
           placeholder=${ifDefined(this.placeholder)}
@@ -345,6 +364,7 @@ Key patterns:
 - **`e.stopImmediatePropagation()`** — prevents duplicate events bubbling from both native input and custom element
 - **`pkt-input-wrapper`** — wraps the input with label, helptext, error display
 - **`forwardSlots(this, ['helptext'])`** — hands slotted helptext to the wrapper without a holder element (see [Light DOM & Slots](light-dom-and-slots.md))
+- **`this.isDisabled`** — follows both the `disabled` property and a disabled ancestor `<fieldset>`
 - **`forId`** — associates wrapper label with the input's ID
 
 ### Event handling in input renders

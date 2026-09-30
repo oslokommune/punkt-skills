@@ -93,6 +93,17 @@ Dark mode: Yes
 | ------------- | ---------------- | ------------------------------------- |
 | `onChange`    | `change`         | Fires when the checkbox value changes |
 
+Setting `checked` from code fires no event, like a native checkbox.
+
+## Form behaviour
+
+Checkbox and Switch behave like native `<input type="checkbox">` in both React and Elements:
+
+- `required` means this checkbox must be checked; it is invalid while unchecked
+- Form reset restores the default state (`defaultChecked`, or `checked` in the markup)
+- Inside `<fieldset disabled>` the checkbox is disabled and left out of the submitted form data
+- An unchecked checkbox submits nothing
+
 ## Accessibility
 
 - Every checkbox must have a label — visible or hidden with `pkt-sr-only` class
