@@ -27,8 +27,10 @@ Set the size by passing the CSS class via `className` (React) or `class` (Elemen
 | Prop (React) | Attribute (Elements) | Type                                                               | Default                                             | Description                   |
 | ------------ | -------------------- | ------------------------------------------------------------------ | --------------------------------------------------- | ----------------------------- |
 | `name`       | `name`               | string (icon name)                                                 | —                                                   | Name of the icon to display   |
-| `path`       | `path`               | string                                                             | `"https://punkt-cdn.oslo.kommune.no/latest/icons/"` | Override the icon source path |
+| `path`       | `path`               | string                                                             | `"https://punkt-cdn.oslo.kommune.no/latest/icons/"` | Override the icon source path. Can also be set globally with `window.pktIconPath` |
 | `className`  | `class`              | `"pkt-icon--small"` \| `"pkt-icon--medium"` \| `"pkt-icon--large"` | —                                                   | CSS class for sizing the icon |
+| `ariaHidden` | `aria-hidden`        | boolean                                                            | —                                                   | Hides the icon from screen readers. When unset, the icon is hidden unless `ariaLabel` is set |
+| `ariaLabel`  | `aria-label`         | string                                                             | —                                                   | Accessible name. When set, the icon is exposed to screen readers with this text |
 
 ## Examples
 
