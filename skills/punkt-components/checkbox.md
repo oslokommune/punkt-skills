@@ -4,10 +4,10 @@ Checkbox lets the user select one or more options from a group of choices. You c
 
 ## Availability
 
-| Package        | Available | Tag / Import                                                                                     |
-| -------------- | --------- | ------------------------------------------------------------------------------------------------ |
-| React          | Yes       | `<PktCheckbox>` — `import { PktCheckbox } from '@oslokommune/punkt-react'`                       |
-| Elements       | Yes       | `<pkt-checkbox>` — `import '@oslokommune/punkt-elements/dist/pkt-checkbox.js'`                   |
+| Package        | Available | Tag / Import                                                                                 |
+| -------------- | --------- | -------------------------------------------------------------------------------------------- |
+| React          | Yes       | `<PktCheckbox>` — `import { PktCheckbox } from '@oslokommune/punkt-react'`                   |
+| Elements       | Yes       | `<pkt-checkbox>` — `import '@oslokommune/punkt-elements/dist/pkt-checkbox.js'`               |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-checkbox.js" type="module">` |
 
 Dark mode: Yes
@@ -64,28 +64,29 @@ Dark mode: Yes
 
 ## Props / Attributes
 
-| Prop (React)     | Attribute (Elements) | Type                  | Default        | Description                                                   |
-| ---------------- | -------------------- | --------------------- | -------------- | ------------------------------------------------------------- |
-| `label`          | `label`              | string                | —              | Text label for the checkbox                                   |
-| `checkHelptext`  | `checkHelptext`      | string                | —              | Help text for the checkbox                                    |
-| `name`           | `name`               | string                | **(required)** | Form field name                                               |
-| `form`           | `form`               | string                | —              | `id` of the `<form>` the field belongs to, when it sits outside it |
-| `value`          | `value`              | string                | —              | Value submitted with the form                                 |
-| `id`             | `id`                 | string                | **(required)** | Unique identifier                                             |
-| `defaultChecked` | `defaultChecked`     | boolean               | `false`        | Initially checked (uncontrolled)                              |
-| `checked`        | `checked`            | boolean               | `false`        | Controlled checked state                                      |
-| `indeterminate`  | `indeterminate`      | boolean               | `false`        | Indeterminate state for "select all" patterns                 |
-| `hasTile`        | `hasTile`            | boolean               | `false`        | Wrap checkbox in a tile (bordered box)                        |
-| `disabled`       | `disabled`           | boolean               | `false`        | Disables the checkbox                                         |
-| `hasError`       | `hasError`           | boolean               | `false`        | Shows error state                                             |
-| `isSwitch`       | `isSwitch`           | boolean               | `false`        | Renders as a switch toggle (see Switch component)             |
-| `labelPosition`  | `labelPosition`      | `"right"` \| `"left"` | `"right"`      | Position of the label relative to the checkbox                |
-| `hideLabel`      | `hideLabel`          | boolean               | `false`        | Visually hides the label (still accessible to screen readers) |
-| `requiredTag`    | `requiredTag`        | boolean               | `false`        | Show "Required" tag next to label                             |
-| `requiredText`   | `requiredText`       | string                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                      |
-| `optionalTag`    | `optionalTag`        | boolean               | `false`        | Show "Optional" tag next to label                             |
-| `optionalText`   | `optionalText`       | string                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                      |
-| `tagText`        | `tagText`            | string                | —              | Custom tag text next to label                                 |
+| Prop (React)     | Attribute (Elements) | Type                                  | Default        | Description                                                                                                      |
+| ---------------- | -------------------- | ------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `label`          | `label`              | string                                | —              | Text label for the checkbox                                                                                      |
+| `checkHelptext`  | `checkHelptext`      | string                                | —              | Help text for the checkbox                                                                                       |
+| `name`           | `name`               | string                                | **(required)** | Form field name                                                                                                  |
+| `form`           | `form`               | string                                | —              | `id` of the `<form>` the field belongs to, when it sits outside it                                               |
+| `value`          | `value`              | string                                | —              | Value submitted with the form                                                                                    |
+| `id`             | `id`                 | string                                | **(required)** | Unique identifier                                                                                                |
+| `defaultChecked` | `defaultChecked`     | boolean                               | `false`        | Initially checked (uncontrolled)                                                                                 |
+| `checked`        | `checked`            | boolean                               | `false`        | Controlled checked state                                                                                         |
+| `indeterminate`  | `indeterminate`      | boolean                               | `false`        | Indeterminate state for "select all" patterns                                                                    |
+| `hasTile`        | `hasTile`            | boolean                               | `false`        | Wrap checkbox in a tile (bordered box)                                                                           |
+| `inputSize`      | `input-size`         | `"small"` \| `"medium"` \| `"xsmall"` | —              | Size of label, help text and tile. Unset inherits the size of the surrounding Input Wrapper (medium outside one) |
+| `disabled`       | `disabled`           | boolean                               | `false`        | Disables the checkbox                                                                                            |
+| `hasError`       | `hasError`           | boolean                               | `false`        | Shows error state                                                                                                |
+| `isSwitch`       | `isSwitch`           | boolean                               | `false`        | Renders as a switch toggle (see Switch component)                                                                |
+| `labelPosition`  | `labelPosition`      | `"right"` \| `"left"`                 | `"right"`      | Position of the label relative to the checkbox                                                                   |
+| `hideLabel`      | `hideLabel`          | boolean                               | `false`        | Visually hides the label (still accessible to screen readers)                                                    |
+| `requiredTag`    | `requiredTag`        | boolean                               | `false`        | Show "Required" tag next to label                                                                                |
+| `requiredText`   | `requiredText`       | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                            |
+| `optionalTag`    | `optionalTag`        | boolean                               | `false`        | Show "Optional" tag next to label                                                                                |
+| `optionalText`   | `optionalText`       | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                            |
+| `tagText`        | `tagText`            | string                                | —              | Custom tag text next to label                                                                                    |
 
 ## Events
 

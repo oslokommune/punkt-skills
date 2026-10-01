@@ -4,10 +4,10 @@ Radio Button lets the user select exactly one option from a group of mutually ex
 
 ## Availability
 
-| Package        | Available | Tag / Import                                                                                        |
-| -------------- | --------- | --------------------------------------------------------------------------------------------------- |
-| React          | Yes       | `<PktRadioButton>` — `import { PktRadioButton } from '@oslokommune/punkt-react'`                    |
-| Elements       | Yes       | `<pkt-radiobutton>` — `import '@oslokommune/punkt-elements/dist/pkt-radiobutton.js'`                |
+| Package        | Available | Tag / Import                                                                                    |
+| -------------- | --------- | ----------------------------------------------------------------------------------------------- |
+| React          | Yes       | `<PktRadioButton>` — `import { PktRadioButton } from '@oslokommune/punkt-react'`                |
+| Elements       | Yes       | `<pkt-radiobutton>` — `import '@oslokommune/punkt-elements/dist/pkt-radiobutton.js'`            |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-radiobutton.js" type="module">` |
 
 Dark mode: Yes
@@ -40,24 +40,25 @@ Dark mode: Yes
 
 ## Props / Attributes
 
-| Prop (React)     | Attribute (Elements) | Type    | Default        | Description                                       |
-| ---------------- | -------------------- | ------- | -------------- | ------------------------------------------------- |
-| `id`             | `id`                 | string  | **(required)** | Unique identifier                                 |
-| `name`           | `name`               | string  | **(required)** | Group name (shared by all radio buttons in group) |
-| `form`           | `form`               | string  | —              | `id` of the `<form>` the field belongs to, when it sits outside it |
-| `label`          | `label`              | string  | **(required)** | Label text                                        |
-| `value`          | `value`              | string  | —              | Value submitted with the form                     |
-| `checked`        | `checked`            | boolean | `false`        | Controlled checked state                          |
-| `defaultChecked` | `defaultChecked`     | boolean | `false`        | Initially checked (uncontrolled)                  |
-| `hasTile`        | `hasTile`            | boolean | `false`        | Wrap in a tile (bordered box)                     |
-| `disabled`       | `disabled`           | boolean | `false`        | Disables the radio button                         |
-| `checkHelptext`  | `checkHelptext`      | string  | —              | Help text shown below the radio button            |
-| `hasError`       | `hasError`           | boolean | `false`        | Shows error state                                 |
-| `requiredTag`    | `requiredTag`        | boolean | `false`        | Show "Required" tag next to label                 |
-| `requiredText`   | `requiredText`       | string  | —              | Deprecated — use `strings`. See [Strings](strings.md)                          |
-| `optionalTag`    | `optionalTag`        | boolean | —              | Show "Optional" tag next to label                 |
-| `optionalText`   | `optionalText`       | string  | —              | Deprecated — use `strings`. See [Strings](strings.md)                          |
-| `tagText`        | `tagText`            | string  | —              | Custom tag text next to label                     |
+| Prop (React)     | Attribute (Elements) | Type                                  | Default        | Description                                                                                                      |
+| ---------------- | -------------------- | ------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `id`             | `id`                 | string                                | **(required)** | Unique identifier                                                                                                |
+| `name`           | `name`               | string                                | **(required)** | Group name (shared by all radio buttons in group)                                                                |
+| `form`           | `form`               | string                                | —              | `id` of the `<form>` the field belongs to, when it sits outside it                                               |
+| `label`          | `label`              | string                                | **(required)** | Label text                                                                                                       |
+| `value`          | `value`              | string                                | —              | Value submitted with the form                                                                                    |
+| `checked`        | `checked`            | boolean                               | `false`        | Controlled checked state                                                                                         |
+| `defaultChecked` | `defaultChecked`     | boolean                               | `false`        | Initially checked (uncontrolled)                                                                                 |
+| `hasTile`        | `hasTile`            | boolean                               | `false`        | Wrap in a tile (bordered box)                                                                                    |
+| `inputSize`      | `input-size`         | `"small"` \| `"medium"` \| `"xsmall"` | —              | Size of label, help text and tile. Unset inherits the size of the surrounding Input Wrapper (medium outside one) |
+| `disabled`       | `disabled`           | boolean                               | `false`        | Disables the radio button                                                                                        |
+| `checkHelptext`  | `checkHelptext`      | string                                | —              | Help text shown below the radio button                                                                           |
+| `hasError`       | `hasError`           | boolean                               | `false`        | Shows error state                                                                                                |
+| `requiredTag`    | `requiredTag`        | boolean                               | `false`        | Show "Required" tag next to label                                                                                |
+| `requiredText`   | `requiredText`       | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                            |
+| `optionalTag`    | `optionalTag`        | boolean                               | —              | Show "Optional" tag next to label                                                                                |
+| `optionalText`   | `optionalText`       | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                            |
+| `tagText`        | `tagText`            | string                                | —              | Custom tag text next to label                                                                                    |
 
 ## Events
 

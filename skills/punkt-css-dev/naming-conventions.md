@@ -75,6 +75,13 @@ In Elements the component class goes on the **host**, set with `classList.add()`
 in React it goes on an outer `div`. `pkt-input-wrapper` is itself the `.pkt-inputwrapper` box —
 it renders no wrapper div of its own.
 
+With `hasFieldset` or `layout="horizontal"` the wrapped content sits in one more box,
+`.pkt-inputwrapper__options` (`--horizontal` for a wrapping row). It owns the gap between the
+options, `--pkt-inputwrapper-options-gap` (16/12/8px, set on `.pkt-inputwrapper--{size}` so the
+nearest wrapper wins), while `.pkt-inputwrapper__fieldset` keeps its 8px between legend,
+helptext and options. It has `align-self: stretch`, so `fullwidth` fields inside a fieldset
+still get the full width. Without a fieldset and horizontal layout the markup is unchanged.
+
 Width belongs on the outer component box, never on `.pkt-inputwrapper`: the outer box is the
 flex/grid item, and a percentage width further in contributes nothing to shrink-to-fit sizing, so
 the field collapses to its intrinsic width. Key such rules on the component class
