@@ -10,7 +10,7 @@ Combobox (multiselect) combines a text field with a dropdown list. It lets the u
 | Elements       | Yes       | `<pkt-combobox>` — `import '@oslokommune/punkt-elements/dist/pkt-combobox.js'`                   |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-combobox.js" type="module">` |
 
-Dark mode: No
+Dark mode: Yes
 
 ## Variants
 
@@ -55,24 +55,24 @@ When using multi select, selected values appear as tags. Tags can be placed insi
 | `tagPlacement`           | `tag-placement`            | `"inside"` \| `"outside"`                    | —           | Where selected tags appear in multi select           |
 | `maxlength`              | `maxlength`                | number                                       | —           | Max number of selections in multi select             |
 | `typeahead`              | `typeahead`                | boolean                                      | `false`     | Auto-complete from the options list                  |
-| `includeSearch`          | `include-search`           | boolean                                      | —           | Include a search field inside the dropdown           |
-| `searchPlaceholder`      | `search-placeholder`       | string                                       | —           | Placeholder text for the search field in dropdown    |
-| `allowUserInput`         | `allow-user-input`         | boolean                                      | —           | Allow the user to add custom values                  |
+| `includeSearch`          | `include-search`           | boolean                                      | `false`     | Include a search field inside the dropdown           |
+| `searchPlaceholder`      | `search-placeholder`       | string                                       | `"Søk…"`    | Placeholder text for the search field in dropdown    |
+| `allowUserInput`         | `allow-user-input`         | boolean                                      | `false`     | Allow the user to add custom values                  |
 | `displayValueAs`         | `display-value-as`         | `"label"` \| `"value"` \| `"prefixAndValue"` | `"label"`   | How the selected value is displayed                  |
-| `value`                  | `value`                    | string                                       | —           | Selected value (string for single, array for multi)  |
+| `value`                  | `value`                    | `string` \| `string[]`                       | —           | Selected value (string for single, array for multi)  |
 | `helptext`               | `helptext`                 | string                                       | —           | Help text below the label                            |
 | `helptextDropdown`       | `helptextdropdown`         | string                                       | —           | Expandable help text content                         |
-| `helptextDropdownButton` | `helptextdropdownbutton`   | string                                       | `"Les mer"` | Button text for expandable help                      |
-| `disabled`               | `disabled`                 | boolean                                      | —           | Disables the field                                   |
-| `hasError`               | `haserror`                 | boolean                                      | —           | Shows error state                                    |
+| `helptextDropdownButton` | `helptextdropdownbutton`   | string                                       | `forms.readMore` | Deprecated — use `strings`. See [Strings](strings.md) |
+| `disabled`               | `disabled`                 | boolean                                      | `false`     | Disables the field                                   |
+| `hasError`               | `haserror`                 | boolean                                      | `false`     | Shows error state                                    |
 | `errorMessage`           | `errormessage`             | string                                       | —           | Error message shown below the field                  |
-| `required`               | `required`                 | boolean                                      | —           | Field is required                                    |
-| `requiredTag`            | `requiredtag`              | boolean                                      | —           | Show "Required" tag next to label                    |
+| `required`               | `required`                 | boolean                                      | `false`     | Field is required                                    |
+| `requiredTag`            | `requiredtag`              | boolean                                      | `false`     | Show "Required" tag next to label                    |
 | `requiredText`           | `requiredtext`             | string                                       | —           | Deprecated — use `strings`. See [Strings](strings.md)                             |
-| `optionalTag`            | `optionaltag`              | boolean                                      | —           | Show "Optional" tag next to label                    |
+| `optionalTag`            | `optionaltag`              | boolean                                      | `false`     | Show "Optional" tag next to label                    |
 | `optionalText`           | `optionaltext`             | string                                       | —           | Deprecated — use `strings`. See [Strings](strings.md)                             |
 | `tagText`                | `tagtext`                  | string                                       | —           | Custom tag text next to label                        |
-| `fullwidth`              | `fullwidth`                | boolean                                      | —           | Field takes full width                               |
+| `fullwidth`              | `fullwidth`                | boolean                                      | `false`     | Field takes full width                               |
 | `inputSize`              | `input-size`               | `"xsmall"` \| `"small"` \| `"medium"`        | `"medium"`  | Field height                                         |
 | `defaultOptions`         | `default-options`          | `Array<OptionObject>`                        | `[]`        | Initial options list (not modified by the component) |
 | `options`                | `options`                  | `Array<OptionObject>`                        | `[]`        | Current options list                                 |
