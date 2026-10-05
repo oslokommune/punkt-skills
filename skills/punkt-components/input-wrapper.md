@@ -42,7 +42,7 @@ Dark mode: No
 | `tagText`                | `tagText`                | string                                | —                | Custom tag text next to label                                                                                                    |
 | `hasError`               | `hasError`               | boolean                               | `false`          | Shows error state                                                                                                                |
 | `errorMessage`           | `errorMessage`           | string                                | —                | Error message shown below the field                                                                                              |
-| `disabled`               | `disabled`               | boolean                               | `false`          | Disables the wrapper (visual state)                                                                                              |
+| `disabled`               | `disabled`               | boolean                               | `false`          | Disabled state. With `hasFieldset` the fieldset gets `disabled`, which disables every field in it, like `<fieldset disabled>`    |
 | `inline`                 | `inline`                 | boolean                               | `false`          | Display inline with page content                                                                                                 |
 | `hasFieldset`            | `hasFieldset`            | boolean                               | `false`          | Render as a `fieldset` with `legend` instead of `div`/`label`                                                                    |
 | `layout`                 | `layout`                 | `"vertical"` \| `"horizontal"`        | `"vertical"`     | Direction of the options in a group. `horizontal` wraps them in a row. The gap between options follows `size`: 16, 12 or 8px     |
@@ -70,7 +70,7 @@ Slotted helptext can be added or removed after the first render; the wrapper and
 
 - The label is automatically connected to the form element via `forId`
 - Help text and error messages are connected via `aria-describedby` (handled automatically)
-- Use `hasFieldset` when wrapping groups of checkboxes or radio buttons — renders a `fieldset` with `legend` for proper screen reader grouping
+- For groups of checkboxes or radio buttons, prefer [Checkbox Group](checkbox-group.md) and [Radio Group](radio-group.md), which render this wrapper with a fieldset. The groups can also hold other fields, such as a text field for an "Other" option. Use `hasFieldset` directly when you need a fieldset without a group component. It renders a `fieldset` with `legend` for proper screen reader grouping
 - For short options side by side, use `layout="horizontal"` instead of your own flex container. Tiles keep their fixed width and wrap to a new line
 - With `hasFieldset`, the fieldset is described by the help text and, when `hasError` is set, by the error message
 - With `hasFieldset` and `useWrapper={false}`, the legend is visually hidden but still names the group

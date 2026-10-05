@@ -131,9 +131,18 @@ const helptextElement = () => {
 }
 ```
 
+```typescript
+// In the radio and checkbox groups: null forwards the default slot, so the options land in the
+// wrapper's options container without passing through an element of the group
+render() {
+  return html`<pkt-input-wrapper ${forwardSlots(this, [null, 'helptext'])} ...></pkt-input-wrapper>`
+}
+```
+
 Rules:
 
 - The child renders the forwarded nodes with its own `slotContent()`. The parent must not render the same slot with `slotContent()` as well.
+- `null` in the array form forwards the default slot. Prefer it over rendering `${slotContent(this)}` inside the child's tag, which nests one Lit part inside another component's slotting.
 - Forwarding chains: textinput → input-wrapper → pkt-helptext works, and changes propagate through every level.
 - Rendering the child conditionally is safe. The forwarded content is handed over again when the child is rendered anew, and the parent keeps observing its own children while any child subscribes.
 - A component that describes its control with the helptext must include slotted helptext: `hasHelptext: !!this.helptext || this.hasSlotContent('helptext')`.

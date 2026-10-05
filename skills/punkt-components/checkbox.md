@@ -68,7 +68,7 @@ Dark mode: Yes
 | ---------------- | -------------------- | ------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `label`          | `label`              | string                                | —              | Text label for the checkbox                                                                                      |
 | `checkHelptext`  | `checkHelptext`      | string                                | —              | Help text for the checkbox                                                                                       |
-| `name`           | `name`               | string                                | **(required)** | Form field name                                                                                                  |
+| `name`           | `name`               | string                                | —              | Form field name. Inherited from Checkbox Group when unset                                                        |
 | `form`           | `form`               | string                                | —              | `id` of the `<form>` the field belongs to, when it sits outside it                                               |
 | `value`          | `value`              | string                                | —              | Value submitted with the form                                                                                    |
 | `id`             | `id`                 | string                                | **(required)** | Unique identifier                                                                                                |
@@ -76,7 +76,7 @@ Dark mode: Yes
 | `checked`        | `checked`            | boolean                               | `false`        | Controlled checked state                                                                                         |
 | `indeterminate`  | `indeterminate`      | boolean                               | `false`        | Indeterminate state for "select all" patterns                                                                    |
 | `hasTile`        | `hasTile`            | boolean                               | `false`        | Wrap checkbox in a tile (bordered box)                                                                           |
-| `inputSize`      | `input-size`         | `"small"` \| `"medium"` \| `"xsmall"` | —              | Size of label, help text and tile. Unset inherits the size of the surrounding Input Wrapper (medium outside one) |
+| `inputSize`      | `input-size`         | `"small"` \| `"medium"` \| `"xsmall"` | —              | Size of label, help text and tile. Unset inherits the size of the surrounding group or Input Wrapper (medium outside one) |
 | `disabled`       | `disabled`           | boolean                               | `false`        | Disables the checkbox                                                                                            |
 | `hasError`       | `hasError`           | boolean                               | `false`        | Shows error state                                                                                                |
 | `isSwitch`       | `isSwitch`           | boolean                               | `false`        | Renders as a switch toggle (see Switch component)                                                                |
@@ -112,7 +112,7 @@ Checkbox and Switch behave like native `<input type="checkbox">` in both React a
 - The label and the full control column are clickable, including the strip above and below the control when the label is taller. A tile is clickable edge to edge
 - Avoid pre-selected defaults — they can be misleading
 - Avoid disabled checkboxes — prefer showing an error message or help text explaining why. If you must disable, make it clear why and what must change to enable it
-- Use `fieldset` and `legend` (via Input Wrapper) when grouping checkboxes
+- Use `fieldset` and `legend` when grouping checkboxes, via [Checkbox Group](checkbox-group.md) or Input Wrapper with `hasFieldset`
 - Keyboard: navigate with Tab, toggle with Space
 - The indeterminate state is for "select all" patterns where some but not all children are selected
 

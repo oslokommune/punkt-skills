@@ -26,7 +26,7 @@ Switch is not a separate component — it is the Checkbox component with `isSwit
 **Avoid switch when:**
 
 - The user needs to confirm their choice before it takes effect — use Checkbox instead
-- There are multiple related options — use Checkbox group instead
+- There are multiple related options — use [Checkbox Group](checkbox-group.md) instead. Switches can also be part of a Checkbox Group
 - The choice is between two distinct options (not on/off) — use Radio Button instead
 
 ## Key props

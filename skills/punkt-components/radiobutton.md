@@ -1,6 +1,6 @@
 # Radio Button
 
-Radio Button lets the user select exactly one option from a group of mutually exclusive choices. All radio buttons in a group share the same `name`.
+Radio Button lets the user select exactly one option from a group of mutually exclusive choices. All radio buttons in a group share the same `name`. Group them with [Radio Group](radio-group.md), which gives them the fieldset, a shared name and a group value.
 
 ## Availability
 
@@ -36,21 +36,21 @@ Dark mode: Yes
 
 - Each radio button must have a clear, concrete label
 - Place radio buttons vertically for better readability
-- Use `fieldset` and `legend` (via Input Wrapper) to group radio buttons
+- Group radio buttons with [Radio Group](radio-group.md), or with Input Wrapper and `hasFieldset`
 
 ## Props / Attributes
 
 | Prop (React)     | Attribute (Elements) | Type                                  | Default        | Description                                                                                                      |
 | ---------------- | -------------------- | ------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `id`             | `id`                 | string                                | **(required)** | Unique identifier                                                                                                |
-| `name`           | `name`               | string                                | **(required)** | Group name (shared by all radio buttons in group)                                                                |
+| `name`           | `name`               | string                                | —              | Group name (shared by all radio buttons in group). Inherited from Radio Group when unset                         |
 | `form`           | `form`               | string                                | —              | `id` of the `<form>` the field belongs to, when it sits outside it                                               |
 | `label`          | `label`              | string                                | **(required)** | Label text                                                                                                       |
 | `value`          | `value`              | string                                | —              | Value submitted with the form                                                                                    |
 | `checked`        | `checked`            | boolean                               | `false`        | Controlled checked state                                                                                         |
 | `defaultChecked` | `defaultChecked`     | boolean                               | `false`        | Initially checked (uncontrolled)                                                                                 |
 | `hasTile`        | `hasTile`            | boolean                               | `false`        | Wrap in a tile (bordered box)                                                                                    |
-| `inputSize`      | `input-size`         | `"small"` \| `"medium"` \| `"xsmall"` | —              | Size of label, help text and tile. Unset inherits the size of the surrounding Input Wrapper (medium outside one) |
+| `inputSize`      | `input-size`         | `"small"` \| `"medium"` \| `"xsmall"` | —              | Size of label, help text and tile. Unset inherits the size of the surrounding group or Input Wrapper (medium outside one) |
 | `disabled`       | `disabled`           | boolean                               | `false`        | Disables the radio button                                                                                        |
 | `checkHelptext`  | `checkHelptext`      | string                                | —              | Help text shown below the radio button                                                                           |
 | `hasError`       | `hasError`           | boolean                               | `false`        | Shows error state                                                                                                |
@@ -80,7 +80,7 @@ Radio buttons behave like native `<input type="radio">` in both React and Elemen
 
 ## Accessibility
 
-- Group radio buttons with `fieldset` and `legend` (via Input Wrapper)
+- Group radio buttons with `fieldset` and `legend`, via Radio Group or Input Wrapper with `hasFieldset`
 - Keyboard: navigate within a group with arrow keys, select with Space
 - Each radio button must have a visible and accessible label
 - `checkHelptext` is exposed as the accessible description (`aria-describedby`), so the accessible name is the label and its tags only
@@ -88,6 +88,8 @@ Radio buttons behave like native `<input type="radio">` in both React and Elemen
 - Avoid disabled radio buttons — prefer showing an error message explaining why. If you must disable, make it clear what must change to enable it
 
 ## Examples
+
+Prefer [Radio Group](radio-group.md) for groups. Input Wrapper with `hasFieldset` still works, as below.
 
 ### React
 

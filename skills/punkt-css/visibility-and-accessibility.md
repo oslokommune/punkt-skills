@@ -9,6 +9,8 @@
 | `.pkt-hide` | `display: none`  |
 | `.pkt-show` | `display: block` |
 
+The `hidden` attribute also works on Punkt custom elements. punkt-css sets `[hidden]:not([hidden='until-found']) { display: none !important }`, so it wins over the `display` rules on hosts such as `pkt-textinput`.
+
 ### Responsive visibility
 
 | Class                       | Effect                       |

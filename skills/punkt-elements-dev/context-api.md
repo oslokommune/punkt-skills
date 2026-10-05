@@ -102,6 +102,11 @@ Key patterns:
 - **Optional type** (`context?`) — the consumer might render before context is available
 - **Wait for `updateComplete`** before accessing context in `connectedCallback`
 
+## Other providers
+
+- `pkt-accordion` gives `skin` to its items (`accordion-context.ts`)
+- `pkt-radio-group` and `pkt-checkbox-group` give `name`, `hasTile`, `hasError` (and `required` for radio) to their options. The options consume it as `groupContext` and read it through `optionGroup` in `PktInputElement`. See [Form Integration](form-integration.md#option-groups-pkt-radio-group-pkt-checkbox-group)
+
 ## When to use context
 
 - **Parent-child coordination** — when children need to call methods on the parent

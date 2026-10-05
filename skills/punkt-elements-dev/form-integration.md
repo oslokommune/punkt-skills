@@ -211,6 +211,20 @@ Checkbox and radio follow plain HTML. Keep it that way; `src/base-elements/check
 - `change` fires only on the radio that becomes checked, never on the one that is unchecked
 - Form reset restores the default checked state (`defaultChecked`, or `checked` in the markup) and fires no events
 - A radio without `name` gets `name = id`, i.e. its own group. This fallback is deliberate: without a name there is no way to know what belongs together
+- The inner `<input type="radio">` has `form=""`, so it has no form owner and would share a native group with every inner radio of the same name on the page. Its name is therefore `internalName`: `{name}-internal` outside a form, `{name}-internal-{form key}` with a form owner (the form's `id`, or a generated key). Radios linked with the `form` attribute get the same key as the radios inside that form, so arrow keys and unchecking stay within the real group. `formAssociatedCallback()` re-renders when the form owner changes
+
+#### Option groups (`pkt-radio-group`, `pkt-checkbox-group`)
+
+The groups extend `PktOptionGroupElement` (`src/base-elements/option-group-element.ts`), not `PktInputElement`: they are not form-associated, and the options keep submitting their own values. The group renders `pkt-input-wrapper` with `hasFieldset`, forwards its default and `helptext` slots to it, and provides a context (`radio-group-context.ts`, `checkbox-group-context.ts`) that the options consume as `groupContext`.
+
+- **Name:** the base class reads `this.optionGroup?.name` in `willUpdate()`. An option whose `name` is empty or came from a fallback (`name = id`, or an earlier group name) takes the group's name. A `name` set by the user always wins
+- **Booleans:** `hasTile` and `hasError` from the group are OR-ed with the option's own value. Elements cannot tell "not set" from `false`, so the group can only turn them on
+- **Required:** a radio group passes `required` through the context, and `isRequired` includes it in the name-group check. A checkbox group never passes `required`; it calls `setGroupValidity(message)` on every option instead, which `manageValidity()` adds as `customError` (together with `valueMissing` when the option is required itself)
+- **Disabled:** the group passes `disabled` to the wrapper, which sets `disabled` on the fieldset. The options pick it up through `formDisabledCallback()`
+- **The group is the form field.** `value` is an accessor that reads the options' checked state, so it is always current. Setting it stores the value and checks the matching options without events; options added later get the stored value. `focus()` focuses the checked (or first) option's inner input
+- **Events:** the group listens in its constructor (before any consumer listener) for `change`, `input`, `value-change`, `focus` and `blur` from its options, stops them with `stopImmediatePropagation()` and fires its own with the group as target. `focus`/`blur` come from native `focusin`/`focusout` and only fire when focus enters or leaves the group. Listeners on an option itself still get the option's events
+- **Event order on the options:** `valueChecked()` dispatches `input`, `change` and `value-change` after the checked state is updated, like native inputs. The inner input's own `input` event is stopped
+- **Tests:** `src/tests/option-contexts.ts` runs the same option test alone and in a group. Use it for any behaviour the option must keep in both places
 
 #### `setFormValue(value)` — Updates the form value
 
@@ -221,12 +235,14 @@ protected setFormValue(value: string | string[]): void {
   if (Array.isArray(value)) {
     const form = new FormData()
     value.forEach((v) => form.append(this.name, v))
-    this.internals.setFormValue(form)
+    this.writeFormValue(form)
   } else {
-    this.internals.setFormValue(value)
+    this.writeFormValue(value)
   }
 }
 ```
+
+**Never call `this.internals.setFormValue()` directly**, in the base class or a subclass. Use `setFormValue()` (or `writeFormValue()` inside the base class). With `element-internals-polyfill` (jsdom, Safari before 16.4) the form value is a hidden `<input>` next to the host, and the polyfill removes it whenever the host is disconnected, including when the slot system moves the host into `.pkt-inputwrapper__options` or a group. `writeFormValue()` remembers the last value when the polyfill is active, and `connectedCallback()` writes it again in a microtask, after the polyfill has cleaned up. `src/base-elements/polyfill-form-value.test.ts` guards it.
 
 #### `manageValidity(input)` — Validation
 
