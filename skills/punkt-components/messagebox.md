@@ -55,7 +55,9 @@ Dark mode: No
 
 | Event (React) | Event (Elements) | Description                            |
 | ------------- | ---------------- | -------------------------------------- |
-| `onClose`     | `on-close`       | Fires when the close button is clicked |
+| `onClose`     | `close`          | Fires when the close button is clicked |
+
+`on-close` (Elements) is deprecated. It is the same event as `close`, kept for legacy Vue setups, and will be removed in a later major version. Use `close`.
 
 ## Slots
 
