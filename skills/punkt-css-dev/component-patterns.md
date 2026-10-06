@@ -152,6 +152,12 @@ The label's first line is centred on the control, whatever the size or control t
 
 Only the tile grows the label (`flex-grow: 1`, it has a fixed `22.5rem` (360px) width to fill). Non-tile checkboxes and radios deliberately have **no width rule** — no `min(31rem, 100%)` like the other form fields. Their box is whatever the context gives it, and consumers rely on that; forcing a width would stretch the hit area across the full row in block contexts and break anyone laying options out horizontally.
 
+## Button height
+
+Buttons grow with their content, so text that wraps stays inside the border. Each size sets `min-height` to the design height (36/42/48/64px), and `-padding()` in `_button.scss` derives `padding-block` as `(height − line-height) / 2 − border`. One line of text fills exactly the design height, and each extra line adds one line-height. `.pkt-btn` also sets `height: max-content`: with `height: auto`, flex and grid parents would stretch the button to its tallest sibling, which the old fixed height prevented.
+
+A component that gives a button its own `height` must also set `min-height: 0` (see the fileupload inline UI and the timepicker options), otherwise the size's `min-height` wins. To change the font size of the button text, use `get-text-style`, not `get-text`: a line-height larger than the size's own makes the button taller.
+
 ## Formatting
 
 Prettier config (`packages/css/.prettierrc`):
