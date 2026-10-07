@@ -56,7 +56,7 @@ Dark mode: Yes
 | `hasError`       | `hasError`           | boolean                               | `false`        | Shows error state                                                                                                |
 | `requiredTag`    | `requiredTag`        | boolean                               | `false`        | Show "Required" tag next to label                                                                                |
 | `requiredText`   | `requiredText`       | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                            |
-| `optionalTag`    | `optionalTag`        | boolean                               | —              | Show "Optional" tag next to label                                                                                |
+| `optionalTag`    | `optionalTag`        | boolean                               | `false`        | Show "Optional" tag next to label                                                                                |
 | `optionalText`   | `optionalText`       | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                            |
 | `tagText`        | `tagText`            | string                                | —              | Custom tag text next to label                                                                                    |
 
