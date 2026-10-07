@@ -21,18 +21,19 @@ A Lit `AsyncDirective` that provides declarative slot-like content distribution 
 2. `PktElementWithSlot.connectedCallback()` calls `SlotManager.collectNodes()` to capture children before Lit renders
 3. The component's template uses `${slotContent(this)}` to place default slot content
 4. Named slots use `${slotContent(this, 'slotName')}`
-5. A `MutationObserver` watches the host's subtree. New content counts when it is added as a direct child of the host; removal counts wherever the node sits (including after it has been distributed into the template)
-6. Every slot change calls `requestUpdate()` on the host, so anything computed from slot content in `render()` (like `hasSlotContent()`) stays reactive in both directions: none → some and some → none
-7. The directive uses a generation counter to avoid unnecessary DOM updates
+5. A `MutationObserver` watches the host's subtree for as long as the host is connected. New content counts when it is added as a direct child of the host, or when other code inserts it inside a part that holds the host's content (see _Framework anchors_). Removal counts wherever the node sits, including after it has been distributed into the template
+6. A reactive controller on the host separates Lit's own render from everybody else's changes: pending mutations are handled right before the host renders, and nodes Lit adds or removes while rendering are never taken for slot content changes
+7. Every slot change calls `requestUpdate()` on the host, so anything computed from slot content in `render()` (like `hasSlotContent()`) stays reactive in both directions: none → some and some → none
+8. The directive uses a generation counter to avoid unnecessary DOM updates
 
 ### Architecture
 
 - **`SlotManager`** — Per-host singleton (stored in a `WeakMap`). Collects and categorizes children by `slot` attribute, observes mutations, notifies registered directives, and notifies other managers that receive its slots via `forwardSlots()`.
-- **`SlotContentDirective`** — `AsyncDirective` that renders collected nodes at its position. Returns `noChange` when content hasn't changed.
+- **`SlotContentDirective`** — `AsyncDirective` that moves the collected nodes into its part itself and always returns `noChange`. It never hands Lit the node list: Lit would then clear everything between the part markers on each change, including nodes it did not put there (see _Framework anchors_ below).
 - **`ForwardSlotsDirective`** (`forwardSlots()`) — Element directive that hands a host's slot content to a child element's SlotManager without any intermediate element.
 - **`getSlotManager(host)`** — Returns or creates the SlotManager for a host element.
 
-**Known race:** the observer is started in a `setTimeout(0)` after the first render, because Lit's own light DOM render would otherwise be mistaken for user content. Content appended in the same tick as the first render is not picked up. Tests that add slot content dynamically must wait a macrotask first.
+Content added between `connectedCallback()` and the first render is picked up when the host renders, and content added right after the first render is picked up by the observer without waiting for a macrotask. Rendering the slot conditionally is safe, including a container that is only rendered while `hasSlotContent()` is true, and a `slotContent()` part without a wrapping element. A component may switch its root template (like `pkt-heading` changing level) without its new template being taken for slot content.
 
 ### Basic usage (single default slot)
 
@@ -162,6 +163,23 @@ Slot content wrapped in a container element (div/span) maintains Lit template bi
 ```
 
 Without a wrapper, Lit loses track of the template parts when nodes are moved, and subsequent re-renders may duplicate or fail to update content.
+
+### Framework anchors
+
+Vue renders the host's children and keeps **anchor nodes** next to them: a `<!--v-if-->` comment where a conditional element was, and empty text nodes around fragments. When Vue later hides, shows or replaces a distributed element, it works through that element's _current_ parent, so the change lands inside the part instead of among the host's children.
+
+The `SlotManager` that owns the content handles such changes (for forwarded slots, that is the host the content was given to, not the element rendering it):
+
+- **Content** (elements, non-empty text) inserted inside the part is registered as slot content where it is, with a placeholder at the matching position among the host's children. It is not moved, so focus and state survive.
+- **Anything else** (anchors) is moved to that position among the host's children, where Vue expects it. The anchor then survives the part being removed, for example when the container is only rendered while the slot has content.
+
+The position comes from the placeholders of the nearest distributed nodes, or of a node removed from the same place in the same batch. A node inserted into a part that holds none of the host's content, with nothing removed there, is left alone.
+
+The directive itself only ever inserts missing slot nodes before the part's end marker and leaves everything else in the part alone. Letting Lit commit the node list would clear the whole part on each change, including anchors, which made Vue crash with "Cannot read properties of null (reading 'insertBefore')" the next time the condition turned true.
+
+A wrapper element in the consumer's markup (`<div><span v-if="…">…</span></div>` as the slotted node) is no longer needed to avoid this, but it does no harm.
+
+Not handled: Vue reordering keyed `v-for` children that have been distributed. Vue inserts them relative to siblings that are no longer children of the host, which throws in the DOM before the `SlotManager` sees anything. Wrap such lists in one element.
 
 ## Automatic filtering
 
