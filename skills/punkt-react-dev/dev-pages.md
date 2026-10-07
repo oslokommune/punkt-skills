@@ -7,9 +7,10 @@ The React package includes a **Vite + React Router** dev app for manually testin
 ## Architecture
 
 - **Entry point:** `src/main.tsx` — creates a `BrowserRouter` with all component routes
-- **Layout wrapper:** `src/routes/root.tsx` — renders a dev header with navigation dropdown and an `<Outlet />` for child routes
+- **Layout wrapper:** `src/routes/root.tsx` — renders a dev header with navigation dropdown, and a `.dev-layout` grid with the `<Outlet />` and the table of contents
 - **Dev header:** `src/dev-components/DevHeader.tsx` — logo + select dropdown for navigating between components
-- **Styles:** `src/index.scss` — dev-specific layout styles (`.page-container`, `.page-main`, `.component`)
+- **Table of contents:** `src/dev-components/DevTableOfContents.tsx` — lists the page's first `<h1>` (as title), `<h2>` and `<h3>` (indented). Smooth-scrolls on click and highlights the section in view. Sticky on the right from `laptop-up`, a sticky menu bar (current section + dropdown) on smaller screens. Hidden when the page has fewer than two `<h2>`/`<h3>`
+- **Styles:** `src/index.scss` — dev-specific layout styles (`.page-container`, `.dev-layout`, `.dev-toc`, `.page-main`, `.component`)
 
 ## Route file convention
 
@@ -48,7 +49,8 @@ export default function Alert() {
 - **`component` sections** — wrap each demo variant in `<section className="component">` for consistent card styling
 - **Component specs** — import from `componentSpecs/{name}.json` to iterate over prop variants (skins, sizes, states)
 - **Interactive demos** — add event handlers, form submissions, state toggles to test behavior
-- **`hideHeader`** — for full-page layouts (e.g. header-full), add `hideHeader: true` to the route entry in `root.tsx`
+- **Headings** — every `<h1>`, `<h2>` and `<h3>` gets an `id` automatically (slug of the text, via `ensureHeadingIds` in `shared-utils/heading-ids`) and appears in the table of contents (only the first `<h1>`). Set an `id` yourself only if you need a stable anchor
+- **`hideHeader`** — for full-page layouts (e.g. header-full; also hides the table of contents), add `hideHeader: true` to the route entry in `root.tsx`
 
 ## Registering a new dev page
 

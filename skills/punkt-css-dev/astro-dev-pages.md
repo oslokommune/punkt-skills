@@ -74,7 +74,8 @@ The standard layout. Provides:
 - Dark mode toggle (checkbox that sets `data-mode="dark"` on `<body>`)
 - Component navigation dropdown (`<select>` listing all pages)
 - Inline SVG sprite with common icons
-- `<slot />` for page content
+- `<slot />` for page content, inside a `.dev-layout` grid
+- Table of contents (`.dev-toc`) listing the first `<h1>` (as title), `<h2>` and `<h3>` (indented). Every such heading in `<main>` gets an `id` automatically (via `ensureHeadingIds` in `shared-utils/heading-ids`). Smooth-scrolls on click and highlights the section in view. Sticky on the right from `laptop-up`, a sticky menu bar (current section + dropdown) on smaller screens. Hidden when the page has fewer than two `<h2>`/`<h3>`
 
 ### `FocusLayout.astro` (minimal)
 
