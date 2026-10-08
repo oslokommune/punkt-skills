@@ -64,7 +64,7 @@ export class PktElement<T = {}> extends PktShadowElement<T> {
 **Extends:** `PktElement`
 **DOM:** Light DOM
 
-Extends `PktElement` with slot content support. Pre-collects children in `connectedCallback()` before Lit's first render clears them, and provides `hasSlotContent()`. Only components that use the `slotContent` directive should extend this class — components without slots use plain `PktElement` to avoid unnecessary overhead.
+Extends `PktElement` with slot content support. Pre-collects children in `connectedCallback()` before Lit's first render clears them, and provides `hasSlotContent()`. It also overrides the host's DOM methods so that Vue, React and plain JavaScript can change slot content after render (see [DOM methods on the host](light-dom-and-slots.md#dom-methods-on-the-host)). Only components that use the `slotContent` directive should extend this class — components without slots use plain `PktElement` to avoid unnecessary overhead.
 
 ```typescript
 export class PktElementWithSlot<T = {}> extends PktElement<T> {
@@ -76,6 +76,9 @@ export class PktElementWithSlot<T = {}> extends PktElement<T> {
   hasSlotContent(slotName?: string): boolean {
     return getSlotManager(this).hasContent(slotName)
   }
+
+  // + appendChild, append, prepend, insertBefore, removeChild, replaceChild, replaceChildren
+  //   and the textContent, innerHTML and innerText setters
 }
 ```
 

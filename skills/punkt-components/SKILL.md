@@ -42,12 +42,10 @@ import '@oslokommune/punkt-elements/dist/pkt-button.js';
 ```
 
 ```html
-<pkt-button skin="primary">
-  <span>Click me</span>
-</pkt-button>
+<pkt-button skin="primary">Click me</pkt-button>
 ```
 
-For reactive slot content (content that changes programmatically), wrap it in a container element like `<span>` or `<div>`.
+Slot content can be text or elements, and it may change after the component has rendered: from Vue (`v-if`, `{{ text }}`, `v-html`), from a Lit parent, or with plain DOM methods (`appendChild`, `insertBefore`, `removeChild`, `textContent`, `innerHTML`, `innerText`). No wrapper element is needed for that. Whitespace between elements shows like in plain HTML (`<b>Hei</b> <i>du</i>` reads "Hei du"), and whitespace at the start and end of the content is ignored. When a component holds several items, like a list, wrap them in one element (`<div>`, `<ul>`): the component then keeps track of one node instead of many, and updates are many times faster.
 
 ### Elements (CDN)
 
