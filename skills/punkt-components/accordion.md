@@ -8,7 +8,7 @@ Accordion (also called expandable or collapsible panel) groups content that can 
 | -------------- | --------- | --------------------------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktAccordion>` + `<PktAccordionItem>` — `import { PktAccordion, PktAccordionItem } from '@oslokommune/punkt-react'` |
 | Elements       | Yes       | `<pkt-accordion>` + `<pkt-accordion-item>` — `import '@oslokommune/punkt-elements/dist/pkt-accordion.js'`             |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-accordion.js" type="module">`                     |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-accordion.js" type="module">`                         |
 
 Dark mode: Yes
 
@@ -38,8 +38,14 @@ Set compact mode with the `compact` prop/attribute (boolean).
 | ---------------------- | --------------------------------- |
 | `borderless` (default) | Simple background color and style |
 | `outlined`             | Border on the rows                |
+| `gray`                 | Alternating gray rows             |
 | `beige`                | Alternating beige rows            |
 | `blue`                 | Alternating blue rows             |
+
+`borderless`, `outlined` and `gray` follow dark mode. `beige` and `blue` have no dark variant: in
+dark mode every row keeps its light-mode colors, including the white rows and the text. React and
+Elements do this by setting `data-mode="light"` on each row. With plain CSS, add
+`data-mode="light"` to each `.pkt-accordion-item` yourself.
 
 ## Usage guidelines
 
@@ -64,12 +70,12 @@ Set compact mode with the `compact` prop/attribute (boolean).
 
 ### PktAccordion
 
-| Prop (React)     | Attribute (Elements) | Type                                                    | Default        | Description                                  |
-| ---------------- | -------------------- | ------------------------------------------------------- | -------------- | -------------------------------------------- |
-| `skin`           | `skin`               | `"borderless"` \| `"outlined"` \| `"beige"` \| `"blue"` | `"borderless"` | Visual style                                 |
-| `compact`        | `compact`            | boolean                                                 | `false`        | Compact mode with less padding               |
-| `ariaLabelledBy` | `ariaLabelledBy`     | string                                                  | —              | ID of the element that labels this accordion |
-| `name`           | `name`               | string                                                  | —              | Group name for the accordion                 |
+| Prop (React)     | Attribute (Elements) | Type                                                                | Default        | Description                                  |
+| ---------------- | -------------------- | ------------------------------------------------------------------- | -------------- | -------------------------------------------- |
+| `skin`           | `skin`               | `"borderless"` \| `"outlined"` \| `"gray"` \| `"beige"` \| `"blue"` | `"borderless"` | Visual style                                 |
+| `compact`        | `compact`            | boolean                                                             | `false`        | Compact mode with less padding               |
+| `ariaLabelledBy` | `ariaLabelledBy`     | string                                                              | —              | ID of the element that labels this accordion |
+| `name`           | `name`               | string                                                              | —              | Group name for the accordion                 |
 
 ### PktAccordionItem
 

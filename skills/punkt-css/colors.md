@@ -77,16 +77,24 @@ Page-level backgrounds.
 
 Element-level backgrounds (panels, buttons, sections).
 
-Surface tokens have the same value in light and dark mode.
+Three neutral surfaces follow the mode. Use them for surfaces that should go dark in dark mode:
+
+| Token                     | Light          | Dark            |
+| ------------------------- | -------------- | --------------- |
+| `surface-subtle-default`  | white          | `neutrals-1000` |
+| `surface-default-default` | `neutrals-100` | `neutrals-900`  |
+| `surface-strong-default`  | `neutrals-200` | `neutrals-800`  |
+
+All other surface tokens have the same value in light and dark mode.
 
 **Default surfaces:**
-`surface-default-faded-green`, `surface-default-faded-red`, `surface-default-gray`, `surface-default-light-beige`, `surface-default-light-blue`, `surface-default-light-green`, `surface-default-pale-blue`, `surface-default-red`, `surface-default-yellow`
+`surface-default-default`, `surface-default-faded-green`, `surface-default-faded-red`, `surface-default-gray`, `surface-default-light-beige`, `surface-default-light-blue`, `surface-default-light-green`, `surface-default-pale-blue`, `surface-default-red`, `surface-default-yellow`
 
 **Strong surfaces (saturated):**
-`surface-strong-beige`, `surface-strong-blue`, `surface-strong-dark-blue`, `surface-strong-dark-green`, `surface-strong-gray`, `surface-strong-green`, `surface-strong-light-green`, `surface-strong-red`, `surface-strong-yellow`
+`surface-strong-beige`, `surface-strong-blue`, `surface-strong-dark-blue`, `surface-strong-dark-green`, `surface-strong-default`, `surface-strong-gray`, `surface-strong-green`, `surface-strong-light-green`, `surface-strong-red`, `surface-strong-yellow`
 
 **Subtle surfaces:**
-`surface-subtle-gray`, `surface-subtle-light-blue`, `surface-subtle-light-red`, `surface-subtle-pale-blue`, `surface-subtle-white`
+`surface-subtle-default`, `surface-subtle-gray`, `surface-subtle-light-blue`, `surface-subtle-light-red`, `surface-subtle-pale-blue`, `surface-subtle-white`
 
 ### Border
 
@@ -202,17 +210,17 @@ Light to dark, with ascending numbers.
 `grays-gray-100` through `grays-gray-1000` still resolve, but the neutral scale replaces them. Map
 old to new by value, not by number — the numbers do not line up:
 
-| Deprecated       | Use instead           |
-| ---------------- | --------------------- |
-| `grays-gray-100` | `brand-neutrals-200`  |
-| `grays-gray-200` | `brand-neutrals-300`  |
-| `grays-gray-300` | `brand-neutrals-400`  |
-| `grays-gray-400` | `brand-neutrals-500`  |
-| `grays-gray-500` | `brand-neutrals-600`  |
-| `grays-gray-600` | `brand-neutrals-700`  |
-| `grays-gray-700` | `brand-neutrals-800`  |
-| `grays-gray-800` | `brand-neutrals-900`  |
-| `grays-gray-1000`| `brand-neutrals-1000` |
+| Deprecated        | Use instead           |
+| ----------------- | --------------------- |
+| `grays-gray-100`  | `brand-neutrals-200`  |
+| `grays-gray-200`  | `brand-neutrals-300`  |
+| `grays-gray-300`  | `brand-neutrals-400`  |
+| `grays-gray-400`  | `brand-neutrals-500`  |
+| `grays-gray-500`  | `brand-neutrals-600`  |
+| `grays-gray-600`  | `brand-neutrals-700`  |
+| `grays-gray-700`  | `brand-neutrals-800`  |
+| `grays-gray-800`  | `brand-neutrals-900`  |
+| `grays-gray-1000` | `brand-neutrals-1000` |
 
 ## Deprecated color classes
 

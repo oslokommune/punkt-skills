@@ -89,3 +89,20 @@ For complex components with many color references, define component-specific CSS
   --pkt-color-button-bg: var(--pkt-color-brand-dark-blue-700);
 }
 ```
+
+## Keeping a component light inside dark mode
+
+Some variants have no dark design and should look exactly like light mode even inside
+`[data-mode="dark"]`, for example the `beige` and `blue` accordion skins. Swapping a few tokens on
+the component is not enough: links, buttons or icons inside it still pick up dark values.
+
+Use the global light scope instead. `base/_colors-tokens.scss` also generates `[data-mode="light"]`,
+which resets every token whose dark value differs back to its light value and sets
+`color-scheme: light`. It comes from the same maps as the dark scope, so new tokens are covered
+automatically.
+
+The component markup sets the attribute; the SCSS needs nothing extra. The accordion puts
+`data-mode="light"` on each row when its effective skin is in `ACCORDION_LIGHT_ONLY_SKINS`
+(`shared-types/accordion.ts`), in both React and Elements. Put it on an element in light DOM: in
+Elements the global stylesheet doesn't reach into a shadow root, so an attribute on a shadow
+container does nothing.

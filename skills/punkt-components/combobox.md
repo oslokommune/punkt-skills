@@ -4,10 +4,10 @@ Combobox (multiselect) combines a text field with a dropdown list. It lets the u
 
 ## Availability
 
-| Package        | Available | Tag / Import                                                                                     |
-| -------------- | --------- | ------------------------------------------------------------------------------------------------ |
-| React          | Yes       | `<PktCombobox>` — `import { PktCombobox } from '@oslokommune/punkt-react'`                       |
-| Elements       | Yes       | `<pkt-combobox>` — `import '@oslokommune/punkt-elements/dist/pkt-combobox.js'`                   |
+| Package        | Available | Tag / Import                                                                                 |
+| -------------- | --------- | -------------------------------------------------------------------------------------------- |
+| React          | Yes       | `<PktCombobox>` — `import { PktCombobox } from '@oslokommune/punkt-react'`                   |
+| Elements       | Yes       | `<pkt-combobox>` — `import '@oslokommune/punkt-elements/dist/pkt-combobox.js'`               |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-combobox.js" type="module">` |
 
 Dark mode: Yes
@@ -43,39 +43,39 @@ When using multi select, selected values appear as tags. Tags can be placed insi
 
 ## Props / Attributes
 
-| Prop (React)             | Attribute (Elements)       | Type                                         | Default     | Description                                          |
-| ------------------------ | -------------------------- | -------------------------------------------- | ----------- | ---------------------------------------------------- |
-| `name`                   | `name`                     | string                                       | —           | Form field name                                      |
-| `form`                   | `form`                     | string                                       | —           | `id` of the `<form>` the field belongs to, when it sits outside it |
-| `id`                     | `id`                       | string                                       | —           | Unique identifier                                    |
-| `ariaDescribedby`        | `aria-describedby`         | string                                       | —           | `id` of an extra element describing the field        |
-| `label`                  | `label`                    | string                                       | —           | Label displayed above the field                      |
-| `placeholder`            | `placeholder`              | string                                       | —           | Hint text shown when empty                           |
-| `multiple`               | `multiple`                 | boolean                                      | `false`     | Allow selecting multiple options                     |
-| `tagPlacement`           | `tag-placement`            | `"inside"` \| `"outside"`                    | —           | Where selected tags appear in multi select           |
-| `maxlength`              | `maxlength`                | number                                       | —           | Max number of selections in multi select             |
-| `typeahead`              | `typeahead`                | boolean                                      | `false`     | Auto-complete from the options list                  |
-| `includeSearch`          | `include-search`           | boolean                                      | `false`     | Include a search field inside the dropdown           |
-| `searchPlaceholder`      | `search-placeholder`       | string                                       | `"Søk…"`    | Placeholder text for the search field in dropdown    |
-| `allowUserInput`         | `allow-user-input`         | boolean                                      | `false`     | Allow the user to add custom values                  |
-| `displayValueAs`         | `display-value-as`         | `"label"` \| `"value"` \| `"prefixAndValue"` | `"label"`   | How the selected value is displayed                  |
-| `value`                  | `value`                    | `string` \| `string[]`                       | —           | Selected value (string for single, array for multi)  |
-| `helptext`               | `helptext`                 | string                                       | —           | Help text below the label                            |
-| `helptextDropdown`       | `helptextdropdown`         | string                                       | —           | Expandable help text content                         |
-| `helptextDropdownButton` | `helptextdropdownbutton`   | string                                       | `forms.readMore` | Deprecated — use `strings`. See [Strings](strings.md) |
-| `disabled`               | `disabled`                 | boolean                                      | `false`     | Disables the field                                   |
-| `hasError`               | `haserror`                 | boolean                                      | `false`     | Shows error state                                    |
-| `errorMessage`           | `errormessage`             | string                                       | —           | Error message shown below the field                  |
-| `required`               | `required`                 | boolean                                      | `false`     | Field is required                                    |
-| `requiredTag`            | `requiredtag`              | boolean                                      | `false`     | Show "Required" tag next to label                    |
-| `requiredText`           | `requiredtext`             | string                                       | —           | Deprecated — use `strings`. See [Strings](strings.md)                             |
-| `optionalTag`            | `optionaltag`              | boolean                                      | `false`     | Show "Optional" tag next to label                    |
-| `optionalText`           | `optionaltext`             | string                                       | —           | Deprecated — use `strings`. See [Strings](strings.md)                             |
-| `tagText`                | `tagtext`                  | string                                       | —           | Custom tag text next to label                        |
-| `fullwidth`              | `fullwidth`                | boolean                                      | `false`     | Field takes full width                               |
-| `inputSize`              | `input-size`               | `"xsmall"` \| `"small"` \| `"medium"`        | `"medium"`  | Field height                                         |
-| `defaultOptions`         | `default-options`          | `Array<OptionObject>`                        | `[]`        | Initial options list (not modified by the component) |
-| `options`                | `options`                  | `Array<OptionObject>`                        | `[]`        | Current options list                                 |
+| Prop (React)             | Attribute (Elements)     | Type                                         | Default          | Description                                                        |
+| ------------------------ | ------------------------ | -------------------------------------------- | ---------------- | ------------------------------------------------------------------ |
+| `name`                   | `name`                   | string                                       | —                | Form field name                                                    |
+| `form`                   | `form`                   | string                                       | —                | `id` of the `<form>` the field belongs to, when it sits outside it |
+| `id`                     | `id`                     | string                                       | —                | Unique identifier                                                  |
+| `ariaDescribedby`        | `aria-describedby`       | string                                       | —                | `id` of an extra element describing the field                      |
+| `label`                  | `label`                  | string                                       | —                | Label displayed above the field                                    |
+| `placeholder`            | `placeholder`            | string                                       | —                | Hint text shown when empty                                         |
+| `multiple`               | `multiple`               | boolean                                      | `false`          | Allow selecting multiple options                                   |
+| `tagPlacement`           | `tag-placement`          | `"inside"` \| `"outside"`                    | —                | Where selected tags appear in multi select                         |
+| `maxlength`              | `maxlength`              | number                                       | —                | Max number of selections in multi select                           |
+| `typeahead`              | `typeahead`              | boolean                                      | `false`          | Auto-complete from the options list                                |
+| `includeSearch`          | `include-search`         | boolean                                      | `false`          | Include a search field inside the dropdown                         |
+| `searchPlaceholder`      | `search-placeholder`     | string                                       | `"Søk…"`         | Placeholder text for the search field in dropdown                  |
+| `allowUserInput`         | `allow-user-input`       | boolean                                      | `false`          | Allow the user to add custom values                                |
+| `displayValueAs`         | `display-value-as`       | `"label"` \| `"value"` \| `"prefixAndValue"` | `"label"`        | How the selected value is displayed                                |
+| `value`                  | `value`                  | `string` \| `string[]`                       | —                | Selected value (string for single, array for multi)                |
+| `helptext`               | `helptext`               | string                                       | —                | Help text below the label                                          |
+| `helptextDropdown`       | `helptextdropdown`       | string                                       | —                | Expandable help text content                                       |
+| `helptextDropdownButton` | `helptextdropdownbutton` | string                                       | `forms.readMore` | Deprecated — use `strings`. See [Strings](strings.md)              |
+| `disabled`               | `disabled`               | boolean                                      | `false`          | Disables the field                                                 |
+| `hasError`               | `haserror`               | boolean                                      | `false`          | Shows error state                                                  |
+| `errorMessage`           | `errormessage`           | string                                       | —                | Error message shown below the field                                |
+| `required`               | `required`               | boolean                                      | `false`          | Field is required                                                  |
+| `requiredTag`            | `requiredtag`            | boolean                                      | `false`          | Show "Required" tag next to label                                  |
+| `requiredText`           | `requiredtext`           | string                                       | —                | Deprecated — use `strings`. See [Strings](strings.md)              |
+| `optionalTag`            | `optionaltag`            | boolean                                      | `false`          | Show "Optional" tag next to label                                  |
+| `optionalText`           | `optionaltext`           | string                                       | —                | Deprecated — use `strings`. See [Strings](strings.md)              |
+| `tagText`                | `tagtext`                | string                                       | —                | Custom tag text next to label                                      |
+| `fullwidth`              | `fullwidth`              | boolean                                      | `false`          | Field takes full width                                             |
+| `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"`        | `"medium"`       | Field height                                                       |
+| `defaultOptions`         | `default-options`        | `Array<OptionObject>`                        | `[]`             | Initial options list (not modified by the component)               |
+| `options`                | `options`                | `Array<OptionObject>`                        | `[]`             | Current options list                                               |
 
 ### Option object shape
 
@@ -87,7 +87,7 @@ When using multi select, selected values appear as tags. Tags can be placed insi
   description?: string    // Description of the option
   disabled?: boolean      // Option is disabled
   selected?: boolean      // Option is pre-selected
-  tagSkinColor?: string   // Tag color: "blue" | "blue-dark" | "blue-light" | "green" | "red" | "yellow" | "beige" | "gray"
+  tagSkinColor?: string   // Tag color, default "blue": "blue" | "blue-dark" | "blue-light" | "green" | "red" | "yellow" | "beige" | "gray"
 }
 ```
 
@@ -107,8 +107,10 @@ When using multi select, selected values appear as tags. Tags can be placed insi
 ```jsx
 import { PktCombobox } from '@oslokommune/punkt-react'
 
-{/* Single select (multiple defaults to false) */}
-<PktCombobox
+{
+  /* Single select (multiple defaults to false) */
+}
+;<PktCombobox
   label="District"
   name="district"
   id="district"
@@ -119,8 +121,10 @@ import { PktCombobox } from '@oslokommune/punkt-react'
   ]}
 />
 
-{/* Multi select with max 3 */}
-<PktCombobox
+{
+  /* Multi select with max 3 */
+}
+;<PktCombobox
   label="Choose districts"
   name="districts"
   id="districts-multi"
@@ -135,8 +139,10 @@ import { PktCombobox } from '@oslokommune/punkt-react'
   ]}
 />
 
-{/* With custom user input allowed */}
-<PktCombobox
+{
+  /* With custom user input allowed */
+}
+;<PktCombobox
   label="Tags"
   name="tags"
   id="tags"

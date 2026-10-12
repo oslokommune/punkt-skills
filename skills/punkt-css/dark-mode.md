@@ -17,6 +17,20 @@ Dark mode is activated by setting `data-mode="dark"` on any HTML element. Everyt
 </section>
 ```
 
+### Light mode inside dark mode
+
+`data-mode="light"` does the opposite: everything within that element gets light mode colours again, even inside a dark scope. Use it for content that has no dark design and should look exactly like a light page.
+
+```html
+<body data-mode="dark">
+  <div data-mode="light" class="pkt-color-bg-background-default p-size-32">
+    <p>Light colours, including links, buttons and form fields inside.</p>
+  </div>
+</body>
+```
+
+Some components set it themselves. For example, the `beige` and `blue` accordion skins put `data-mode="light"` on each row.
+
 ## How it works
 
 Under `[data-mode="dark"]`, **semantic color** CSS custom properties that need a different value are overridden with dark-appropriate ones. For example:
@@ -29,15 +43,15 @@ This means any element using semantic color variables or semantic color helper c
 
 ## What changes and what doesn't
 
-|                                                                        | Dark mode behavior           |
-| ---------------------------------------------------------------------- | ---------------------------- |
-| **Semantic colors** (`background-*`, `text-*`, `border-*`, …)          | Overridden where needed      |
-| **Surface colors** (`surface-*`)                                       | Do NOT change                |
-| **Brand colors**                                                       | Do NOT change                |
-| **Semantic helper classes** (`.pkt-color-bg-background-default`, etc.) | Follow their token           |
-| **Brand helper classes** (`.pkt-color-bg-brand-blue-1000`, etc.)       | Stay the same                |
+|                                                                        | Dark mode behavior          |
+| ---------------------------------------------------------------------- | --------------------------- |
+| **Semantic colors** (`background-*`, `text-*`, `border-*`, …)          | Overridden where needed     |
+| **Surface colors** (`surface-*`)                                       | Do NOT change, except three |
+| **Brand colors**                                                       | Do NOT change               |
+| **Semantic helper classes** (`.pkt-color-bg-background-default`, etc.) | Follow their token          |
+| **Brand helper classes** (`.pkt-color-bg-brand-blue-1000`, etc.)       | Stay the same               |
 
-Not every semantic token flips. Surfaces never do, and neither do tokens that are already a fixed brand colour by intent, such as `border-states-focus`, `text-body-dark`, `input-text-error` and the coloured `border-*` tokens.
+Not every semantic token flips. Surfaces don't, except `surface-subtle-default`, `surface-default-default` and `surface-strong-default`, which are made for surfaces that should go dark. Neither do tokens that are already a fixed brand colour by intent, such as `border-states-focus`, `text-body-dark`, `input-text-error` and the coloured `border-*` tokens.
 
 This is the main reason to **prefer semantic colors over brand colors**: a semantic token carries the decision about dark mode, a brand colour does not.
 
