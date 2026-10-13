@@ -4,10 +4,10 @@ Progress Bar shows the user how far along a process or measurement is. It can be
 
 ## Availability
 
-| Package        | Available | Tag / Import                                                                                        |
-| -------------- | --------- | --------------------------------------------------------------------------------------------------- |
-| React          | Yes       | `<PktProgressbar>` — `import { PktProgressbar } from '@oslokommune/punkt-react'`                    |
-| Elements       | Yes       | `<pkt-progressbar>` — `import '@oslokommune/punkt-elements/dist/pkt-progressbar.js'`                |
+| Package        | Available | Tag / Import                                                                                    |
+| -------------- | --------- | ----------------------------------------------------------------------------------------------- |
+| React          | Yes       | `<PktProgressbar>` — `import { PktProgressbar } from '@oslokommune/punkt-react'`                |
+| Elements       | Yes       | `<pkt-progressbar>` — `import '@oslokommune/punkt-elements/dist/pkt-progressbar.js'`            |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-progressbar.js" type="module">` |
 
 Dark mode: Yes
@@ -22,6 +22,9 @@ Dark mode: Yes
 | `light-blue`          | Lighter alternative       |
 | `green`               | Positive progress/success |
 | `red`                 | Warning or limit reached  |
+
+`dark-blue` follows the primary button colour, so it is light blue in dark mode despite the name. The
+track behind the bar is `surface-strong-default` in every skin.
 
 ### Status display
 
