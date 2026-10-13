@@ -26,11 +26,6 @@ All interactive components provide both pseudo-class states and corresponding BE
     outline: none;
   }
 
-  // Focus (mouse click fallback)
-  &:focus:not(:focus-visible) {
-    outline: 0.125rem solid var(--pkt-color-text-action-active);
-  }
-
   // Active
   &:active,
   &.pkt-btn--active {
@@ -61,12 +56,8 @@ The standard focus ring uses a **double box-shadow** (inner ring + outer ring):
 }
 ```
 
-For non-`:focus-visible` focus (mouse clicks), use a simpler outline:
-```scss
-&:focus:not(:focus-visible) {
-  outline: 0.125rem solid var(--pkt-color-text-action-active);
-}
-```
+Links don't style `:focus:not(:focus-visible)`. A clicked link keeps focus, so an outline there
+stays visible after the click, and it showed up all over the header.
 
 ## Disabled state
 

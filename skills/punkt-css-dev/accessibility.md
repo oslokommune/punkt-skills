@@ -20,7 +20,7 @@ Or use the utility class in HTML:
 All interactive elements must have visible focus indicators:
 
 1. **`:focus-visible`** for keyboard navigation — double box-shadow ring
-2. **`:focus:not(:focus-visible)`** for mouse clicks — simpler outline
+2. Links get no focus styling on mouse click
 
 See [States & Interactivity](states.md) for the exact pattern.
 
