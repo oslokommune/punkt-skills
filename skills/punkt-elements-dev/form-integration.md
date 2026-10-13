@@ -292,6 +292,8 @@ Called automatically by the browser when the parent `<form>` is reset. Resets:
 
 The browser calls `formDisabledCallback(disabled)` when the element is disabled by an ancestor `<fieldset disabled>` (or its own `disabled` attribute). The base class stores it, and `isDisabled` combines it with the `disabled` property.
 
+When the host's own `disabled` attribute changes its disabled state, the browser calls the callback synchronously. Lit reflects attributes after `render()` and drops state changes made during reflection, so `disabled = false` would leave the inner input disabled. The base class therefore reflects `disabled` itself in `willUpdate()`, so the callback lands before `render()` in the same update. Don't remove that line, and don't read `isDisabled` in a subclass's `willUpdate()` before calling `super.willUpdate()`.
+
 **Render and guard interaction from `this.isDisabled`, never `this.disabled`.** Native inner inputs are disabled by the fieldset anyway, but Punkt's own state is not: wrapper and label classes, tile classes, and non-native controls like the select-only combobox (a `div` with `tabindex`) would otherwise stay active inside a disabled fieldset. Never assign to `disabled` from the callback: it is reflected, and the host's own `disabled` attribute would keep it disabled when the fieldset is enabled again.
 
 #### `firstUpdated()`
