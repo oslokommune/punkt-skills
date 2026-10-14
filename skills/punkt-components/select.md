@@ -10,7 +10,7 @@ Select lets the user choose one option from a dropdown list. It uses the native 
 | Elements       | Yes       | `<pkt-select>` — `import '@oslokommune/punkt-elements/dist/pkt-select.js'`                     |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-select.js" type="module">` |
 
-Dark mode: No
+Dark mode: Yes
 
 ## Usage guidelines
 
@@ -29,27 +29,31 @@ Dark mode: No
 
 | Prop (React)             | Attribute (Elements)     | Type    | Default        | Description                                 |
 | ------------------------ | ------------------------ | ------- | -------------- | ------------------------------------------- |
-| `label`                  | `label`                  | string  | —              | Label displayed above the field             |
-| `name`                   | `name`                   | string  | **(required)** | Form field name                             |
+| `label`                  | `label`                  | string  | **(required)** | Label displayed above the field. Required in React; Elements does not enforce it, but the field then has no accessible name |
+| `required`               | `required`               | boolean | `false`        | Field must have a value before the form can be submitted |
+| `name`                   | `name`                   | string  | —              | Form field name. Falls back to `id`         |
 | `form`                   | `form`                   | string  | —              | `id` of the `<form>` the field belongs to, when it sits outside it |
 | `id`                     | `id`                     | string  | **(required)** | Unique identifier                           |
-| `value`                  | `value`                  | string  | —              | Selected value                              |
+| `value`                  | `value`                  | string  | —              | Selected value. React also accepts the native `<select>` types (number, string array) |
+| —                        | `options`                | `IPktSelectOption[]` | — | Elements only. Options as objects (`value`, `label`, `selected?`, `disabled?`, `hidden?`) instead of `<option>` children; wins if both are set |
 | `helptext`               | `helptext`               | string  | —              | Help text below the label                   |
 | `helptextDropdown`       | `helptextDropdown`       | string  | —              | Expandable help text content                |
-| `helptextDropdownButton` | `helptextDropdownButton` | string  | —              | Button text for expandable help             |
-| `hasError`               | `hasError`               | boolean | —              | Shows error state                           |
+| `helptextDropdownButton` | `helptextDropdownButton` | string  | —              | Deprecated — use `strings`. See [Strings](strings.md) |
+| `hasError`               | `hasError`               | boolean | `false`        | Shows error state                           |
 | `errorMessage`           | `errorMessage`           | string  | —              | Error message shown below the field         |
 | `disabled`               | `disabled`               | boolean | `false`        | Disables the field                          |
 | `inline`                 | `inline`                 | boolean | `false`        | Display inline with page content            |
 | `fullwidth`              | `fullwidth`              | boolean | `false`        | Field takes full width                      |
+| `useWrapper`             | `useWrapper`             | boolean | `true`         | Wrap the field in the input wrapper         |
+| `hasFieldset`            | `hasFieldset`            | boolean | —              | Use fieldset and legend instead of label    |
 | `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`     | Field height                                |
 | `requiredTag`            | `requiredTag`            | boolean | `false`        | Show "Required" tag next to label           |
 | `requiredText`           | `requiredText`           | string  | —              | Deprecated — use `strings`. See [Strings](strings.md)                    |
-| `optionalTag`            | `optionalTag`            | boolean | —              | Show "Optional" tag next to label           |
+| `optionalTag`            | `optionalTag`            | boolean | `false`        | Show "Optional" tag next to label           |
 | `optionalText`           | `optionalText`           | string  | —              | Deprecated — use `strings`. See [Strings](strings.md)                    |
 | `tagText`                | `tagText`                | string  | —              | Custom tag text next to label               |
-| `ariaDescribedBy`        | `ariaDescribedBy`        | string  | —              | ID of the element that describes this field |
-| `ariaLabelledby`         | `ariaLabelledby`         | string  | —              | ID of the element that labels this field    |
+| `ariaDescribedby`        | `aria-describedby`       | string  | —              | ID of the element that describes this field |
+| `ariaLabelledby`         | `aria-labelledby`        | string  | —              | ID of the element that labels this field    |
 
 ## Slots
 
