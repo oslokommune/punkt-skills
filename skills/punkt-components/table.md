@@ -53,6 +53,8 @@ On mobile, headers are hidden and each row becomes a card-like block with labelâ
 
 ## Props / Attributes â€” PktTable (React)
 
+Types `IPktTable`, `IPktTableDataCell` and `TPktTableSkin` are exported from `@oslokommune/punkt-react`.
+
 | Prop (React)     | Type                        | Default   | Description                          |
 | ---------------- | --------------------------- | --------- | ------------------------------------ |
 | `skin`           | `"basic"` \| `"zebra-blue"` | `"basic"` | Visual style                         |
