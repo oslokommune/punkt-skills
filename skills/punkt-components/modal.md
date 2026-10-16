@@ -55,6 +55,8 @@ Dark mode: No
 | ---------------------- | ---------------------- | ------------------------------------ | ---------- | ------------------------------------------------------------ |
 | `open`                 | `open`                 | boolean                              | `false`    | Declarative open/close control — use instead of ref methods  |
 | `headingText`          | `headingText`          | string                               | —          | Heading text for the modal                                   |
+| `headingIconName`      | `headingIconName`      | string                               | —          | Icon shown before the heading text. Needs `headingText`. Decorative (`aria-hidden`) |
+| `headingIconPath`      | `headingIconPath`      | string                               | —          | Overrides the icon path for the heading icon. Defaults to `window.pktIconPath` |
 | `hideCloseButton`      | `hideCloseButton`      | boolean                              | `false`    | Hides the close button — provide an alternative way to close |
 | `closeOnBackdropClick` | `closeOnBackdropClick` | boolean                              | `false`    | Close modal when clicking the backdrop                       |
 | `closeButtonSkin`      | `closeButtonSkin`      | `"blue"` \| `"yellow-filled"`        | `"blue"`   | Style of the close button                                    |
@@ -124,6 +126,7 @@ Do not mix — e.g., don't set the `open` attribute and also call `.showModal()`
 - Close the modal with Esc
 - If `hideCloseButton` is true, you must provide an alternative way to close the modal
 - The heading should be clear and descriptive
+- The dialog is labelled by its heading (`aria-labelledby`) and described by its content (`aria-describedby`). The ids are generated per instance (`pkt-modal__headingText-<id>`, `pkt-modal__content-<id>`), so several modals on one page each get the right name
 
 ## Testing
 
@@ -154,6 +157,8 @@ This means:
 
 3. **Limit unit tests** to rendering, prop application, and CSS class generation — avoid testing open/close lifecycle in jsdom.
 
+Don't select the heading or content by id: each instance generates its own, so they differ between page loads. Use the classes (`.pkt-modal__headingText`, `.pkt-modal__content`) or roles (`getByRole('heading', { level: 1 })`).
+
 ## Examples
 
 ### React (declarative with `open` prop — recommended)
@@ -172,6 +177,11 @@ const [isOpen, setIsOpen] = useState(false)
     <PktButton color="red" onClick={handleDelete}>Delete</PktButton>
     <PktButton skin="tertiary" onClick={() => setIsOpen(false)}>Cancel</PktButton>
   </div>
+</PktModal>
+
+{/* Icon before the heading */}
+<PktModal open={historyOpen} headingText="History" headingIconName="clock-history" onClose={() => setHistoryOpen(false)}>
+  <p>Changes made to this case.</p>
 </PktModal>
 
 {/* Drawer */}
@@ -210,6 +220,11 @@ const dialogRef = useRef<HTMLDialogElement>(null)
     <pkt-button color="red"><span>Delete</span></pkt-button>
     <pkt-button skin="tertiary"><span>Cancel</span></pkt-button>
   </div>
+</pkt-modal>
+
+<!-- Icon before the heading -->
+<pkt-modal headingText="History" headingIconName="clock-history">
+  <p>Changes made to this case.</p>
 </pkt-modal>
 
 <!-- Imperative -->
