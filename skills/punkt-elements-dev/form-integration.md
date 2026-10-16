@@ -258,6 +258,8 @@ Validates the input and sets the `ElementInternals` validity state. Checks, in o
 9. `customError` → uses the input's `validationMessage`
 10. Otherwise → valid (`setValidity({})`)
 
+`minlength` and `maxlength` count characters, except when `multiple` is set: then they count selected items (combobox options, datepicker dates). The public `value` of those components is a comma-joined string, so its `.length` is a character count and cannot be used directly.
+
 Error messages come from `this.pktStrings.get('validation')` in the shared string catalogue.
 
 #### `dispatchChangeEvents(value)` — Event dispatching
