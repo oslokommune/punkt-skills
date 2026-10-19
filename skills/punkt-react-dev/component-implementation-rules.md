@@ -97,6 +97,26 @@ Keep the prop surface identical to Elements. `ariaDescribedby` was missing from 
 long after Elements had inherited it from `PktInputElement`, so the prop silently did nothing in
 React — worth checking against the Elements class when you touch a form component.
 
+## Server rendering
+
+Components must render with `renderToString` in Node, where `window`, `document` and DOM classes
+like `HTMLInputElement` do not exist. The build has no SSR shim, so nothing papers over a stray
+`window` read. `src/components/ssr.test.tsx` renders every exported component this way.
+
+- Use browser globals in effects and event handlers, not during render. Default parameters,
+  `useState` initializers and `useMemo` all run during render.
+- When a render-time read is unavoidable, guard it and fall back to the value the browser gets by
+  default, so server and client markup match:
+
+  ```tsx
+  loadingAnimationPath = typeof window !== 'undefined' ? window.pktAnimationPath : ANIMATION_DEFAULT_PATH
+  ```
+
+  Falling back to `undefined` or `0` changes the server markup and causes hydration mismatches.
+- Module-level writes to `window.pkt*` globals go behind `typeof window !== 'undefined'`.
+- A DOM API needed inside a callback is looked up when the callback runs. Example:
+  `setNativeInputValue` in `src/utils/nativeInputValue.ts`.
+
 ## Forbidden Patterns
 
 - **Avoid `forwardRef` for simple ref forwarding** — use `ref` as a regular prop instead (see template above). `forwardRef` is acceptable when `useImperativeHandle` requires a custom handle type.

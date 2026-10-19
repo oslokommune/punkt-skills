@@ -88,6 +88,16 @@ describe('PktComponentName', () => {
 7. Accessibility (jest-axe, ARIA attributes)
 8. Context consumption (for compound components)
 
+## Server rendering test
+
+`src/components/ssr.test.tsx` runs in the Node environment (`// @vitest-environment node`) and
+renders every `Pkt*` export with `renderToString`. New components are picked up automatically. If
+a component needs props or a parent to render at all, add it to `requiredProps` or `parents` in
+that file.
+
+`setupTests.ts` runs in that environment too, so keep its DOM mocks behind
+`typeof window !== 'undefined'`.
+
 ## Test utilities
 
 Custom render available at `src/utils/test-utils.tsx` — re-exports `@testing-library/react` with `asFragmentWithoutComments()`.
