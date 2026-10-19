@@ -12,7 +12,6 @@
 ## Component Template (Pure React)
 
 ```tsx
-'use client'
 import { type HTMLAttributes, type ReactNode, type Ref } from 'react'
 
 export interface IPktComponentName extends HTMLAttributes<HTMLDivElement> {
@@ -50,7 +49,13 @@ export const PktComponentName = ({
 
 ## Required Patterns
 
-1. **`'use client'`** directive at the top of every component file (Next.js compatibility).
+1. **`'use client'`** at the top of every file that uses hooks, context, event handlers or browser
+   APIs. Leave it out of components that only render markup (the table parts, Heading, Link,
+   Stepper): in Next.js App Router they then render as Server Components. Keep it on a component
+   that reads a `window.pkt*` global and passes the value on as a prop (`PktButton`); as a Server
+   Component the value would be fixed at server render and ignore an override set in the browser.
+   Never use `export *` in a `'use client'` file, since Next.js rejects it.
+   `src/components/server-components.test.ts` guards this, see [testing](testing.md).
 2. **`ref` as a regular prop** — prefer accepting `ref?: Ref<HTMLElement>` in the interface and destructuring it like any other prop (the React 19 pattern, supported from React 18.3.1+). However, `forwardRef` is allowed when `useImperativeHandle` is needed to expose an imperative handle (e.g., `PktCalendarHandle`), since React 18 strips `ref` from props before the component receives it when a custom handle type is involved. Add `displayName` when using `forwardRef`.
 3. **`className` prop** — always include `className?: string` in the interface and append it to the class array so consumers can add custom classes.
 4. **Extend native HTML attributes** in the interface (e.g., `ButtonHTMLAttributes<HTMLButtonElement>`).
@@ -114,6 +119,12 @@ like `HTMLInputElement` do not exist. The build has no SSR shim, so nothing pape
 
   Falling back to `undefined` or `0` changes the server markup and causes hydration mismatches.
 - Module-level writes to `window.pkt*` globals go behind `typeof window !== 'undefined'`.
+- Declare each `window.pkt*` global (`declare global { interface Window { … } }`) in the module
+  that uses it, never only in a test file. Test files are left out of the type declarations, so a
+  global declared only there breaks the build's type output.
+- Module-level code is only for those defaults, and sits in the module that reads the value. The
+  ESM build is one file per module with `sideEffects: false`, so bundlers drop every module nobody
+  imports, module-level code included.
 - Generated ids come from `useGeneratedId(idProp)`. Never create random values (`uuidish()`,
   `Math.random()`, `Date.now()`) during render: the server and the client get different values,
   and React does not patch mismatched attributes when hydrating.

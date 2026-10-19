@@ -7,7 +7,6 @@ Available in `packages/react/src/hooks/`:
 | `useElementWidth(ref, fallbackWidth?)` | ResizeObserver-based element width tracking. On the server it returns `fallbackWidth` or `Infinity`, so breakpoint checks render the desktop layout |
 | `useGeneratedId(id?)`                  | Returns `id`, or a `useId`-based id that matches between server and client and is safe in CSS selectors |
 | `useScrollLock(locked)`                | iOS-safe body scroll locking                |
-| `useWindowWidth()`                     | Window width via resize listener            |
 | `useOwnerForm(ref, formId?)`           | Resolves the `<form>` a control belongs to  |
 
 ## `useOwnerForm`

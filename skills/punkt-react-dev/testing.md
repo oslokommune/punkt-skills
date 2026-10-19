@@ -104,6 +104,28 @@ render at all, add it to `requiredProps` or `parents` there.
 `setupTests.ts` runs in that environment too, so keep its DOM mocks behind
 `typeof window !== 'undefined'`.
 
+## Server Component guard
+
+`src/components/server-components.test.ts` starts at `src/index.ts` and follows imports until it
+reaches a file with `'use client'`. Every module on the way is a server module in Next.js App
+Router, and fails the test if it:
+
+- imports a React API that Server Components lack (`useState`, `createContext` …), checked
+  against React's own `react-server` build
+- defines an event handler (`onClick={…}`)
+- reads `window` or `document`
+
+A failure usually means a component that needs `'use client'` is missing it, or that a server
+module imports runtime code from a client module. Example: the package exports the `FileItem`
+class from `fileupload/types.ts`, so that file is a server module. The fileupload context
+(`createContext`) therefore lives in its own `'use client'` file, `FileUploadContext.ts`.
+
+## Tree-shaking check
+
+`npm run check-tree-shaking` (from `packages/react/`, after `npm run build`) bundles
+`export { PktButton } from '@oslokommune/punkt-react'` with Vite. It fails if the result is over
+10 KB, or if it contains components the entry doesn't import. It runs in the React PR workflow.
+
 ## Test utilities
 
 Custom render available at `src/utils/test-utils.tsx` — re-exports `@testing-library/react` with `asFragmentWithoutComments()`.

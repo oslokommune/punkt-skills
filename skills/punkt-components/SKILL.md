@@ -31,6 +31,23 @@ Punkt components load icons, SVGs, and other resources from the CDN. If your pro
 
 Punkt React components are pure React — they do not wrap web components, and the package has no runtime dependency on `@oslokommune/punkt-elements`. You can pick React or Elements independently; nothing forces you to ship both.
 
+The package is tree-shakeable: bundlers only include the components you import.
+
+#### Next.js (App Router)
+
+Import components directly in Server Components. Components that only render markup (`PktTable` and its parts, `PktHeading`, `PktLink`, `PktStepper`) render on the server; the rest are client components.
+
+If you build with webpack (the default in Next.js 15, `next build --webpack` in Next.js 16), add the package to `optimizePackageImports`. Without it, importing from a Server Component ships every Punkt component to the browser, including the ones you don't use. Turbopack (the default in Next.js 16) and the Pages Router don't need it.
+
+```js
+// next.config.mjs
+export default {
+  experimental: {
+    optimizePackageImports: ['@oslokommune/punkt-react'],
+  },
+}
+```
+
 ### Elements (NPM)
 
 ```sh
