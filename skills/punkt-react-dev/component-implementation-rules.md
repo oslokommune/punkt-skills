@@ -118,6 +118,10 @@ like `HTMLInputElement` do not exist. The build has no SSR shim, so nothing pape
   ```
 
   Falling back to `undefined` or `0` changes the server markup and causes hydration mismatches.
+- A value the server cannot know (viewport or element width) must also use the server value
+  during hydration, then switch. `useSyncExternalStore(subscribeNever, () => false, () => true)`
+  is `true` on the server and while hydrating, and React renders again with `false` right after.
+  See `useElementWidth`.
 - Module-level writes to `window.pkt*` globals go behind `typeof window !== 'undefined'`.
 - Declare each `window.pkt*` global (`declare global { interface Window { … } }`) in the module
   that uses it, never only in a test file. Test files are left out of the type declarations, so a
