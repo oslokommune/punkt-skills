@@ -114,6 +114,9 @@ like `HTMLInputElement` do not exist. The build has no SSR shim, so nothing pape
 
   Falling back to `undefined` or `0` changes the server markup and causes hydration mismatches.
 - Module-level writes to `window.pkt*` globals go behind `typeof window !== 'undefined'`.
+- Generated ids come from `useGeneratedId(idProp)`. Never create random values (`uuidish()`,
+  `Math.random()`, `Date.now()`) during render: the server and the client get different values,
+  and React does not patch mismatched attributes when hydrating.
 - A DOM API needed inside a callback is looked up when the callback runs. Example:
   `setNativeInputValue` in `src/utils/nativeInputValue.ts`.
 

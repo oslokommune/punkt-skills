@@ -88,12 +88,18 @@ describe('PktComponentName', () => {
 7. Accessibility (jest-axe, ARIA attributes)
 8. Context consumption (for compound components)
 
-## Server rendering test
+## Server rendering and hydration tests
 
-`src/components/ssr.test.tsx` runs in the Node environment (`// @vitest-environment node`) and
-renders every `Pkt*` export with `renderToString`. New components are picked up automatically. If
-a component needs props or a parent to render at all, add it to `requiredProps` or `parents` in
-that file.
+Two tests run every `Pkt*` export through server rendering. New components are picked up
+automatically.
+
+- `src/components/ssr.test.tsx` runs in the Node environment (`// @vitest-environment node`) and
+  fails if `renderToString` throws, for example on a `window` read during render.
+- `src/components/hydration.test.tsx` renders to a string, hydrates it in jsdom, and fails on any
+  hydration error or mismatch, for example random ids.
+
+Both use the cases in `src/utils/serverRenderCases.tsx`. If a component needs props or a parent to
+render at all, add it to `requiredProps` or `parents` there.
 
 `setupTests.ts` runs in that environment too, so keep its DOM mocks behind
 `typeof window !== 'undefined'`.
