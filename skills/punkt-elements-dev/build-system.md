@@ -2,7 +2,9 @@
 
 ## Build tool
 
-**Vite** with `vite-plugin-dts` for TypeScript declarations and `vite-plugin-web-components-hmr` for Hot Module Replacement in dev mode.
+**Vite** with `vite-plugin-dts` for TypeScript declarations. The dev server reloads the page when a component changes.
+
+Don't add `vite-plugin-web-components-hmr`. Its `lit` preset only registers classes that extend `LitElement` directly, and here that is the shared base class `PktShadowElement`. Every new element then wraps the base prototype in one more `Proxy`, so rendering slows down with every element on the page and the button demo never loads.
 
 ## Library build (`vite.config.ts`)
 
@@ -56,7 +58,7 @@ Builds the documentation/demo app from `src/docs/` and `index.html`. Output goes
 From `packages/elements/`:
 
 ```bash
-npm run dev          # Vite dev server with HMR
+npm run dev          # Vite dev server
 npm run build        # tsc + vite build (library)
 npm run build-app    # tsc + vite build (documentation app)
 npm run preview      # Preview built documentation app

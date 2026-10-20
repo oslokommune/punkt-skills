@@ -126,39 +126,45 @@ Query elements from the rendered output. Rarely used — prefer `Ref` with `ref(
 ## Lifecycle methods
 
 ```typescript
-// 1. Constructor — initialize controllers
+// 1. Constructor: initialize controllers
 constructor() {
   super()
   this.optionsController = new PktOptionsSlotController(this)
 }
 
-// 2. connectedCallback — setup listeners, parse initial state
+// 2. connectedCallback: setup listeners, parse initial state
 connectedCallback(): void {
   super.connectedCallback()
   this.addEventListener('click', this.handleClick)
 }
 
-// 3. disconnectedCallback — cleanup
+// 3. disconnectedCallback: cleanup
 disconnectedCallback(): void {
   super.disconnectedCallback()
   this.removeEventListener('click', this.handleClick)
 }
 
-// 4. firstUpdated — after first render, DOM is available
-protected firstUpdated(_changedProperties: PropertyValues): void {
-  super.firstUpdated(_changedProperties)
-  // Setup that needs rendered DOM
+// 4. willUpdate: before every render. Set or derive reactive state here
+protected willUpdate(changedProperties: PropertyValues): void {
+  super.willUpdate(changedProperties)
+  if (!this.hasUpdated && this.defaultOpen) this.isOpen = true
 }
 
-// 5. updated — after every render
+// 5. firstUpdated: after the first render, DOM is available
+protected firstUpdated(_changedProperties: PropertyValues): void {
+  super.firstUpdated(_changedProperties)
+  // Setup that needs rendered DOM: listeners, observers, focus
+}
+
+// 6. updated: after every render. DOM side effects only
 protected updated(_changedProperties: PropertyValues): void {
   super.updated(_changedProperties)
   if (_changedProperties.has('skin')) {
-    // React to property changes
+    // Touch the DOM, add listeners, dispatch events
   }
 }
 
-// 6. attributeChangedCallback — handle raw attribute changes
+// 7. attributeChangedCallback: handle raw attribute changes
 attributeChangedCallback(name: string, _old: string | null, value: string | null): void {
   super.attributeChangedCallback(name, _old, value)
   if (name === 'value' && this.value !== _old) {
@@ -168,6 +174,18 @@ attributeChangedCallback(name: string, _old: string | null, value: string | null
 ```
 
 **Always call `super.*()` in lifecycle methods** — the base classes have important logic in these methods.
+
+### Update cycles
+
+Setting a reactive property (`@property`, `@state`) in `firstUpdated()`, `updated()` or after `super.update()` schedules a second render, and Lit's dev build warns that the element "scheduled an update after an update completed". Elements render once per change:
+
+- **Set or derive state in `willUpdate()`.** Changes made there join the current render. Guard first-render logic with `!this.hasUpdated`.
+- **Use `updated()` and `firstUpdated()` for DOM side effects only:** listeners, observers, focus, dispatching events, validation that reads the inner input.
+- **Measured values** (widths and other layout) can't be known before the render. Write them straight to the DOM instead of into state, like `PktProgressbar` does with `--pkt-progress-label-width`, or estimate them before the first render, like `HeaderChromeController.hostUpdate()`.
+- **State the template never reads** doesn't need `@state`. A plain field doesn't render (`PktModal._isOpen`).
+- **Removing a reflected attribute** sets its property to `null`, which is a change too. Give the property a `hasChanged` that ignores it when the template doesn't render it (`dataTestid` in `PktInputElement`).
+
+`src/tests/update-cycles.test.ts` hooks into Lit and fails if any element schedules an update from inside an update, naming the element and the properties. Add a case when a component gets new lifecycle logic.
 
 ## Render patterns
 

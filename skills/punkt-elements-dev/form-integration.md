@@ -300,8 +300,9 @@ When the host's own `disabled` attribute changes its disabled state, the browser
 
 #### `firstUpdated()`
 
+`defaultValue` is set from the initial `value` in `willUpdate()` on the first update, before the render. Subclasses that pick a value themselves on the first update must decide whether that value counts as the default: set it before `super.willUpdate()` to make it the default (select's `options` attribute), after it to keep `defaultValue` as it was (select's first `<option>`).
+
 The base class `firstUpdated` does important setup:
-- Sets `defaultValue` from initial `value`
 - Handles `defaultChecked`
 - Sets ARIA attributes (`required`, `disabled`)
 - Sets initial form value

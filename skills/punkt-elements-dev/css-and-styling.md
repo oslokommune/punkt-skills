@@ -65,7 +65,8 @@ Rules that follow from this:
   removal fires `attributeChangedCallback` and nulls the Lit property. See
   `PktButton.relocatedAriaAttributes` and `PktProgressbar.willUpdate` for the pattern.
 - **Compute derived values in `render()`**, not into `@state` from `updated()`. State written after
-  render is missing from the first paint.
+  render is missing from the first paint and costs a second render (see
+  [Update cycles](component-implementation.md#update-cycles)).
 - **The host needs a `display` rule** in `packages/css` — custom elements are `display: inline` by
   default. `display` only; never width or other layout properties.
 
