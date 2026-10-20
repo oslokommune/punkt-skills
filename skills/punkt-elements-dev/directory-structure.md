@@ -36,7 +36,7 @@ packages/elements/
 │   │   └── converters.ts         # Attribute converters (CSV, date)
 │   ├── types/
 │   │   ├── index.ts
-│   │   ├── size.ts               # TPktSize
+│   │   ├── size.ts               # TPktSize (alias for TPktSizeBase from shared-types)
 │   │   └── typeUtils.ts          # ElementProps<> helper
 │   ├── utils/
 │   │   └── classutils.ts         # Host class attribute helpers
