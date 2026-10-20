@@ -11,8 +11,8 @@ Builds the component library for npm distribution:
 - **Format:** ES modules (`.js`) + CommonJS (`.cjs`)
 - **Entries:** Separate entry for each component + a combined `index` entry
 - **Naming:** `pkt-{name}.js` / `pkt-{name}.cjs`
-- **Types:** `.d.ts` files via `vite-plugin-dts` with `rollupTypes: true`
-- **Browser target:** `build.target` is Vite's default except Safari and iOS, which are lowered to 15. Vite 8's default (Safari 16.4) let class static blocks through, and older Safari can't parse them, so no component loaded on older iPhones. Keep the target when upgrading Vite.
+- **Types:** one `.d.ts` per source file via `vite-plugin-dts`. Tests (`*.test.ts`, `src/tests/`) and the dev app (`src/docs/`) are excluded, so their types are not published.
+- **Browser target:** `build.target` is Vite's default except Safari and iOS, which are lowered to 15. Vite 8's default (Safari 16.4) let class static blocks through, and older Safari can't parse them, so no component loaded on older iPhones. Keep the target when upgrading Vite. `npm run check-browser-support` runs in the PR workflow and fails on syntax or APIs newer than Safari 15.
 - **Dependencies:** everything is bundled, `lit` included. The built JS imports no packages, so the CDN can serve `dist/` as is. `lit` stays in `dependencies` anyway, because the published `.d.ts` files import its types (`PktElement extends LitElement`); without it, consumers' types break. Packages used only by the dev app or the tooling (`@lit-labs/router`, `urlpattern-polyfill`, `@types/node`) belong in `devDependencies`.
 
 ### Output structure
@@ -61,6 +61,7 @@ npm run build        # tsc + vite build (library)
 npm run build-app    # tsc + vite build (documentation app)
 npm run preview      # Preview built documentation app
 npm run type-check   # tsc --noEmit (type checking only)
+npm run check-browser-support  # After build: fails on syntax or APIs that Safari 15 can't run
 ```
 
 ## Consumer usage

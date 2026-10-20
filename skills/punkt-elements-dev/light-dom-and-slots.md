@@ -169,6 +169,7 @@ Rules:
 - `null` in the array form forwards the default slot. Prefer it over rendering `${slotContent(this)}` inside the child's tag, which nests one Lit part inside another component's slotting.
 - Forwarding chains: textinput → input-wrapper → pkt-helptext works, and changes propagate through every level.
 - Rendering the child conditionally is safe. The forwarded content is handed over again when the child is rendered anew, and the parent keeps observing its own children while any child subscribes.
+- The child doesn't have to be defined yet. The forwarding connects once `customElements.whenDefined()` resolves, so the child's manager is created after the upgrade and follows its renders.
 - A component that describes its control with the helptext must include slotted helptext: `hasHelptext: !!this.helptext || this.hasSlotContent('helptext')`.
 
 ## Slot content reactivity

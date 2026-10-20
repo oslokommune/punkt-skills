@@ -79,3 +79,5 @@ Key rules enforced:
 npm run lint        # Lint all source files
 npm run lint:fix    # Auto-fix lint issues
 ```
+
+Lint runs in the PR workflow (`npm run lint-elements` from the root), so errors fail the build. Keep the glob quoted in `package.json` (`eslint 'src/**/*.ts'`): unquoted, `sh` expands `**` like `*`, and only 29 of 194 files were linted.
