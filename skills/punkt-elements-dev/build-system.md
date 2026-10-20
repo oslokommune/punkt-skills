@@ -12,7 +12,8 @@ Builds the component library for npm distribution:
 - **Entries:** Separate entry for each component + a combined `index` entry
 - **Naming:** `pkt-{name}.js` / `pkt-{name}.cjs`
 - **Types:** `.d.ts` files via `vite-plugin-dts` with `rollupTypes: true`
-- **Externals:** `lit` is not bundled (peer dependency)
+- **Browser target:** `build.target` is Vite's default except Safari and iOS, which are lowered to 15. Vite 8's default (Safari 16.4) let class static blocks through, and older Safari can't parse them, so no component loaded on older iPhones. Keep the target when upgrading Vite.
+- **Dependencies:** everything is bundled, `lit` included. The built JS imports no packages, so the CDN can serve `dist/` as is. `lit` stays in `dependencies` anyway, because the published `.d.ts` files import its types (`PktElement extends LitElement`); without it, consumers' types break. Packages used only by the dev app or the tooling (`@lit-labs/router`, `urlpattern-polyfill`, `@types/node`) belong in `devDependencies`.
 
 ### Output structure
 
