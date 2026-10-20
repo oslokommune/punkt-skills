@@ -10,7 +10,7 @@ Input Wrapper provides the standard label, help text, error messages, character 
 | Elements       | Yes       | `<pkt-input-wrapper>` — `import '@oslokommune/punkt-elements/dist/pkt-input-wrapper.js'`          |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-input-wrapper.js" type="module">` |
 
-Dark mode: No
+Dark mode: Yes
 
 ## Usage guidelines
 
@@ -23,38 +23,38 @@ Dark mode: No
 
 ## Props / Attributes
 
-| Prop (React)             | Attribute (Elements)     | Type                                  | Default          | Description                                                                                                                      |
-| ------------------------ | ------------------------ | ------------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `forId`                  | `forId`                  | string                                | **(required)**   | ID of the form element being wrapped                                                                                             |
-| `label`                  | `label`                  | string                                | **(required)**   | Label text for the form element                                                                                                  |
-| `helptext`               | `helptext`               | string                                | —                | Help text below the label                                                                                                        |
-| `helptextDropdown`       | `helptextDropdown`       | string                                | —                | Expandable help text content                                                                                                     |
-| `helptextDropdownButton` | `helptextDropdownButton` | string                                | `"Les mer"`      | Button text for expandable help                                                                                                  |
-| `ariaDescribedby`        | `ariaDescribedby`        | string                                | —                | ID of the element that describes the form element                                                                                |
-| `counter`                | `counter`                | boolean                               | `false`          | Show character counter                                                                                                           |
-| `counterCurrent`         | `counterCurrent`         | number                                | —                | Current character count                                                                                                          |
-| `counterMaxLength`       | `counterMaxLength`       | number                                | —                | Maximum character count                                                                                                          |
-| `counterPosition`        | `counterPosition`        | `"top"` \| `"bottom"`                 | `"bottom"`       | Position of the counter                                                                                                          |
-| `optionalTag`            | `optionalTag`            | boolean                               | `false`          | Show "Optional" tag next to label                                                                                                |
-| `optionalText`           | `optionalText`           | string                                | `"Valgfritt"`    | Deprecated — use `strings`. See [Strings](strings.md)                                                                            |
-| `requiredTag`            | `requiredTag`            | boolean                               | `false`          | Show "Required" tag next to label                                                                                                |
-| `requiredText`           | `requiredText`           | string                                | `"Må fylles ut"` | Deprecated — use `strings`. See [Strings](strings.md)                                                                            |
-| `tagText`                | `tagText`                | string                                | —                | Custom tag text next to label                                                                                                    |
-| `hasError`               | `hasError`               | boolean                               | `false`          | Shows error state                                                                                                                |
-| `errorMessage`           | `errorMessage`           | string                                | —                | Error message shown below the field                                                                                              |
-| `disabled`               | `disabled`               | boolean                               | `false`          | Disabled state. With `hasFieldset` the fieldset gets `disabled`, which disables every field in it, like `<fieldset disabled>`    |
-| `inline`                 | `inline`                 | boolean                               | `false`          | Display inline with page content                                                                                                 |
-| `hasFieldset`            | `hasFieldset`            | boolean                               | `false`          | Render as a `fieldset` with `legend` instead of `div`/`label`                                                                    |
-| `layout`                 | `layout`                 | `"vertical"` \| `"horizontal"`        | `"vertical"`     | Direction of the options in a group. `horizontal` wraps them in a row. The gap between options follows `size`: 16, 12 or 8px     |
-| `useWrapper`             | `useWrapper`             | boolean                               | `true`           | Enable/disable the wrapper                                                                                                       |
-| `size`                   | `input-wrapper-size`     | `"small"` \| `"medium"` \| `"xsmall"` | `"medium"`       | Size of label, help text and error message. Checkboxes and radio buttons inside inherit it unless they set their own `inputSize` |
-| `role`                   | `role`                   | string                                | `"group"`        | ARIA role for the wrapper element                                                                                                |
+| Prop (React)             | Attribute (Elements)     | Type                                  | Default        | Description                                                                                                                      |
+| ------------------------ | ------------------------ | ------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `forId`                  | `forId`                  | string                                | **(required)** | ID of the form element being wrapped                                                                                             |
+| `label`                  | `label`                  | string                                | **(required)** | Label text for the form element                                                                                                  |
+| `helptext`               | `helptext`               | string                                | —              | Help text below the label                                                                                                        |
+| `helptextDropdown`       | `helptextDropdown`       | string                                | —              | Expandable help text content                                                                                                     |
+| `helptextDropdownButton` | `helptextDropdownButton` | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                                            |
+| `ariaDescribedby`        | `ariaDescribedby`        | string                                | —              | ID of the element that describes the form element                                                                                |
+| `counter`                | `counter`                | boolean                               | `false`        | Show character counter                                                                                                           |
+| `counterCurrent`         | `counterCurrent`         | number                                | `0`            | Current character count                                                                                                          |
+| `counterMaxLength`       | `counterMaxLength`       | number                                | —              | Maximum character count                                                                                                          |
+| `counterPosition`        | `counterPosition`        | `"top"` \| `"bottom"`                 | `"bottom"`     | Position of the counter                                                                                                          |
+| `optionalTag`            | `optionalTag`            | boolean                               | `false`        | Show "Optional" tag next to label                                                                                                |
+| `optionalText`           | `optionalText`           | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                                            |
+| `requiredTag`            | `requiredTag`            | boolean                               | `false`        | Show "Required" tag next to label                                                                                                |
+| `requiredText`           | `requiredText`           | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                                            |
+| `tagText`                | `tagText`                | string                                | —              | Custom tag text next to label                                                                                                    |
+| `hasError`               | `hasError`               | boolean                               | `false`        | Shows error state                                                                                                                |
+| `errorMessage`           | `errorMessage`           | string                                | —              | Error message shown below the field                                                                                              |
+| `disabled`               | `disabled`               | boolean                               | `false`        | Disabled state. With `hasFieldset` the fieldset gets `disabled`, which disables every field in it, like `<fieldset disabled>`    |
+| `inline`                 | `inline`                 | boolean                               | `false`        | Display inline with page content                                                                                                 |
+| `hasFieldset`            | `hasFieldset`            | boolean                               | `false`        | Render as a `fieldset` with `legend` instead of `div`/`label`                                                                    |
+| `layout`                 | `layout`                 | `"vertical"` \| `"horizontal"`        | `"vertical"`   | Direction of the options in a group. `horizontal` wraps them in a row. The gap between options follows `size`: 16, 12 or 8px     |
+| `useWrapper`             | `useWrapper`             | boolean                               | `true`         | Enable/disable the wrapper                                                                                                       |
+| `size`                   | `input-wrapper-size`     | `"small"` \| `"medium"` \| `"xsmall"` | `"medium"`     | Size of label, help text and error message. Checkboxes and radio buttons inside inherit it unless they set their own `inputSize` |
+| `role`                   | `role`                   | string                                | —              | ARIA role for the wrapper element. Not set by default — use `hasFieldset` for real groups                                        |
 
 ## Events
 
-| Event (React)      | Event (Elements) | Description                                                         |
-| ------------------ | ---------------- | ------------------------------------------------------------------- |
-| `onToggleHelpText` | `toggleHelpText` | Fires when expandable help text opens/closes. `{ isOpen: boolean }` |
+| Event (React) | Event (Elements) | Description                                                                        |
+| ------------- | ---------------- | ---------------------------------------------------------------------------------- |
+| —             | `toggleHelpText` | Elements only. Fires when expandable help text opens/closes. `{ isOpen: boolean }` |
 
 ## Slots
 
