@@ -4,13 +4,13 @@ Textarea lets the user type longer free-form text, typically in forms. Use it wh
 
 ## Availability
 
-| Package        | Available | Tag / Import                                                                                     |
-| -------------- | --------- | ------------------------------------------------------------------------------------------------ |
-| React          | Yes       | `<PktTextarea>` — `import { PktTextarea } from '@oslokommune/punkt-react'`                       |
-| Elements       | Yes       | `<pkt-textarea>` — `import '@oslokommune/punkt-elements/dist/pkt-textarea.js'`                   |
+| Package        | Available | Tag / Import                                                                                 |
+| -------------- | --------- | -------------------------------------------------------------------------------------------- |
+| React          | Yes       | `<PktTextarea>` — `import { PktTextarea } from '@oslokommune/punkt-react'`                   |
+| Elements       | Yes       | `<pkt-textarea>` — `import '@oslokommune/punkt-elements/dist/pkt-textarea.js'`               |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-textarea.js" type="module">` |
 
-Dark mode: No
+Dark mode: Yes
 
 ## Usage guidelines
 
@@ -30,35 +30,41 @@ Dark mode: No
 
 ## Props / Attributes
 
-| Prop (React)             | Attribute (Elements)     | Type    | Default          | Description                             |
-| ------------------------ | ------------------------ | ------- | ---------------- | --------------------------------------- |
-| `label`                  | `label`                  | string  | —                | Label displayed above the field         |
-| `name`                   | `name`                   | string  | **(required)**   | Form field name                         |
-| `form`                   | `form`                   | string  | —                | `id` of the `<form>` the field belongs to, when it sits outside it |
-| `id`                     | `id`                     | string  | **(required)**   | Unique identifier                       |
-| `value`                  | `value`                  | string  | —                | Current value                           |
-| `placeholder`            | `placeholder`            | string  | —                | Hint text shown when empty              |
-| `rows`                   | `rows`                   | number  | —                | Number of visible text rows             |
-| `helptext`               | `helptext`               | string  | —                | Help text below the label               |
-| `helptextDropdown`       | `helptextDropdown`       | string  | —                | Expandable help text content            |
-| `helptextDropdownButton` | `helptextDropdownButton` | string  | `"Les mer"`      | Button text for expandable help         |
-| `autocomplete`           | `autocomplete`           | string  | `"off"`          | HTML autocomplete attribute             |
-| `ariaLabelledby`         | `ariaLabelledby`         | string  | —                | ID of an element that labels this field |
-| `required`               | `required`               | boolean | `false`          | Field is required for form submission   |
-| `requiredTag`            | `requiredTag`            | boolean | —                | Show "Required" tag next to label       |
-| `requiredText`           | `requiredText`           | string  | `"Må fylles ut"` | Deprecated — use `strings`. See [Strings](strings.md)                |
-| `optionalTag`            | `optionalTag`            | boolean | —                | Show "Optional" tag next to label       |
-| `optionalText`           | `optionalText`           | string  | `"Valgfritt"`    | Deprecated — use `strings`. See [Strings](strings.md)                |
-| `tagText`                | `tagText`                | string  | —                | Custom tag text next to label           |
-| `hasError`               | `hasError`               | boolean | —                | Shows error state                       |
-| `errorMessage`           | `errorMessage`           | string  | —                | Error message shown below the field     |
-| `disabled`               | `disabled`               | boolean | `false`          | Disables the field                      |
-| `inline`                 | `inline`                 | boolean | `false`          | Display inline with page content        |
-| `fullwidth`              | `fullwidth`              | boolean | `false`          | Field takes full width                  |
-| `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`       | Field height                            |
-| `useWrapper`             | `useWrapper`             | boolean | `true`           | Show label, help text, and wrapper      |
-| `counter`                | `counter`                | boolean | derived          | Show character counter                  |
-| `counterMaxLength`       | `counterMaxLength`       | number  | —                | Maximum character count for the counter |
+| Prop (React)             | Attribute (Elements)     | Type                                  | Default        | Description                                                                                                                         |
+| ------------------------ | ------------------------ | ------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `label`                  | `label`                  | string                                | **(required)** | Label displayed above the field. Required in React; Elements does not enforce it, but the field then has no accessible name         |
+| `name`                   | `name`                   | string                                | —              | Form field name. Falls back to `id`                                                                                                 |
+| `form`                   | `form`                   | string                                | —              | `id` of the `<form>` the field belongs to, when it sits outside it                                                                  |
+| `id`                     | `id`                     | string                                | **(required)** | Unique identifier                                                                                                                   |
+| `value`                  | `value`                  | string                                | —              | Current value                                                                                                                       |
+| `placeholder`            | `placeholder`            | string                                | —              | Hint text shown when empty                                                                                                          |
+| `rows`                   | `rows`                   | number                                | —              | Number of visible text rows                                                                                                         |
+| `cols`                   | `cols`                   | number                                | —              | Visible width in characters. Overridden by `fullwidth`                                                                              |
+| `minLength`              | `minlength`              | number                                | —              | Minimum number of characters for the field to be valid                                                                              |
+| `maxLength`              | `maxlength`              | number                                | —              | Maximum number of characters; the browser stops input at the limit. Use `counterMaxLength` to show a counter without blocking input |
+| `readOnly`               | `readonly`               | boolean                               | `false`        | Field can be read and focused but not changed. The value is still submitted                                                         |
+| `helptext`               | `helptext`               | string                                | —              | Help text below the label                                                                                                           |
+| `helptextDropdown`       | `helptextDropdown`       | string                                | —              | Expandable help text content                                                                                                        |
+| `helptextDropdownButton` | `helptextDropdownButton` | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                                               |
+| `autoComplete`           | `autocomplete`           | string                                | `"off"`        | HTML autocomplete attribute. React also accepts `autocomplete` (deprecated)                                                         |
+| `ariaLabelledby`         | `aria-labelledby`        | string                                | —              | ID of an element that labels this field                                                                                             |
+| `ariaDescribedby`        | `aria-describedby`       | string                                | —              | ID of an element that describes this field                                                                                          |
+| `required`               | `required`               | boolean                               | `false`        | Field is required for form submission                                                                                               |
+| `requiredTag`            | `requiredTag`            | boolean                               | `false`        | Show "Required" tag next to label                                                                                                   |
+| `requiredText`           | `requiredText`           | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                                               |
+| `optionalTag`            | `optionalTag`            | boolean                               | `false`        | Show "Optional" tag next to label                                                                                                   |
+| `optionalText`           | `optionalText`           | string                                | —              | Deprecated — use `strings`. See [Strings](strings.md)                                                                               |
+| `tagText`                | `tagText`                | string                                | —              | Custom tag text next to label                                                                                                       |
+| `hasError`               | `hasError`               | boolean                               | `false`        | Shows error state                                                                                                                   |
+| `errorMessage`           | `errorMessage`           | string                                | —              | Error message shown below the field                                                                                                 |
+| `disabled`               | `disabled`               | boolean                               | `false`        | Disables the field                                                                                                                  |
+| `inline`                 | `inline`                 | boolean                               | `false`        | Display inline with page content                                                                                                    |
+| `fullwidth`              | `fullwidth`              | boolean                               | `false`        | Field takes full width                                                                                                              |
+| `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`     | Field height                                                                                                                        |
+| `useWrapper`             | `useWrapper`             | boolean                               | `true`         | Show label, help text, and wrapper                                                                                                  |
+| `counter`                | `counter`                | boolean                               | derived        | Show character counter                                                                                                              |
+| `counterMaxLength`       | `counterMaxLength`       | number                                | —              | Maximum character count for the counter                                                                                             |
+| `hasFieldset`            | `hasFieldset`            | boolean                               | derived        | Use `fieldset` and `legend` instead of `label`                                                                                      |
 
 ### Counter and fieldset
 
