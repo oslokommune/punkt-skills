@@ -39,7 +39,10 @@ Dark mode: Yes
 | `variant`    | `variant`            | `"rainbow"` \| `"blue"` \| `"shapes"` | `"rainbow"` | Color variant                                   |
 | `delay`      | `delay`              | number                                | `0`         | Delay in milliseconds before the loader appears |
 | `inline`     | `inline`             | boolean                               | `false`     | Display inline with page content                |
-| `isLoading`  | `isLoading`          | boolean                               | `true`      | Whether the loader is active                    |
+| `isLoading`  | `is-loading`         | boolean                               | `true`      | Whether the loader is active. `is-loading="false"` shows the slotted content |
+| `loadingAnimationPath` | `loading-animation-path` | string                    | Punkt CDN   | Overrides where the loader animations are loaded from |
+
+The old lowercase attributes `isloading` and `loadinganimationpath` still work, but new markup should use the kebab-case names.
 
 ## Slots
 
@@ -86,5 +89,9 @@ import { PktLoader } from '@oslokommune/punkt-react'
 
 <pkt-loader message="Loading...">
   <div>Content shown after loading</div>
+</pkt-loader>
+
+<pkt-loader is-loading="false">
+  <div>Loading finished, so this content is visible</div>
 </pkt-loader>
 ```
