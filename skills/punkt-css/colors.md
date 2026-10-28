@@ -130,10 +130,11 @@ Used internally by form components:
 - `input-text-normal`, `input-text-hover`, `input-text-active`, `input-text-disabled`, `input-text-error`, `input-text-open`
 - `input-check-background`, `input-check-border`, `input-check-text-active`, `input-check-text-hover`
 
-### Tag and button
+### Tag, button and spinner
 
 - `tag-text-normal`, `tag-text-hover`, `tag-text-active`, `tag-text-focus`
 - `button-primary-*`, `button-secondary-*`, `button-tertiary-*` — background, border and text per state
+- `spinner-border-normal` (the ring), `spinner-border-blue`, `spinner-border-rainbow` (the moving segment)
 
 ## Brand colors reference
 

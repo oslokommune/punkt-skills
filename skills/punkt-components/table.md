@@ -10,7 +10,7 @@ Table displays structured data in rows and columns. It can be used as a React co
 | CSS only | Yes       | Apply `pkt-table` classes to standard `<table>` HTML                                                                                   |
 | Elements | No        | —                                                                                                                                      |
 
-Dark mode: No
+Dark mode: Yes
 
 ## Sub-components (React)
 
@@ -29,7 +29,8 @@ Dark mode: No
 | ------------------------- | --------------------------------------------------- |
 | `pkt-table`               | Base table class (required)                         |
 | `pkt-table--basic`        | Default skin with bottom borders on rows            |
-| `pkt-table--zebra-blue`   | Alternating blue background on odd rows             |
+| `pkt-table--zebra`        | Alternating gray background on odd rows             |
+| `pkt-table--zebra-blue`   | Deprecated alias for `pkt-table--zebra`             |
 | `pkt-table--compact`      | Reduced padding                                     |
 | `pkt-table--responsive`   | Enables responsive stacking on mobile (≤768px)      |
 | `pkt-table__header`       | Header section (`<thead>`)                          |
@@ -55,11 +56,13 @@ On mobile, headers are hidden and each row becomes a card-like block with label�
 
 Types `IPktTable`, `IPktTableDataCell` and `TPktTableSkin` are exported from `@oslokommune/punkt-react`.
 
-| Prop (React)     | Type                        | Default   | Description                          |
-| ---------------- | --------------------------- | --------- | ------------------------------------ |
-| `skin`           | `"basic"` \| `"zebra-blue"` | `"basic"` | Visual style                         |
-| `compact`        | boolean                     | `false`   | Compact mode with less padding       |
-| `responsiveView` | boolean                     | `true`    | Enable responsive stacking on mobile |
+| Prop (React)     | Type                   | Default   | Description                          |
+| ---------------- | ---------------------- | --------- | ------------------------------------ |
+| `skin`           | `"basic"` \| `"zebra"` | `"basic"` | Visual style                         |
+| `compact`        | boolean                | `false`   | Compact mode with less padding       |
+| `responsiveView` | boolean                | `true`    | Enable responsive stacking on mobile |
+
+`skin="zebra-blue"` and the class `pkt-table--zebra-blue` are deprecated and will be removed in a future version. They still work, render the same as `zebra`, and the prop logs a `console.warn` once. Use `skin="zebra"` / `pkt-table--zebra`.
 
 ## Props / Attributes — PktTableDataCell (React)
 
@@ -142,7 +145,7 @@ import {
 The BEM classes (`pkt-table__header`, `pkt-table__row`, etc.) are optional — the CSS also targets standard `<thead>`, `<tr>`, `<th>`, `<td>` elements within `.pkt-table`. A minimal CSS-only table can use just the base class:
 
 ```html
-<table class="pkt-table pkt-table--zebra-blue pkt-table--compact">
+<table class="pkt-table pkt-table--zebra pkt-table--compact">
   <thead>
     <tr>
       <th>Column A</th>

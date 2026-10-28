@@ -10,7 +10,7 @@ Steps (stepper) shows progress through a multi-step process. It indicates which 
 | Elements       | No        | —                                                                                               |
 | Elements (CDN) | No        | —                                                                                               |
 
-Dark mode: No
+Dark mode: Yes
 
 ## Variants
 
