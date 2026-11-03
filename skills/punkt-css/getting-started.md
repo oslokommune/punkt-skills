@@ -155,7 +155,7 @@ When using the SCSS method, you can import abstracts (variables, mixins, functio
 
 ## Content Security Policy (CSP)
 
-Punkt loads fonts, icons (SVG), and other resources from `https://punkt-cdn.oslo.kommune.no/`. If the application uses a Content Security Policy, the CSP must allow this origin.
+Punkt loads fonts and other resources from `https://punkt-cdn.oslo.kommune.no/`, and the icons in Punkt's components from `https://cdn.ikoner.oslo.kommune.no/`. If the application uses a Content Security Policy, the CSP must allow both origins.
 
 **Required CSP directives:**
 
@@ -166,7 +166,7 @@ Content-Security-Policy:
   img-src 'self' https://punkt-cdn.oslo.kommune.no/;
   script-src 'self' https://punkt-cdn.oslo.kommune.no/;
   style-src 'self' 'unsafe-inline' https://punkt-cdn.oslo.kommune.no/;
-  connect-src 'self' https://punkt-cdn.oslo.kommune.no/;
+  connect-src 'self' https://punkt-cdn.oslo.kommune.no/ https://cdn.ikoner.oslo.kommune.no/;
 ```
 
 **Why `'unsafe-inline'` in `style-src`?** Because of the intricacies of SVG styling and certain web component features, Punkt requires `'unsafe-inline'` in the `style-src` directive. Without it, some styles will be blocked by the browser. CSP nonces can be used as an alternative but require server-side configuration.

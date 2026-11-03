@@ -80,9 +80,10 @@ of them returns `null`, which makes the declaration vanish without a build error
 | `size-75`  | 75px   | `size-72`    |
 | `size-100` | 100px  | `size-104`   |
 
-To migrate a codebase that is still on Punkt 18, run
-`npx @oslokommune/punkt-migrate@19 . --dry-run` from the project root. The tool takes one path
-and scans everything under it, skipping `node_modules` and build output.
+To migrate a codebase that is still on Punkt 18 or 19, run
+`npx @oslokommune/punkt-migrate@20 . --dry-run` from the project root. The tool takes one path
+and scans everything under it, skipping `node_modules` and build output. A project on 18 is
+migrated through 19 in the same run.
 
 ## Examples
 

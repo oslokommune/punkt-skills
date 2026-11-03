@@ -10,22 +10,43 @@ Tag displays a short label, status, or category. It can include an icon and an o
 | Elements       | Yes       | `<pkt-tag>` — `import '@oslokommune/punkt-elements/dist/pkt-tag.js'`                        |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-tag.js" type="module">` |
 
-Dark mode: Yes
+Dark mode: Only the default `gray` skin. Every other skin keeps its light appearance in dark mode.
 
 ## Variants
 
 ### Skins
 
-| Skin             | Use                         |
-| ---------------- | --------------------------- |
-| `blue` (default) | Standard tag                |
-| `blue-light`     | Lighter blue                |
-| `blue-dark`      | Darker blue                 |
-| `green`          | Positive status or category |
-| `red`            | Negative status or warning  |
-| `beige`          | Neutral alternative         |
-| `yellow`         | Attention or pending        |
-| `gray`           | Inactive or secondary       |
+Each colour comes in a strong variant and a `-light` variant. Blue additionally has `blue-pale`.
+
+| Skin             | Use                                        |
+| ---------------- | ------------------------------------------ |
+| `gray` (default) | Standard tag, the only skin with dark mode |
+| `gray-light`     | Quieter neutral                            |
+| `blue-dark`      | Strong emphasis, light text on dark fill   |
+| `blue`           | Standard blue                              |
+| `blue-light`     | Lighter blue                               |
+| `blue-pale`      | Faintest blue                              |
+| `green`          | Positive status or category                |
+| `green-light`    | Lighter positive                           |
+| `red`            | Negative status or warning                 |
+| `red-light`      | Lighter negative                           |
+| `yellow`         | Attention or pending                       |
+| `yellow-light`   | Lighter attention                          |
+| `beige`          | Neutral alternative                        |
+| `beige-light`    | Lighter neutral                            |
+
+All skins except `blue-dark` share the same hover, focus and active appearance.
+
+### Forced states
+
+`state` renders a tag in a given state without the user interacting with it. Intended for
+documentation, design reviews and visual regression tests, not for production UI.
+
+| State    | Description         |
+| -------- | ------------------- |
+| `hover`  | As if hovered       |
+| `focus`  | As if focused       |
+| `active` | As if being pressed |
 
 ### Sizes
 
@@ -46,7 +67,8 @@ Dark mode: Yes
 
 | Prop (React) | Attribute (Elements) | Type                                                                                                       | Default         | Description                |
 | ------------ | -------------------- | ---------------------------------------------------------------------------------------------------------- | --------------- | -------------------------- |
-| `skin`       | `skin`               | `"blue"` \| `"blue-light"` \| `"blue-dark"` \| `"green"` \| `"red"` \| `"beige"` \| `"yellow"` \| `"gray"` | `"blue"`        | Color/style of the tag     |
+| `skin`       | `skin`               | See the Skins table above                                                                                  | `"gray"`        | Color/style of the tag     |
+| `state`      | `state`              | `"hover"` \| `"focus"` \| `"active"`                                                                       | —               | Forces a visual state      |
 | `size`       | `size`               | `"small"` \| `"medium"` \| `"large"`                                                                       | `"medium"`      | Tag size                   |
 | `iconName`   | `iconName`           | string (icon name)                                                                                         | —               | Icon displayed in the tag  |
 | `closeTag`   | `closeTag`           | boolean                                                                                                    | `false`         | Show a close/remove button |
@@ -68,9 +90,9 @@ Dark mode: Yes
 import { PktTag } from '@oslokommune/punkt-react'
 
 {
-  /* Basic tag */
+  /* Basic tag, default gray skin */
 }
-;<PktTag skin="blue">Active</PktTag>
+;<PktTag>Active</PktTag>
 
 {
   /* With icon */
@@ -97,9 +119,11 @@ import { PktTag } from '@oslokommune/punkt-react'
 ### Elements
 
 ```html
-<pkt-tag skin="blue"><span>Active</span></pkt-tag>
+<pkt-tag><span>Active</span></pkt-tag>
 
 <pkt-tag skin="green" iconName="check"><span>Completed</span></pkt-tag>
 
 <pkt-tag skin="beige" closeTag><span>Filter item</span></pkt-tag>
+
+<pkt-tag skin="red-light" state="hover"><span>Hover, for documentation</span></pkt-tag>
 ```

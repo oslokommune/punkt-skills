@@ -123,7 +123,7 @@ These still work but log a `console.warn`. They are not available in Elements.
 The footer needs more than the standard Punkt CSP, because the global footer fetches its content from a **different** domain than the rest of Punkt — `cdn.web.oslo.kommune.no`, not `punkt-cdn.oslo.kommune.no`:
 
 ```
-connect-src 'self' https://punkt-cdn.oslo.kommune.no/ https://cdn.web.oslo.kommune.no/;
+connect-src 'self' https://punkt-cdn.oslo.kommune.no/ https://cdn.ikoner.oslo.kommune.no/ https://cdn.web.oslo.kommune.no/;
 ```
 
 If you set your own `dataUrl`, allow that URL instead. `PktHeader type="global"` uses the same endpoint, so this one permission covers both.

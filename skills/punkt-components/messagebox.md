@@ -4,24 +4,25 @@ Messagebox displays a highlighted informational message. Unlike Alert, it is not
 
 ## Availability
 
-| Package        | Available | Tag / Import                                                                                       |
-| -------------- | --------- | -------------------------------------------------------------------------------------------------- |
-| React          | Yes       | `<PktMessagebox>` — `import { PktMessagebox } from '@oslokommune/punkt-react'`                     |
-| Elements       | Yes       | `<pkt-messagebox>` — `import '@oslokommune/punkt-elements/dist/pkt-messagebox.js'`                 |
+| Package        | Available | Tag / Import                                                                                   |
+| -------------- | --------- | ---------------------------------------------------------------------------------------------- |
+| React          | Yes       | `<PktMessagebox>` — `import { PktMessagebox } from '@oslokommune/punkt-react'`                 |
+| Elements       | Yes       | `<pkt-messagebox>` — `import '@oslokommune/punkt-elements/dist/pkt-messagebox.js'`             |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-messagebox.js" type="module">` |
 
-Dark mode: No
+Dark mode: Yes, for the `gray` skin. The other skins have no dark variant and render `data-mode="light"`, so the box and everything inside it keep their light-mode colors inside a `data-mode="dark"` area.
 
 ## Variants
 
 ### Skins
 
-| Skin              | Use                          |
-| ----------------- | ---------------------------- |
-| `beige` (default) | Neutral, general information |
-| `blue`            | Informational callout        |
-| `red`             | Warning or important notice  |
-| `green`           | Positive information or tip  |
+| Skin             | Use                                    |
+| ---------------- | -------------------------------------- |
+| `gray` (default) | Neutral information, follows dark mode |
+| `beige`          | Neutral, general information           |
+| `blue`           | Informational callout                  |
+| `red`            | Warning or important notice            |
+| `green`          | Positive information or tip            |
 
 ### Sizes
 
@@ -44,12 +45,12 @@ Dark mode: No
 
 ## Props / Attributes
 
-| Prop (React) | Attribute (Elements) | Type                                          | Default   | Description                    |
-| ------------ | -------------------- | --------------------------------------------- | --------- | ------------------------------ |
-| `title`      | `title`              | string                                        | —         | Title of the message box       |
-| `skin`       | `skin`               | `"beige"` \| `"blue"` \| `"red"` \| `"green"` | `"beige"` | Color/style of the message box |
-| `compact`    | `compact`            | boolean                                       | `false`   | Compact size with less padding |
-| `closable`   | `closable`           | boolean                                       | `false`   | Show a close button            |
+| Prop (React) | Attribute (Elements) | Type                                                      | Default  | Description                    |
+| ------------ | -------------------- | --------------------------------------------------------- | -------- | ------------------------------ |
+| `title`      | `title`              | string                                                    | —        | Title of the message box       |
+| `skin`       | `skin`               | `"gray"` \| `"beige"` \| `"blue"` \| `"red"` \| `"green"` | `"gray"` | Color/style of the message box |
+| `compact`    | `compact`            | boolean                                                   | `false`  | Compact size with less padding |
+| `closable`   | `closable`           | boolean                                                   | `false`  | Show a close button            |
 
 ## Events
 
@@ -105,3 +106,7 @@ import { PktMessagebox } from '@oslokommune/punkt-react'
   <p>Remember to save your progress regularly.</p>
 </pkt-messagebox>
 ```
+
+## Migrating from Punkt 19
+
+The default skin changed from `beige` to the new `gray`. Set `skin="beige"` to keep the old look. In plain HTML, `.pkt-messagebox` without a skin class is now gray; add `pkt-messagebox--beige` for beige.

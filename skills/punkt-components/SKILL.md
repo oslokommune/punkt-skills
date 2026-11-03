@@ -27,7 +27,7 @@ import { PktButton } from '@oslokommune/punkt-react';
 </PktButton>
 ```
 
-Punkt components load icons, SVGs, and other resources from the CDN. If your project uses a Content Security Policy (CSP), you must configure it to allow resources from `https://punkt-cdn.oslo.kommune.no/`. See the [CSP section](#content-security-policy-csp) below.
+Punkt components load SVGs and other resources from the CDN, and icons from Oslo kommune's icon library. If your project uses a Content Security Policy (CSP), you must configure it to allow resources from `https://punkt-cdn.oslo.kommune.no/` and `https://cdn.ikoner.oslo.kommune.no/`. See the [CSP section](#content-security-policy-csp) below.
 
 Punkt React components are pure React — they do not wrap web components, and the package has no runtime dependency on `@oslokommune/punkt-elements`. You can pick React or Elements independently; nothing forces you to ship both.
 
@@ -128,7 +128,7 @@ and timepicker. Button also takes `form`, to submit or reset a form it sits outs
 
 ## Content Security Policy (CSP)
 
-Punkt components load fonts, icons (SVG), and other resources from `https://punkt-cdn.oslo.kommune.no/`. If the application uses a Content Security Policy, the CSP must allow this origin. This applies to all setup methods (NPM and CDN).
+Punkt components load fonts and other resources from `https://punkt-cdn.oslo.kommune.no/`, and icons (SVG) from `https://cdn.ikoner.oslo.kommune.no/`. If the application uses a Content Security Policy, the CSP must allow both origins. This applies to all setup methods (NPM and CDN).
 
 **Required CSP directives:**
 
@@ -139,7 +139,7 @@ Content-Security-Policy:
   img-src 'self' https://punkt-cdn.oslo.kommune.no/;
   script-src 'self' https://punkt-cdn.oslo.kommune.no/;
   style-src 'self' 'unsafe-inline' https://punkt-cdn.oslo.kommune.no/;
-  connect-src 'self' https://punkt-cdn.oslo.kommune.no/;
+  connect-src 'self' https://punkt-cdn.oslo.kommune.no/ https://cdn.ikoner.oslo.kommune.no/;
 ```
 
 **Why `'unsafe-inline'` in `style-src`?** Because of the intricacies of SVG styling and certain web component features, Punkt requires `'unsafe-inline'` in the `style-src` directive. Without it, some styles will be blocked by the browser. CSP nonces can be used as an alternative but require server-side configuration.

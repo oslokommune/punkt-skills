@@ -47,7 +47,7 @@ This is the main reason to prefer `<PktHeader type="global">`, which handles all
 Header Menu fetches from `https://cdn.web.oslo.kommune.no/` — a different domain from the rest of Punkt:
 
 ```
-connect-src 'self' https://punkt-cdn.oslo.kommune.no/ https://cdn.web.oslo.kommune.no/;
+connect-src 'self' https://punkt-cdn.oslo.kommune.no/ https://cdn.ikoner.oslo.kommune.no/ https://cdn.web.oslo.kommune.no/;
 ```
 
 If you set your own `dataUrl`, allow that URL instead. Fetching the payload server-side and passing it as `data` avoids the requirement entirely. The global header and footer share the same endpoint and the same cached request.

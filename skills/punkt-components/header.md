@@ -244,7 +244,7 @@ There is no navigation slot — the menu is built from the payload, so `children
 The global header needs more than the standard Punkt CSP, because it fetches menu data from a **different** domain than the rest of Punkt — `cdn.web.oslo.kommune.no`, not `punkt-cdn.oslo.kommune.no`:
 
 ```
-connect-src 'self' https://punkt-cdn.oslo.kommune.no/ https://cdn.web.oslo.kommune.no/;
+connect-src 'self' https://punkt-cdn.oslo.kommune.no/ https://cdn.ikoner.oslo.kommune.no/ https://cdn.web.oslo.kommune.no/;
 ```
 
 If you set your own `dataUrl`, allow that URL instead. The global footer uses the same endpoint, so this one permission covers both.

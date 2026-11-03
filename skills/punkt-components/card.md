@@ -4,10 +4,10 @@ Card groups related content together and can contain text, images, icons, button
 
 ## Availability
 
-| Package        | Available | Tag / Import                                                                                 |
-| -------------- | --------- | -------------------------------------------------------------------------------------------- |
-| React          | Yes       | `<PktCard>` — `import { PktCard } from '@oslokommune/punkt-react'`                           |
-| Elements       | Yes       | `<pkt-card>` — `import '@oslokommune/punkt-elements/dist/pkt-card.js'`                       |
+| Package        | Available | Tag / Import                                                                             |
+| -------------- | --------- | ---------------------------------------------------------------------------------------- |
+| React          | Yes       | `<PktCard>` — `import { PktCard } from '@oslokommune/punkt-react'`                       |
+| Elements       | Yes       | `<pkt-card>` — `import '@oslokommune/punkt-elements/dist/pkt-card.js'`                   |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-card.js" type="module">` |
 
 Dark mode: Yes
@@ -21,25 +21,31 @@ Dark mode: Yes
 | `vertical`   | Content stacked vertically — works well with multiple cards side by side |
 | `horizontal` | When you want to use more of the width, e.g. in desktop view             |
 
-Landscape cards automatically scale down to portrait on small screens.
+A horizontal card stacks (image above text) when the card itself is narrower than 36rem. This is a container query on the card, so a narrow card stacks even on a wide screen. Browsers without container queries fall back to the viewport width.
+
+The card fills its parent (`width: 100%`). It is at least 14rem wide, but never wider than a parent that is narrower than that (`min-width: min(14rem, 100%)`), so it doesn't overflow narrow columns. In a parent that shrinks to fit its content (`inline-block`, `fit-content`, a flex item without a width, an `auto` grid column) a vertical card asks for 25rem and a horizontal card for 37rem, enough to lie side by side. With less room it gets narrower, and a horizontal card stacks.
 
 ### Skins
 
-| Skin             | Use                                 |
-| ---------------- | ----------------------------------- |
-| `outlined`       | Border without background (default) |
-| `outlined-beige` | Border with beige tint              |
-| `gray`           | Gray filled background              |
-| `blue`           | Blue filled background              |
-| `beige`          | Beige filled background             |
-| `green`          | Green filled background             |
+| Skin          | Use                                                                                                | Dark mode       |
+| ------------- | -------------------------------------------------------------------------------------------------- | --------------- |
+| `gray`        | Gray background (default)                                                                          | Yes             |
+| `outlined`    | Border without background. The image is inset with padding                                         | Yes             |
+| `transparent` | No background and no padding. The text lines up with the image edges, 32px below it (or beside it) | Yes             |
+| `white`       | White background, for use on colored surfaces                                                      | No, stays light |
+| `blue`        | Blue background, to highlight content                                                              | No, stays light |
+| `green`       | Green background, to highlight content                                                             | No, stays light |
+| `beige`       | Beige background, to highlight content                                                             | No, stays light |
 
-### Image shapes
+Skins without dark mode render `data-mode="light"` on the card, so the card and everything inside it keep their light-mode colors inside a `data-mode="dark"` area.
 
-| Shape    | Use                                        |
-| -------- | ------------------------------------------ |
-| `square` | Tighter expression (default)               |
-| `round`  | More playful, harmonizes with Oslo profile |
+### Image
+
+The image has a fixed height that steps up with the width of the card (a container query, not the screen), and is cropped from the center, so cards of the same width get the same image height whatever the source images are. Vertical: 12.5rem, 14.375rem from a card width of 20rem, 18.125rem from 30rem. Horizontal: 11.5rem when stacked, 17.875rem from 36rem, 18.75rem from 48rem (in a row the image also stretches to the height of the text). Use `imageAspect` to use an aspect ratio instead.
+
+### Clickable card
+
+With `clickCardLink`, the heading becomes a link that covers the whole card, and an `arrow-link` icon follows the last word of the heading, inline, so it wraps with the text. On hover the text turns blue and the heading is underlined. Keyboard focus shows a focus ring around the whole card.
 
 ## Usage guidelines
 
@@ -68,24 +74,23 @@ Landscape cards automatically scale down to portrait on small screens.
 
 ## Props / Attributes
 
-| Prop (React)       | Attribute (Elements) | Type                                                                                 | Default      | Description                                                         |
-| ------------------ | -------------------- | ------------------------------------------------------------------------------------ | ------------ | ------------------------------------------------------------------- |
-| `heading`          | `heading`            | string                                                                               | —            | Card title                                                          |
-| `headingLevel`     | `headingLevel`       | `1` \| `2` \| `3` \| `4` \| `5` \| `6`                                               | `3`          | HTML heading level for the title                                    |
-| `subheading`       | `subheading`         | string                                                                               | —            | Subtitle displayed below the heading                                |
-| `layout`           | `layout`             | `"vertical"` \| `"horizontal"`                                                       | `"vertical"` | Portrait or landscape layout                                        |
-| `skin`             | `skin`               | `"outlined"` \| `"outlined-beige"` \| `"gray"` \| `"blue"` \| `"beige"` \| `"green"` | `"outlined"` | Visual style and color                                              |
-| `padding`          | `padding`            | `"none"` \| `"default"`                                                              | `"default"`  | Inner padding                                                       |
-| `metaLead`         | `metaLead`           | string                                                                               | —            | Bold metadata text (e.g. author)                                    |
-| `metaTrail`        | `metaTrail`          | string                                                                               | —            | Normal-weight metadata text (e.g. date)                             |
-| `tagPosition`      | `tagPosition`        | `"top"` \| `"bottom"`                                                                | `"top"`      | Position of tags in the card                                        |
-| `clickCardLink`    | `clickCardLink`      | string                                                                               | —            | URL to make the entire card clickable. Heading is used as link text |
-| `openLinkInNewTab` | `openLinkInNewTab`   | boolean                                                                              | `false`      | Open the card link in a new tab                                     |
-| `borderOnHover`    | `borderOnHover`      | boolean                                                                              | `true`       | Show border on hover for clickable cards                            |
-| `image`            | `image`              | `{ src: string, alt?: string }`                                                      | —            | Card image. Only set `alt` for non-decorative images                |
-| `imageShape`       | `imageShape`         | `"square"` \| `"round"`                                                              | `"square"`   | Shape of the card image                                             |
-| `tags`             | `tags`               | `Array<{ text: string, skin?: string, iconName?: string, ariaLabel?: string }>`      | —            | List of tags displayed on the card                                  |
-| `ariaLabel`        | `ariaLabel`          | string                                                                               | —            | Screen reader label. Defaults to heading or subheading              |
+| Prop (React)       | Attribute (Elements) | Type                                                                              | Default      | Description                                                         |
+| ------------------ | -------------------- | --------------------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------- |
+| `heading`          | `heading`            | string                                                                            | —            | Card title                                                          |
+| `headingLevel`     | `headingLevel`       | `1` \| `2` \| `3` \| `4` \| `5` \| `6`                                            | `3`          | HTML heading level for the title                                    |
+| `subheading`       | `subheading`         | string                                                                            | —            | Subtitle displayed below the heading                                |
+| `layout`           | `layout`             | `"vertical"` \| `"horizontal"`                                                    | `"vertical"` | Portrait or landscape layout                                        |
+| `skin`             | `skin`               | `"gray"` \| `"outlined"` \| `"transparent"` \| `"white"` \| `"blue"` \| `"green"` \| `"beige"` | `"gray"`     | Visual style and color                                              |
+| `metaLead`         | `metaLead`           | string                                                                            | —            | Bold metadata text (e.g. author)                                    |
+| `metaTrail`        | `metaTrail`          | string                                                                            | —            | Normal-weight metadata text (e.g. date)                             |
+| `tagPosition`      | `tagPosition`        | `"top"` \| `"bottom"`                                                             | `"top"`      | Position of tags in the card                                        |
+| `clickCardLink`    | `clickCardLink`      | string                                                                            | —            | URL to make the entire card clickable. Heading is used as link text |
+| `openLinkInNewTab` | `openLinkInNewTab`   | boolean                                                                           | `false`      | Open the card link in a new tab                                     |
+| `image`            | `image`              | `{ src: string, alt?: string }`                                                   | —            | Card image. Only set `alt` for non-decorative images                |
+| `imageAspect`      | `imageAspect`        | `"auto"` \| `"1-1"` \| `"4-3"` \| `"3-2"` \| `"16-9"` \| `"19-10"`                | —            | Use an aspect ratio instead of the fixed image height               |
+| `zoom`             | `zoom`               | boolean                                                                           | `false`      | Zoom the image slightly on hover                                    |
+| `tags`             | `tags`               | `Array<{ text: string, skin?: string, iconName?: string, ariaLabel?: string }>`   | —            | List of tags displayed on the card                                  |
+| `ariaLabel`        | `ariaLabel`          | string                                                                            | —            | Screen reader label. Defaults to heading or subheading              |
 
 ## Slots
 
@@ -156,6 +161,14 @@ import { PktCard } from '@oslokommune/punkt-react'
 ```
 
 ## Notes
+
+The card redesign removed `padding`, `imageShape`, `borderOnHover`, `restrictImageHeight` and the `outlined-beige` skin. When migrating:
+
+- `padding`: remove it. Padding now follows the skin; only `outlined` has space around the image.
+- `imageShape="round"`: remove it. Images are always rectangular.
+- `borderOnHover`: remove it. Clickable cards show hover with blue text and an underlined heading.
+- `restrictImageHeight`: remove it. The fixed image height is now the default.
+- `skin="outlined-beige"`: use `outlined`. The old default was `outlined`; omit `skin` to get the new default `gray`.
 
 For Elements, complex props like `image` and `tags` can be passed in several ways: as JavaScript properties, as JSON strings in HTML attributes (Lit will `JSON.parse` them internally), or directly as objects in frameworks like Vue that bind to properties.
 

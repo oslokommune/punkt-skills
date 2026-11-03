@@ -101,8 +101,12 @@ which resets every token whose dark value differs back to its light value and se
 `color-scheme: light`. It comes from the same maps as the dark scope, so new tokens are covered
 automatically.
 
-The component markup sets the attribute; the SCSS needs nothing extra. The accordion puts
-`data-mode="light"` on each row when its effective skin is in `ACCORDION_LIGHT_ONLY_SKINS`
-(`shared-types/accordion.ts`), in both React and Elements. Put it on an element in light DOM: in
-Elements the global stylesheet doesn't reach into a shadow root, so an attribute on a shadow
-container does nothing.
+The component markup sets the attribute. The accordion puts `data-mode="light"` on each row when
+its effective skin is in `ACCORDION_LIGHT_ONLY_SKINS` (`shared-types/accordion.ts`), and the card
+puts it on its `<article>` for skins in `CARD_LIGHT_ONLY_SKINS` (`shared-types/card.ts`), in both
+React and Elements. Put it on an element in light DOM: in Elements the global stylesheet doesn't
+reach into a shadow root, so an attribute on a shadow container does nothing.
+
+The light scope resets tokens, not `color`. Text inherits the computed colour from the dark parent,
+so the element with `data-mode="light"` must set `color: var(--pkt-color-text-body-default)` itself,
+as `.pkt-accordion-item` and `.pkt-card` do.

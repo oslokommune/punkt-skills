@@ -28,17 +28,18 @@ Dark mode: Yes
 
 - Write clear link text that describes where the link goes
 - Avoid generic text like "Click here" or "Read more" — the link text should make sense on its own
+- When the icon should show that this is a link, use `arrow-link`, not `chevron-right`
 
 ## Props / Attributes
 
-| Prop (React)   | Attribute (Elements) | Type                                               | Default   | Description                          |
-| -------------- | -------------------- | -------------------------------------------------- | --------- | ------------------------------------ |
-| `href`         | `href`               | string                                             | `"#"`     | URL the link points to               |
-| `target`       | `target`             | `"_blank"` \| `"_self"` \| `"_parent"` \| `"_top"` | `"_self"` | Link target                          |
-| `iconName`     | `iconName`           | string (icon name)                                 | —         | Icon displayed next to the link text |
-| `iconPosition` | `iconPosition`       | `"left"` \| `"right"`                              | —         | Position of the icon                 |
-| `external`     | `external`           | boolean                                            | `false`   | Style the link as pointing off-site  |
-| `renderLink`   | —                    | function (React only)                              | plain `<a>` | Custom link renderer (see below)    |
+| Prop (React)   | Attribute (Elements) | Type                                               | Default     | Description                                                 |
+| -------------- | -------------------- | -------------------------------------------------- | ----------- | ----------------------------------------------------------- |
+| `href`         | `href`               | string                                             | `"#"`       | URL the link points to                                      |
+| `target`       | `target`             | `"_blank"` \| `"_self"` \| `"_parent"` \| `"_top"` | `"_self"`   | Link target                                                 |
+| `iconName`     | `iconName`           | string (icon name)                                 | —           | Icon displayed next to the link text                        |
+| `iconPosition` | `iconPosition`       | `"left"` \| `"right"`                              | —           | Position of the icon                                        |
+| `rel`          | `rel`                | string                                             | —           | Same as `rel` on a plain link, e.g. `"noopener noreferrer"` |
+| `renderLink`   | —                    | function (React only)                              | plain `<a>` | Custom link renderer (see below)                            |
 
 ## Custom link rendering (React)
 
@@ -68,7 +69,7 @@ Without `renderLink`, a plain `<a>` is rendered. Note that `className` already c
 ## Accessibility
 
 - Link text must describe the destination — avoid "Click here" or "Read more"
-- When opening in a new tab (`target="_blank"`), indicate this to the user (e.g. with an external link icon)
+- When opening in a new tab (`target="_blank"`), say so in the link text. Don't use an external-link icon: users read it as "new tab" or "other site" inconsistently
 - Links have a visible focus indicator for keyboard navigation
 
 ## Examples
@@ -84,8 +85,8 @@ import { PktLink } from '@oslokommune/punkt-react'
   Download report
 </PktLink>
 
-<PktLink href="https://example.com" target="_blank" iconName="external-link" iconPosition="right">
-  External resource
+<PktLink href="https://example.com" target="_blank" rel="noopener noreferrer">
+  Example.com (opens in a new tab)
 </PktLink>
 ```
 
@@ -98,7 +99,11 @@ import { PktLink } from '@oslokommune/punkt-react'
   <span>Download report</span>
 </pkt-link>
 
-<pkt-link href="https://example.com" target="_blank" iconName="external-link" iconPosition="right">
-  <span>External resource</span>
+<pkt-link href="https://example.com" target="_blank" rel="noopener noreferrer">
+  <span>Example.com (opens in a new tab)</span>
 </pkt-link>
 ```
+
+## Migrating from Punkt 19
+
+The `external` prop and its icon were removed in Punkt 20. Replace `external` with `rel="noopener noreferrer"` if you relied on the `rel` it set, and say in the link text where the link leads.

@@ -66,12 +66,12 @@ The `{name}` matches the CSS custom property name without the `--pkt-color-` pre
 
 Page-level backgrounds.
 
-| Token                    | Use                             |
-| ------------------------ | ------------------------------- |
-| `background-default`     | Default page background (white) |
-| `background-subtle`      | Slightly tinted background      |
-| `background-card`        | Card background                 |
-| `background-transparent` | Transparent                     |
+| Token                    | Use                                                  |
+| ------------------------ | ---------------------------------------------------- |
+| `background-default`     | Default page background (white)                      |
+| `background-subtle`      | Slightly tinted background                           |
+| `background-card`        | Card background (light gray; dark gray in dark mode) |
+| `background-transparent` | Transparent                                          |
 
 ### Surface
 

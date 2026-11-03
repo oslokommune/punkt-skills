@@ -95,7 +95,7 @@ $box-shadow: (
   'medium': ...,
   'large': ...,
 );
-$icon-path: 'https://punkt-cdn.oslo.kommune.no/latest/icons';
+$icon-path: 'https://cdn.ikoner.oslo.kommune.no/icons';
 ```
 
 ---
@@ -138,6 +138,17 @@ Emits no `min-width` when `$value` is `0`. Use this instead of passing a value t
   // Falls back to media query if container queries unsupported
 }
 ```
+
+Two traps when a component is its own container:
+
+- A container can't query itself. Put `container-type` on an inner element and let the query
+  style that element's children (Card: `.pkt-card__container` is the container, and its image and
+  wrapper pick their grid columns).
+- A container's width can't come from its content, so in a parent that shrinks to fit its content
+  it collapses to its `min-width`. Card gives itself a preferred width with a zero-height
+  `::before` outside the container: `display: grid; grid-template-columns: minmax(0, 25rem)`. That
+  adds 25rem to the max-content width and nothing to the min-content width, so it never overflows.
+  Pair it with `min-width: min(14rem, 100%)`, not a plain length, which overflows narrow columns.
 
 ### `get-text($name)` — Typography (with line-height)
 

@@ -98,7 +98,7 @@ class beat a component style. With utilities last that still works; sorted alpha
 would not, and the breakage would be silent.
 
 `base/_link.scss` holds the whole `.pkt-link` component — `a`, `.pkt-link-button`, their states,
-`.pkt-link__icon`, `--icon-left/--icon-right`, `--external` and the dark-mode filters. It lives in
+`.pkt-link__icon`, `--icon-left/--icon-right` and the dark-mode icon filters. It lives in
 `base/` rather than `components/` because the `a` element rules must stay ahead of
 `elements/_button.scss`, so `<a class="pkt-btn">` still gets button styling.
 

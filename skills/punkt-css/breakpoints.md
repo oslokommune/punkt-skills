@@ -7,9 +7,10 @@ breakpoint back to `$breakpoints` yourself. Classes ending in `-desktop-up` have
 replacement at all, and `--mobile-up` classes no longer exist because they duplicated the
 base class.
 
-To migrate a codebase that is still on Punkt 18, run
-`npx @oslokommune/punkt-migrate@19 . --dry-run` from the project root. The tool takes one
-path and scans everything under it, skipping `node_modules` and build output.
+To migrate a codebase that is still on Punkt 18 or 19, run
+`npx @oslokommune/punkt-migrate@20 . --dry-run` from the project root. The tool takes one
+path and scans everything under it, skipping `node_modules` and build output. A project on 18
+is migrated through 19 in the same run.
 
 ## Breakpoint scale
 
