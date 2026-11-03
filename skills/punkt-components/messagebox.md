@@ -8,7 +8,7 @@ Messagebox displays a highlighted informational message. Unlike Alert, it is not
 | -------------- | --------- | ---------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktMessagebox>` — `import { PktMessagebox } from '@oslokommune/punkt-react'`                 |
 | Elements       | Yes       | `<pkt-messagebox>` — `import '@oslokommune/punkt-elements/dist/pkt-messagebox.js'`             |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-messagebox.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/20/elements/pkt-messagebox.js" type="module">` |
 
 Dark mode: Yes, for the `gray` skin. The other skins have no dark variant and render `data-mode="light"`, so the box and everything inside it keep their light-mode colors inside a `data-mode="dark"` area.
 

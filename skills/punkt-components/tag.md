@@ -8,7 +8,7 @@ Tag displays a short label, status, or category. It can include an icon and an o
 | -------------- | --------- | ------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktTag>` — `import { PktTag } from '@oslokommune/punkt-react'`                            |
 | Elements       | Yes       | `<pkt-tag>` — `import '@oslokommune/punkt-elements/dist/pkt-tag.js'`                        |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-tag.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/20/elements/pkt-tag.js" type="module">` |
 
 Dark mode: Only the default `gray` skin. Every other skin keeps its light appearance in dark mode.
 

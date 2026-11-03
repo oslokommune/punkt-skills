@@ -10,7 +10,7 @@ Checkbox Group wraps a set of checkboxes in a fieldset with label, help text and
 | -------------- | --------- | --------------------------------------------------------------------------------------------------- |
 | React          | Yes       | `<PktCheckboxGroup>` — `import { PktCheckboxGroup } from '@oslokommune/punkt-react'`                |
 | Elements       | Yes       | `<pkt-checkbox-group>` — `import '@oslokommune/punkt-elements/dist/pkt-checkbox-group.js'`          |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-checkbox-group.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/20/elements/pkt-checkbox-group.js" type="module">` |
 
 Dark mode: Yes
 

@@ -10,7 +10,7 @@ Radio Group wraps a set of radio buttons in a fieldset with label, help text and
 | -------------- | --------- | ------------------------------------------------------------------------------------------------ |
 | React          | Yes       | `<PktRadioGroup>` — `import { PktRadioGroup } from '@oslokommune/punkt-react'`                   |
 | Elements       | Yes       | `<pkt-radio-group>` — `import '@oslokommune/punkt-elements/dist/pkt-radio-group.js'`             |
-| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/19/elements/pkt-radio-group.js" type="module">` |
+| Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/20/elements/pkt-radio-group.js" type="module">` |
 
 Dark mode: Yes
 
