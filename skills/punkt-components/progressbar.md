@@ -28,11 +28,11 @@ track behind the bar is `surface-strong-default` in every skin.
 
 ### Status display
 
-| Status type            | Description                            |
-| ---------------------- | -------------------------------------- |
-| `percentage` (default) | Shows progress as percentage           |
-| `fraction`             | Shows progress as fraction (e.g. 3/10) |
-| `none`                 | No status text                         |
+| Status type      | Description                            |
+| ---------------- | -------------------------------------- |
+| `none` (default) | No status text                         |
+| `percentage`     | Shows progress as percentage           |
+| `fraction`       | Shows progress as fraction (e.g. 3/10) |
 
 ### Status placement
 
@@ -56,10 +56,10 @@ track behind the bar is `surface-strong-default` in every skin.
 | `title`           | `title`              | string                                                  | —                  | Title displayed above the bar                  |
 | `titlePosition`   | `titlePosition`      | `"left"` \| `"center"`                                  | `"left"`           | Title text alignment                           |
 | `skin`            | `skin`               | `"dark-blue"` \| `"light-blue"` \| `"green"` \| `"red"` | `"dark-blue"`      | Color of the progress bar                      |
-| `valueCurrent`    | `valueCurrent`       | number                                                  | `0` **(required)** | Current progress value                         |
+| `valueCurrent`    | `valueCurrent`       | number                                                  | — **(required)**   | Current progress value                         |
 | `valueMin`        | `valueMin`           | number                                                  | `0`                | Minimum value                                  |
 | `valueMax`        | `valueMax`           | number                                                  | `100`              | Maximum value                                  |
-| `statusType`      | `statusType`         | `"none"` \| `"percentage"` \| `"fraction"`              | `"percentage"`     | How progress is displayed as text              |
+| `statusType`      | `statusType`         | `"none"` \| `"percentage"` \| `"fraction"`              | `"none"`           | How progress is displayed as text              |
 | `statusPlacement` | `statusPlacement`    | `"left"` \| `"following"` \| `"center"`                 | `"following"`      | Where the status text is placed                |
 | `role`            | `role`               | `"progressbar"` \| `"meter"`                            | `"progressbar"`    | ARIA role                                      |
 | `id`              | `id`                 | string                                                  | —                  | Unique identifier                              |
