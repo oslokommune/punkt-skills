@@ -76,6 +76,16 @@ documentation, design reviews and visual regression tests, not for production UI
 | `type`       | `type`               | `"button"` \| `"submit"` \| `"reset"`                                                                      | `"button"`      | Button type when closable  |
 | `ariaLabel`  | `ariaLabel`          | string                                                                                                     | —               | Screen reader label        |
 
+## Events
+
+| Event (React) | Event (Elements) | Description                                                   |
+| ------------- | ---------------- | ------------------------------------------------------------- |
+| `onClose`     | `close`          | Fires when the close button is clicked. Requires `closeTag`.  |
+
+`on-close` (Elements) is deprecated. It is the same event as `close`, kept for legacy Vue setups, and will be removed in a later major version. Use `close`.
+
+In React, an `onClick` on a closable tag is overridden by the close handler. Use `onClose`.
+
 ## Slots
 
 | Slot    | Description |
@@ -104,7 +114,7 @@ import { PktTag } from '@oslokommune/punkt-react'
 {
   /* Closable tag */
 }
-;<PktTag skin="beige" closeTag onClick={() => removeTag(id)}>
+;<PktTag skin="beige" closeTag onClose={() => removeTag(id)}>
   Filter item
 </PktTag>
 
