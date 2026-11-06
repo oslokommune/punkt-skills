@@ -7,7 +7,7 @@ A centered wrapper that constrains content width and adds horizontal padding.
 ### Defaults
 
 - **Padding:** `padding-inline` 16px (1rem) on mobile, 32px (2rem) from tablet up
-- **Max-width:** 80rem (1280px) from laptop up
+- **Max-width:** 79.25rem (1268px), which leaves 1204px (75.25rem) for content. That is the content width on oslo.kommune.no, and `pkt-footer` uses the same width, so page content and footer line up
 - **Centering:** `margin-inline: auto`
 
 ### Width modifiers
@@ -18,7 +18,7 @@ A centered wrapper that constrains content width and adds horizontal padding.
 | `--phablet`    | 36rem (576px)   | 36rem           |
 | `--tablet`     | 48rem (768px)   | 48rem           |
 | `--tablet-big` | 64rem (1024px)  | 64rem           |
-| `--laptop`     | 80rem (1280px)  | 80rem _(default)_ |
+| `--laptop`     | 80rem (1280px)  | 80rem           |
 | `--desktop`    | 100rem (1600px) | 100rem          |
 
 Below the activation width, the container is always 100% width.

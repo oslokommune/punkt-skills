@@ -96,6 +96,7 @@ $box-shadow: (
   'large': ...,
 );
 $icon-path: 'https://cdn.ikoner.oslo.kommune.no/icons';
+$content-max-width: 75.25rem; // 1204px, shared by .pkt-container and .pkt-footer__inner
 ```
 
 ---

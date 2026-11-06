@@ -77,7 +77,7 @@ Apply `.pkt-link` to a `<button>` element to style it as a text link:
 `.pkt-container` is covered in detail in [Grid System](grid-system.md). Brief reference:
 
 ```html
-<div class="pkt-container">Centered, padded content (max 80rem)</div>
+<div class="pkt-container">Centered, padded content (max 1204px content)</div>
 <div class="pkt-container pkt-container--tablet">Narrow content (max 48rem)</div>
 <div class="pkt-container pkt-container--full">Full width</div>
 ```

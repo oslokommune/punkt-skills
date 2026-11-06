@@ -48,12 +48,14 @@ Centered container with responsive padding:
 </div>
 ```
 
+Default max-width is `variables.$content-max-width` (75.25rem, 1204px, the content width on oslo.kommune.no) plus 2 × 32px padding, 79.25rem in total. `.pkt-footer__inner` derives its max-width from the same variable, so page content and footer always line up. Change the width there, never in one of them alone.
+
 ### Container width modifiers
 - `.pkt-container--full`
 - `.pkt-container--phablet`
 - `.pkt-container--tablet`
 - `.pkt-container--tablet-big`
-- `.pkt-container--laptop` (default max-width: 80rem)
+- `.pkt-container--laptop` (max-width: 80rem)
 - `.pkt-container--desktop`
 
 ### Container alignment

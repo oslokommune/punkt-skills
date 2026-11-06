@@ -145,7 +145,7 @@ Use `.pkt-container` and `.pkt-grid` inside `<main>` to control content width an
 
 #### Basic page
 
-Content constrained to laptop width (80rem) by default:
+Content constrained to 1204px by default, the same width as the footer content:
 
 ```html
 <div class="pkt-layout">
