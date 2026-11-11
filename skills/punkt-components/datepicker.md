@@ -4,10 +4,10 @@ Datepicker lets the user select a date, multiple dates, or a date range. The use
 
 ## Availability
 
-| Package        | Available | Tag / Import                                                                                       |
-| -------------- | --------- | -------------------------------------------------------------------------------------------------- |
-| React          | Yes       | `<PktDatepicker>` — `import { PktDatepicker } from '@oslokommune/punkt-react'`                     |
-| Elements       | Yes       | `<pkt-datepicker>` — `import '@oslokommune/punkt-elements/dist/pkt-datepicker.js'`                 |
+| Package        | Available | Tag / Import                                                                                   |
+| -------------- | --------- | ---------------------------------------------------------------------------------------------- |
+| React          | Yes       | `<PktDatepicker>` — `import { PktDatepicker } from '@oslokommune/punkt-react'`                 |
+| Elements       | Yes       | `<pkt-datepicker>` — `import '@oslokommune/punkt-elements/dist/pkt-datepicker.js'`             |
 | Elements (CDN) | Yes       | `<script src="https://punkt-cdn.oslo.kommune.no/20/elements/pkt-datepicker.js" type="module">` |
 
 Dark mode: Yes
@@ -21,6 +21,8 @@ Dark mode: Yes
 | Single date    | Select one specific date                |
 | Multiple dates | Select several dates at once            |
 | Range          | Select a period with start and end date |
+
+In range mode the value is read left to right, so a to-date needs a from-date. Emptying the to-field keeps the from-date. A to-date with no from-date stays in its field while the user is still in the datepicker, so they can type or pick a new from-date, and is cleared when focus leaves the datepicker. A picked from-date after the to-date starts a new range. The calendar only shows what is complete: nothing without a from-date, and the to-date once the range is complete.
 
 ## Usage guidelines
 
@@ -42,50 +44,65 @@ Dark mode: Yes
 
 ## Props / Attributes
 
-| Prop (React)             | Attribute (Elements)     | Type               | Default          | Description                                   |
-| ------------------------ | ------------------------ | ------------------ | ---------------- | --------------------------------------------- |
-| `name`                   | `name`                   | string             | —                | Form field name                               |
-| `form`                   | `form`                   | string             | —                | `id` of the `<form>` the field belongs to, when it sits outside it |
-| `id`                     | `id`                     | string             | —                | Unique identifier                             |
-| `label`                  | `label`                  | string             | —                | Label displayed above the field               |
-| `helptext`               | `helptext`               | string             | —                | Help text below the label                     |
-| `helptextDropdown`       | `helptextDropdown`       | string             | —                | Expandable help text content                  |
-| `helptextDropdownButton` | `helptextDropdownButton` | string             | `"Les mer"`      | Button text for expandable help               |
-| `dateformat`             | `dateformat`             | string             | `"dd.MM.yyyy"`   | Date format string                            |
-| `currentmonth`           | `currentmonth`           | string (ISO date)  | —                | Month displayed in the calendar               |
-| `value`                  | `value`                  | string (ISO date)  | —                | Selected value (comma-separated for multiple) |
-| `excludeweekdays`        | `excludeweekdays`        | string             | —                | Comma-separated weekdays to exclude (1–7)     |
-| `excludedates`           | `excludedates`           | string (ISO dates) | —                | Comma-separated ISO dates to exclude          |
-| `min`                    | `min`                    | string (ISO date)  | —                | Earliest allowed date                         |
-| `max`                    | `max`                    | string (ISO date)  | —                | Latest allowed date                           |
-| `weeknumbers`            | `weeknumbers`            | boolean            | `false`          | Show week numbers                             |
-| `withcontrols`           | `withcontrols`           | boolean            | `false`          | Show month/year selectors                     |
-| `multiple`               | `multiple`               | boolean            | `false`          | Allow selecting multiple dates                |
-| `maxlength`              | `maxlength`              | number             | —                | Max number of dates in multi select           |
-| `range`                  | `range`                  | boolean            | `false`          | Enable date range selection (from–to)         |
-| `showRangeLabels`        | `show-range-labels`      | boolean            | `false`          | Show from/to labels in range mode             |
-| `today`                  | `today`                  | string (ISO date)  | —                | Override "today" in the calendar (useful for snapshot tests) |
-| `calendarOpen`           | `calendar-open`          | boolean            | `false`          | Calendar popup is open                        |
-| `hasError`               | `hasError`               | boolean            | `false`          | Shows error state                             |
-| `errorMessage`           | `errorMessage`           | string             | —                | Error message shown below the field           |
-| `disabled`               | `disabled`               | boolean            | `false`          | Disables the datepicker                       |
-| `fullwidth`              | `fullwidth`              | boolean            | `false`          | Field takes full width                        |
-| `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`       | Field height                                  |
-| `required`               | `required`               | boolean            | `false`          | Field is required                             |
-| `requiredTag`            | `requiredTag`            | boolean            | `false`          | Show "Required" tag next to label             |
-| `requiredText`           | `requiredText`           | string             | `"Må fylles ut"` | Deprecated — use `strings`. See [Strings](strings.md)                      |
-| `optionalTag`            | `optionalTag`            | boolean            | `false`          | Show "Optional" tag next to label             |
-| `optionalText`           | `optionalText`           | string             | `"Valgfritt"`    | Deprecated — use `strings`. See [Strings](strings.md)                      |
-| `tagText`                | `tagText`                | string             | —                | Custom tag text next to label                 |
-| `useWrapper`             | `useWrapper`             | boolean            | `true`           | Show label, help text, and wrapper            |
+| Prop (React)             | Attribute (Elements)     | Type                                  | Default        | Description                                                                                                     |
+| ------------------------ | ------------------------ | ------------------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------- |
+| `name`                   | `name`                   | string                                | —              | Form field name                                                                                                 |
+| `form`                   | `form`                   | string                                | —              | `id` of the `<form>` the field belongs to, when it sits outside it                                              |
+| `id`                     | `id`                     | string                                | —              | Unique identifier                                                                                               |
+| `label`                  | `label`                  | string                                | —              | Label displayed above the field                                                                                 |
+| `helptext`               | `helptext`               | string                                | —              | Help text below the label                                                                                       |
+| `helptextDropdown`       | `helptextDropdown`       | string                                | —              | Expandable help text content                                                                                    |
+| `helptextDropdownButton` | `helptextDropdownButton` | string                                | —              | Deprecated. Use `strings`, see [Strings](strings.md)                                                            |
+| `dateformat`             | `dateformat`             | string                                | `"dd.MM.yyyy"` | Date format string                                                                                              |
+| `currentmonth`           | `currentmonth`           | string (ISO date)                     | —              | Month displayed in the calendar                                                                                 |
+| `value`                  | `value`                  | string (ISO date)                     | —              | Selected value (comma-separated for multiple and range). React also accepts `string[]`                          |
+| `excludeweekdays`        | `excludeweekdays`        | `string[]`                            | —              | Weekdays to exclude (1-7). Elements takes a comma-separated attribute                                           |
+| `excludedates`           | `excludedates`           | `string[]` (ISO dates)                | —              | ISO dates to exclude. Elements takes a comma-separated attribute                                                |
+| `min`                    | `min`                    | string (ISO date)                     | —              | Earliest allowed date                                                                                           |
+| `max`                    | `max`                    | string (ISO date)                     | —              | Latest allowed date                                                                                             |
+| `weeknumbers`            | `weeknumbers`            | boolean                               | `false`        | Show week numbers                                                                                               |
+| `withcontrols`           | `withcontrols`           | boolean                               | `false`        | Show month/year selectors                                                                                       |
+| `multiple`               | `multiple`               | boolean                               | `false`        | Allow selecting multiple dates                                                                                  |
+| `maxlength`              | `maxlength`              | number                                | —              | Max number of dates in multi select. `0` means no limit                                                        |
+| `range`                  | `range`                  | boolean                               | `false`        | Enable date range selection (from–to)                                                                           |
+| `showRangeLabels`        | `show-range-labels`      | boolean                               | `false`        | Show from/to labels in range mode                                                                               |
+| `today`                  | `today`                  | string (ISO date)                     | —              | Override "today" in the calendar (useful for snapshot tests)                                                    |
+| `calendarOpen`           | `calendar-open`          | boolean                               | `false`        | Calendar popup is open                                                                                          |
+| `hasError`               | `hasError`               | boolean                               | `false`        | Shows error state                                                                                               |
+| `errorMessage`           | `errorMessage`           | string                                | —              | Error message shown below the field                                                                             |
+| `disabled`               | `disabled`               | boolean                               | `false`        | Disables the datepicker                                                                                         |
+| `fullwidth`              | `fullwidth`              | boolean                               | `false`        | Field takes full width                                                                                          |
+| `inputSize`              | `input-size`             | `"xsmall"` \| `"small"` \| `"medium"` | `"medium"`     | Field height                                                                                                    |
+| `required`               | `required`               | boolean                               | `false`        | Field is required                                                                                               |
+| `requiredTag`            | `requiredTag`            | boolean                               | `false`        | Show "Required" tag next to label                                                                               |
+| `requiredText`           | `requiredText`           | string                                | —              | Deprecated. Use `strings`, see [Strings](strings.md)                                                            |
+| `optionalTag`            | `optionalTag`            | boolean                               | `false`        | Show "Optional" tag next to label                                                                               |
+| `optionalText`           | `optionalText`           | string                                | —              | Deprecated. Use `strings`, see [Strings](strings.md)                                                            |
+| `tagText`                | `tagText`                | string                                | —              | Custom tag text next to label                                                                                   |
+| `useWrapper`             | `useWrapper`             | boolean                               | `true`         | Show label, help text, and wrapper                                                                              |
+| `inline`                 | `inline`                 | boolean                               | `false`        | Field flows with the surrounding text                                                                           |
+| `hasFieldset`            | `hasFieldset`            | boolean                               | derived        | Use fieldset and legend instead of label                                                                        |
+| `counter`                | `counter`                | boolean                               | derived        | Show the date counter. When unset, it shows with `multiple` and a `maxlength` above 0. `false` hides it |
+| `ariaDescribedby`        | `aria-describedby`       | string                                | —              | ID of an element that describes the field                                                                       |
+
+## Forms
+
+The two frameworks submit multiple dates differently:
+
+- **Elements** works like `<select>`. One date sends one entry. With `multiple` or `range` it sends one entry per date, like `<select multiple>`, pre-filled values included: `dato=2024-06-10&dato=2024-06-20`.
+- **React** sends all dates as one comma-separated entry: `dato=2024-06-10,2024-06-20`. Use `onValueChange` when you need the dates as a `string[]`.
+
+Without `name`, both use the `id` as the field name.
 
 ## Events
 
-| Event (React)      | Event (Elements) | Description                                                                           |
-| ------------------ | ---------------- | ------------------------------------------------------------------------------------- |
-| `onChange`          | `change`         | Fires when a date is selected. `e.target.value` contains comma-joined ISO date string. |
-| `onValueChange`    | `value-change`   | Returns an array of selected dates in ISO format (`string[]` in React, CustomEvent in Elements) |
-| —                  | `toggleHelpText` | Fires when expandable help text opens/closes. `{ isOpen: boolean }`                   |
+| Event (React)   | Event (Elements) | Description                                                                                                                                                                         |
+| --------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `onChange`      | `change`         | Fires when a date is selected. `e.target.value` contains comma-joined ISO date string. With `range`: fires when the range is complete or emptied, not when only the from-date is set |
+| `onValueChange` | `value-change`   | Fires on every value change, also when only the from-date of a range is set. React: called with a `string[]` of ISO dates. Elements: `event.detail` is an ISO date string in single mode and an array with `multiple` or `range` |
+| `onFocus`       | `focus`          | Fires once when focus enters the datepicker: the field, the calendar button or the calendar. Moving between them fires nothing                                                      |
+| `onBlur`        | `blur`           | Fires once when focus leaves the datepicker, also from the calendar. React: `e.target` is the named hidden input, as with `onChange`, so `register()` from react-hook-form works    |
+| —               | —                | `toggleHelpText` is dispatched by the inner input wrapper with `bubbles: false`. `pkt-datepicker` does not re-dispatch it, and React `PktDatepicker` has no `onToggleHelpText` prop |
 
 ## Accessibility
 
