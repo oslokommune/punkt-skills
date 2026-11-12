@@ -182,3 +182,5 @@ import { PktCombobox } from '@oslokommune/punkt-react'
 ## Notes
 
 For Elements, array/object props like `options` and `defaultOptions` can be passed as JavaScript properties, as JSON strings in HTML attributes (Lit will `JSON.parse` them internally), or directly as objects in frameworks like Vue that bind to properties.
+
+With no options, the listbox shows an empty-list banner. Set `listbox.empty` to `''` to hide it, for example with `strings={{ listbox: { empty: '' } }}` or `setPktStrings({ listbox: { empty: '' } })`. See [Strings](strings.md).
