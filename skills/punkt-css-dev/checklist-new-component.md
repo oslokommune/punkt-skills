@@ -14,5 +14,6 @@
 8. Implement **dark mode** overrides where needed (see [Dark Mode](dark-mode.md)).
 9. Implement **interactive states** with both pseudo-classes and BEM modifier classes (see [States](states.md)).
 10. Add focus indicators using the double box-shadow pattern.
-11. Register the partial in the directory's `_index.scss` via `@forward`.
-12. Run `npm run build` from `packages/css/` to verify compilation.
+11. Give the component no spacing around itself, and set margin and padding explicitly on every element it renders. Don't rely on browser defaults, which a consumer's CSS reset removes (see [Spacing around components](component-patterns.md#spacing-around-components)).
+12. Register the partial in the directory's `_index.scss` via `@forward`.
+13. Run `npm run build` from `packages/css/` to verify compilation.

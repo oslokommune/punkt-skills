@@ -22,6 +22,8 @@
 </div>
 ```
 
+`.pkt-txt-nowrap` — keeps text on one line (`white-space: nowrap`) without cutting it off.
+
 Requires `display: block` or `display: inline-block` on the element (block is the default for `<div>` and `<p>`).
 
 ## Display contents
@@ -71,6 +73,24 @@ Apply `.pkt-link` to a `<button>` element to style it as a text link:
 ```html
 <button class="pkt-link" onclick="...">Click me</button>
 ```
+
+## Forced states
+
+Every interactive component has a modifier class per state, for documentation, demos and
+screenshots: `--hover`, `--focus`, `--active` and `--visited`, on the element that would
+otherwise match `:hover`, `:focus`/`:focus-visible`/`:focus-within`, `:active` or `:visited`.
+
+```html
+<a class="pkt-link pkt-link--hover" href="#">Hover</a>
+<button class="pkt-btn pkt-btn--primary pkt-btn--focus">Focus</button>
+<div class="pkt-input__container pkt-input__container--focus">
+  <input class="pkt-input pkt-input--focus" />
+</div>
+```
+
+Put the class on every element that would match the state. A container with focus styling needs
+its own `--focus`, and an element with two blocks needs both blocks' classes. Never use them for
+real interaction.
 
 ## Container
 

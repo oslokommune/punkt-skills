@@ -158,6 +158,24 @@ Buttons grow with their content, so text that wraps stays inside the border. Eac
 
 A component that gives a button its own `height` must also set `min-height: 0` (see the fileupload inline UI and the timepicker options), otherwise the size's `min-height` wins. To change the font size of the button text, use `get-text-style`, not `get-text`: a line-height larger than the size's own makes the button taller.
 
+## Spacing around components
+
+Components have no spacing around themselves. Punkt does not know the context a component is placed in, so the consumer sets the space between components. A component's outer edge is its border box: no margin on the root, and no child margin that collapses out through it. The loader's message, for example, has a top margin (the gap to the spinner) but no bottom margin, which would otherwise leak out below the component.
+
+`.pkt-hr` is the exception: its `size-8` block margin is part of the design.
+
+Consumers must be able to set margins on the component root. Utilities (`mt-size-*`) use `!important` and always win. A consumer's own class only wins when it loads after Punkt, so never raise the specificity of a root margin above one class. Prefer leaving the root's margin unset. Zeroing a browser default on the root is better done with `:where(.pkt-x) { margin: 0 }`, which beats the browser but loses to any consumer rule.
+
+## Surviving a consumer's CSS reset
+
+Punkt ships normalise, which keeps the browser's default margins. Many consumers also load a reset (minireset, Tailwind preflight) that zeroes margins and padding on `p`, `ul`, `ol`, `hr`, `th` and more. Any spacing Punkt's own markup gets from the browser disappears under such a reset, and any it doesn't want stays without one.
+
+Never rely on browser defaults for elements Punkt renders or styles. Set margin and padding explicitly with spacing tokens, including `0` where the design has none (`.pkt-breadcrumbs__list` sets `margin: 0; padding: 0`). If a component styles content elements partly, style them fully: `.pkt-messagebox__text p` sets both `margin-block-start` and `margin-block-end`. Content Punkt does not style at all (paragraphs in accordion or alert content) is the consumer's, and their reset should apply to it.
+
+Browser defaults have hidden bugs before. Breadcrumbs had a 40px indent and 14px vertical margin for three years: the 2023 redesign removed the list's explicit padding without setting 0, and a global `ol { margin: 0 }` had been removed earlier the same year.
+
+To check, inject a reset into `@layer reset` (lowest priority, so it only reaches properties Punkt leaves unset) and compare computed styles inside Punkt components with and without it.
+
 ## Formatting
 
 Prettier config (`packages/css/.prettierrc`):

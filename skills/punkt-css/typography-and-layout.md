@@ -102,6 +102,8 @@ Available breakpoints: `tablet`, `tablet-big`, `laptop` (see [Breakpoints](break
 
 Requires `display: block` or `display: inline-block` on the element.
 
+`.pkt-txt-nowrap` keeps text on one line without truncating it.
+
 ## SCSS typography mixin
 
 > Requires SCSS embedding method.

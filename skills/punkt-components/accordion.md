@@ -47,6 +47,31 @@ dark mode every row keeps its light-mode colors, including the white rows and th
 Elements do this by setting `data-mode="light"` on each row. With plain CSS, add
 `data-mode="light"` to each `.pkt-accordion-item` yourself.
 
+### Indicator
+
+The icon in each row shows whether it is open or closed. The default is a chevron that turns when
+the row opens. `indicator="plus-minus"` shows a plus when closed and a minus when open, in any skin
+and size. Set it on `PktAccordion` / `<pkt-accordion>` to apply it to every item, or on a single
+item to override. The `plus-minus` skin always shows plus and minus.
+
+With plain CSS, put both icons in the summary instead of the chevron:
+
+```html
+<summary class="pkt-accordion-item__title">
+  Title
+  <pkt-icon
+    name="plus-sign"
+    class="pkt-accordion-item__icon pkt-accordion-item__icon--plus"
+    aria-hidden="true"
+  ></pkt-icon>
+  <pkt-icon
+    name="minus-sign"
+    class="pkt-accordion-item__icon pkt-accordion-item__icon--minus"
+    aria-hidden="true"
+  ></pkt-icon>
+</summary>
+```
+
 ## Usage guidelines
 
 **Use accordion when:**
@@ -74,18 +99,20 @@ Elements do this by setting `data-mode="light"` on each row. With plain CSS, add
 | ---------------- | -------------------- | ------------------------------------------------------------------- | -------------- | -------------------------------------------- |
 | `skin`           | `skin`               | `"borderless"` \| `"outlined"` \| `"gray"` \| `"beige"` \| `"blue"` | `"borderless"` | Visual style                                 |
 | `compact`        | `compact`            | boolean                                                             | `false`        | Compact mode with less padding               |
+| `indicator`      | `indicator`          | `"chevron"` \| `"plus-minus"`                                       | —              | Open/closed icon; chevron when unset         |
 | `ariaLabelledBy` | `ariaLabelledBy`     | string                                                              | —              | ID of the element that labels this accordion |
 | `name`           | `name`               | string                                                              | —              | Group name for the accordion                 |
 
 ### PktAccordionItem
 
-| Prop (React)  | Attribute (Elements) | Type    | Default        | Description                                      |
-| ------------- | -------------------- | ------- | -------------- | ------------------------------------------------ |
-| `title`       | `title`              | string  | —              | Title displayed in the row summary               |
-| `id`          | `id`                 | string  | **(required)** | Unique ID for this item                          |
-| `defaultOpen` | `defaultOpen`        | boolean | `false`        | Item is open when the page loads                 |
-| `isOpen`      | `isOpen`             | boolean | —              | Controlled open state (overrides internal state) |
-| `name`        | `name`               | string  | —              | Group name for grouping items together           |
+| Prop (React)  | Attribute (Elements) | Type                          | Default        | Description                                      |
+| ------------- | -------------------- | ----------------------------- | -------------- | ------------------------------------------------ |
+| `title`       | `title`              | string                        | —              | Title displayed in the row summary               |
+| `id`          | `id`                 | string                        | **(required)** | Unique ID for this item                          |
+| `defaultOpen` | `defaultOpen`        | boolean                       | `false`        | Item is open when the page loads                 |
+| `isOpen`      | `isOpen`             | boolean                       | —              | Controlled open state (overrides internal state) |
+| `name`        | `name`               | string                        | —              | Group name for grouping items together           |
+| `indicator`   | `indicator`          | `"chevron"` \| `"plus-minus"` | —              | Overrides the accordion's `indicator`            |
 
 ### Events
 
