@@ -25,26 +25,27 @@ The slot-based approach is recommended for new code.
 
 | Prop (React)      | Attribute (Elements) | Type               | Default | Description                                                                             |
 | ----------------- | -------------------- | ------------------ | ------- | --------------------------------------------------------------------------------------- |
-| `arrowNav`        | `arrow-nav`          | boolean            | `true`  | Enable arrow key navigation between tabs. Also enables `role="tab"` and `aria-selected` |
-| `disableArrowNav` | `disable-arrow-nav`  | boolean            | `false` | Disable arrow navigation (e.g. for pure navigation menus). Overrides `arrowNav`         |
+| `arrowNav`        | `arrow-nav`          | boolean            | `true`  | Enable arrow key navigation between tabs. Also enables `role="tab"` and `aria-selected`. Elements accepts `arrow-nav="false"` |
+| `disableArrowNav` | `disable-arrow-nav`  | boolean            | `false` | Disable arrow navigation (e.g. for pure navigation menus). Overrides `arrowNav`. Elements accepts `"false"` |
 | `separatorIconName` | `separator-icon-name` | string (icon name) | `""`   | Icon rendered as a separator between tabs                                               |
-| `separatorIconPath` | `separator-icon-path` | string           | `""`    | Override the CDN path for the separator icon                                            |
-| `togglePanels`    | `toggle-panels`      | boolean            | `false` | Tabs track the active tab themselves and show the panel each tab points at with `controls`. See [Panel switching](#panel-switching) |
+| `separatorIconPath` | `separator-icon-path` | string           | `""`    | Image path for the separator. Overrides `separatorIconName` when both are set           |
+| `togglePanels`    | `toggle-panels`      | boolean            | `false` | Tabs track the active tab themselves and show the panel each tab points at with `controls`. See [Panel switching](#panel-switching). Elements accepts `"false"` |
 | `ariaLabelledBy`  | `aria-labelledby`    | string             | —       | ID of a visible heading that names the tabs. Set on the tab list                       |
 | `ariaLabel`       | `aria-label`         | string             | —       | Name for the tabs when there is no visible heading. Set on the tab list                 |
-| `tabs`            | `tabs`               | `Array<TabObject>` | —       | Legacy: array of tab definitions (prefer using PktTabItem instead)                      |
+| `tabs`            | —                    | `IPktTab[]`        | —       | React only, legacy: array of tab definitions (prefer PktTabItem children). Elements only takes `pkt-tab-item` children |
 
-### TabObject shape (legacy `tabs` prop)
+### IPktTab shape (legacy `tabs` prop, React only)
 
 ```ts
 {
-  text: string           // Tab title (required)
-  href?: string          // URL (renders as link)
-  action?: () => void    // Click handler
-  controls?: string      // aria-controls ID
-  icon?: string          // Icon name
-  active?: boolean       // Is this the active tab
-  tag?: { text: string, skin?: string }  // Badge tag
+  text: string                         // Tab title (required)
+  href?: string                        // URL (renders as link)
+  action?: (index: number) => void     // Called with the tab's index when it is selected
+  disabled?: boolean                   // Not selectable, skipped by arrow keys
+  controls?: string                    // aria-controls ID
+  icon?: string                        // Icon name
+  active?: boolean                     // Is this the active tab
+  tag?: { text: string, skin?: TTagSkin }  // Badge tag, skin defaults to "blue"
 }
 ```
 
@@ -56,16 +57,19 @@ The slot-based approach is recommended for new code.
 | `href`       | `href`               | string                                                                                    | —        | URL — renders the tab as a link                 |
 | `icon`       | `icon`               | string (icon name)                                                                        | —        | Icon displayed in the tab                       |
 | `tag`        | `tag`                | string                                                                                    | —        | Badge tag text                                  |
-| `tagSkin`    | `tag-skin`           | `"blue"` \| `"green"` \| `"red"` \| `"beige"` \| `"yellow"` \| `"gray"` \| `"blue-light"` | `"blue"` | Badge tag color                                 |
-| `index`      | `index`              | number                                                                                    | `0`      | Tab index — must be set explicitly when mapping |
+| `tagSkin`    | `tag-skin`           | `TTagSkin` (every Tag skin)                                                               | `"blue"` | Badge tag color                                 |
+| `index`      | `index`              | number                                                                                    | `0`      | Tab index, set it on every tab. Arrow keys skip indexes that no tab has |
 | `controls`   | `controls`           | string                                                                                    | —        | `aria-controls` ID for the tab panel. With `togglePanels`, that element is shown when the tab is active and hidden otherwise |
 | `disabled`   | `disabled`           | boolean                                                                                   | `false`  | Disables the tab — not clickable, skipped by arrow navigation |
 
 ## Events
 
-| Event (React)   | Event (Elements) | Description                                    |
-| --------------- | ---------------- | ---------------------------------------------- |
-| `onTabSelected` | `tab-selected`   | Fires when a tab is selected by click or keyboard. Returns the index |
+| Event (React)          | Event (Elements) | Description                                    |
+| ---------------------- | ---------------- | ---------------------------------------------- |
+| `onTabSelected`        | `tab-selected`   | Fires when a tab is selected by click or keyboard, not for a disabled tab. React: called with the index. Elements: the index is in `event.detail.index` |
+| `onClick` (PktTabItem) | `click`          | Click on a tab. React: prop on PktTabItem. Elements: the native click event, which doesn't bubble out of a disabled tab |
+
+Elements exports `IPktTabsAttributes` and `IPktTabItemAttributes` with the kebab-case attribute names, for typing templates.
 
 ## Slots
 
