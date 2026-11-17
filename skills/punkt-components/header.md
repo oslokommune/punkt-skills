@@ -57,14 +57,16 @@ Dark mode: Yes
 | `representing`            | `representing`              | `{ name: string, orgNumber?: string \| number }`                           | —             | Organization being represented                                                               |
 | `canChangeRepresentation` | `can-change-representation` | boolean                                                                    | `false`       | Show "Change organization" button                                                            |
 | `logOutButtonPlacement`   | `log-out-button-placement`  | `"userMenu"` \| `"header"` \| `"both"` \| `"none"`                         | `"none"`      | Where to show the logout button                                                              |
-| `showSearch`              | `show-search`               | boolean                                                                    | `false`       | Show search field in the header                                                              |
-| `searchPlaceholder`       | `search-placeholder`        | string                                                                     | `"Søk"`       | Placeholder text in the search field                                                         |
+| —                         | `has-log-out`               | boolean                                                                    | `false`       | Elements only. Must be set for the logout button to render. In React, set `logOut` instead   |
+| `showSearch`              | `show-search`               | boolean                                                                    | `false`       | Show search field in the header. `true` by default for the global header                     |
+| `strings`                 | `strings`                   | `TPktStringsOverride<'header'>`                                            | —             | Override the header texts (`search`, `menu`, …) for this instance. Use `setPktStrings()` app-wide |
+| `searchPlaceholder`       | `search-placeholder`        | string                                                                     | `"Søk"`       | **Deprecated.** Use `strings={{ header: { search } }}` or `setPktStrings()` instead          |
 | `searchValue`             | `search-value`              | string                                                                     | —             | Controlled value for the search field                                                        |
 | `mobileBreakpoint`        | `mobile-breakpoint`         | number                                                                     | `768`         | Custom breakpoint for mobile appearance (pixels)                                             |
 | `tabletBreakpoint`        | `tablet-breakpoint`         | number                                                                     | `1280`        | Custom breakpoint for tablet appearance (pixels)                                             |
 | `openedMenu`              | `opened-menu`               | `"none"` \| `"slot"` \| `"search"` \| `"user"`                             | `"none"`      | Which menu is open on load                                                                   |
 | `slotMenuVariant`         | `slot-menu-variant`         | `"icon-only"` \| `"icon-right"`                                            | `"icon-only"` | Menu button variant on tablet/mobile                                                         |
-| `slotMenuText`            | `slot-menu-text`            | string                                                                     | `"Meny"`      | Menu button text on tablet/mobile                                                            |
+| `slotMenuText`            | `slot-menu-text`            | string                                                                     | `"Meny"`      | Menu button text on tablet/mobile. Falls back to `header.menu` in the string catalogue       |
 
 ## Events
 
@@ -74,8 +76,8 @@ Dark mode: Yes
 | `logOut`               | `log-out`               | User clicks the logout button                                    |
 | `onSearch`             | `search`                | User submits search (presses Enter in search field)              |
 | `onSearchChange`       | `search-change`         | User changes the search text                                     |
-| `logoClick`            | `logo-click`            | User clicks the logo (Elements only — use prop in React)         |
-| `serviceClick`         | `service-click`         | User clicks the service name (Elements only — use prop in React) |
+| —                      | `logo-click`            | User clicks the logo (Elements only — use `logoClick` prop in React)         |
+| —                      | `service-click`         | User clicks the service name (Elements only — use `serviceClick` prop in React) |
 
 ## Navigation slot
 
@@ -211,7 +213,8 @@ The global header takes its own prop set — `serviceName`, `serviceLink`, `comp
 | `logoLink`                | `logo-link`                 | string                                             | `https://www.oslo.kommune.no` | URL for the logo. Set it to an empty string to render the logo without a link |
 | `logoPath`                | `logo-path`                 | string                                             | —                    | Override the CDN path for logo assets                                       |
 | `showSearch`              | `show-search`               | boolean                                            | `true`               | Show the search field                                                       |
-| `searchPlaceholder`       | `search-placeholder`        | string                                             | From payload         | Falls back to the payload's placeholder, then `"Søk"`                       |
+| `strings`                 | `strings`                   | `TPktStringsOverride<'header'>`                    | —                    | Override the header texts. An override of `header.menu` or `header.search` wins over the payload's texts (menu button, search label and placeholder) |
+| `searchPlaceholder`       | `search-placeholder`        | string                                             | From payload         | **Deprecated.** Use `strings={{ header: { search } }}` or `setPktStrings()`. Without an override, the payload's placeholder is used |
 | `showContact`             | `show-contact`              | boolean                                            | `true`               | Show the contact link from the payload                                      |
 | `user`                    | `user`                      | `{ name: string, lastLoggedIn?: string \| Date }`  | —                    | Logged-in user. When set, the user menu is shown                            |
 | `userMenu`                | `user-menu`                 | `Array<{ title, iconName?, target? }>`             | —                    | User menu items                                                             |
@@ -234,8 +237,8 @@ Note the breakpoint defaults differ from the service header, where `tabletBreakp
 | `logOut`               | `log-out`               | User clicks the logout button                           |
 | `changeRepresentation` | `change-representation` | User clicks "Change organization"                       |
 | `logoClick`            | `logo-click`            | User clicks the logo                                    |
-| `onDataLoaded`         | `data-loaded`           | Payload was fetched, or `data` was supplied             |
-| `onDataError`          | `data-error`            | Fetching the payload failed                             |
+| `onDataLoaded`         | `data-loaded`           | Payload was fetched, or `data` was supplied. React gets the payload as argument, Elements in `detail.data` |
+| `onDataError`          | `data-error`            | Fetching the payload failed. React gets the error as argument, Elements in `detail.error` |
 
 There is no navigation slot — the menu is built from the payload, so `children` are not used.
 
