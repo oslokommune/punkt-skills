@@ -29,6 +29,9 @@ The slot-based approach is recommended for new code.
 | `disableArrowNav` | `disable-arrow-nav`  | boolean            | `false` | Disable arrow navigation (e.g. for pure navigation menus). Overrides `arrowNav`         |
 | `separatorIconName` | `separator-icon-name` | string (icon name) | `""`   | Icon rendered as a separator between tabs                                               |
 | `separatorIconPath` | `separator-icon-path` | string           | `""`    | Override the CDN path for the separator icon                                            |
+| `togglePanels`    | `toggle-panels`      | boolean            | `false` | Tabs track the active tab themselves and show the panel each tab points at with `controls`. See [Panel switching](#panel-switching) |
+| `ariaLabelledBy`  | `aria-labelledby`    | string             | —       | ID of a visible heading that names the tabs. Set on the tab list                       |
+| `ariaLabel`       | `aria-label`         | string             | —       | Name for the tabs when there is no visible heading. Set on the tab list                 |
 | `tabs`            | `tabs`               | `Array<TabObject>` | —       | Legacy: array of tab definitions (prefer using PktTabItem instead)                      |
 
 ### TabObject shape (legacy `tabs` prop)
@@ -55,14 +58,14 @@ The slot-based approach is recommended for new code.
 | `tag`        | `tag`                | string                                                                                    | —        | Badge tag text                                  |
 | `tagSkin`    | `tag-skin`           | `"blue"` \| `"green"` \| `"red"` \| `"beige"` \| `"yellow"` \| `"gray"` \| `"blue-light"` | `"blue"` | Badge tag color                                 |
 | `index`      | `index`              | number                                                                                    | `0`      | Tab index — must be set explicitly when mapping |
-| `controls`   | `controls`           | string                                                                                    | —        | `aria-controls` ID for the tab panel            |
+| `controls`   | `controls`           | string                                                                                    | —        | `aria-controls` ID for the tab panel. With `togglePanels`, that element is shown when the tab is active and hidden otherwise |
 | `disabled`   | `disabled`           | boolean                                                                                   | `false`  | Disables the tab — not clickable, skipped by arrow navigation |
 
 ## Events
 
 | Event (React)   | Event (Elements) | Description                                    |
 | --------------- | ---------------- | ---------------------------------------------- |
-| `onTabSelected` | `tab-selected`   | Fires when a tab is clicked. Returns the index |
+| `onTabSelected` | `tab-selected`   | Fires when a tab is selected by click or keyboard. Returns the index |
 
 ## Slots
 
@@ -71,7 +74,59 @@ The slot-based approach is recommended for new code.
 | PktTabs    | default | PktTabItem children    |
 | PktTabItem | default | Tab label text/content |
 
+## Keyboard and ARIA
+
+Tabs follow the WAI-ARIA Authoring Practices tabs pattern:
+
+- Tab moves into the tab list on the active tab (roving `tabindex`), and on to the panel. With no active tab, the first enabled tab is the one reachable with Tab
+- ArrowLeft/ArrowRight move focus and wrap around; Home/End go to the first/last tab; disabled tabs are skipped
+- Enter, Space or ArrowDown select the focused tab
+- With `togglePanels`, arrow keys, Home and End also select (automatic activation). Without it they only move focus, so a consumer that loads content on select is not triggered by every key press
+- Name the tab list with `ariaLabelledBy` (visible heading) or `ariaLabel`
+- With `disableArrowNav` (navigation semantics) the active item gets `aria-current="page"` (links) or `aria-current="true"` (buttons) instead of `aria-selected`
+- The focus ring only shows for keyboard focus (`:focus-visible`). A tab selected with the mouse shows only the light blue line
+
+## Panel switching
+
+Without `togglePanels`, the consumer owns everything: `active` is a prop, a click only fires `tab-selected` / `onTabSelected`, and `controls` only sets `aria-controls`. The consumer keeps the active index in state and hides the panels.
+
+With `togglePanels`:
+
+- A click, Enter, Space, ArrowDown, the arrow keys, Home or End make the tab active. In Elements this moves the `active` attribute; in React it is internal state that starts from the `active` props and follows them when they change
+- Each tab with `controls` sets `hidden` on that element: removed while the tab is active, set otherwise
+- With tab semantics (`arrowNav`, the default) the panel gets `role="tabpanel"`, `aria-labelledby` and `tabindex="0"` where each is missing, and the tab gets the id `<controls>-tab`. These ids only render in this mode
+- `tab-selected` / `onTabSelected` still fire. Setting `active` from code still switches the tab
+- Put `hidden` on the inactive panels in the markup, so they don't show before JS loads
+- Panels are found by id in the tab's root node, so tabs and panels must share a document or shadow root
+- The event handler cannot stop the switch. If you need that (unsaved changes, for example), leave `togglePanels` off and control `active` yourself
+
+Use it for in-page panels. For a navigation menu (`disableArrowNav`, `href`) leave it off.
+
 ## Examples
+
+### Panel switching — React
+
+```jsx
+<PktTabs togglePanels>
+  <PktTabItem index={0} controls="panel-overview" active>Overview</PktTabItem>
+  <PktTabItem index={1} controls="panel-details">Details</PktTabItem>
+</PktTabs>
+
+<div id="panel-overview">Overview content</div>
+<div id="panel-details" hidden>Details content</div>
+```
+
+### Panel switching — Elements / HTML
+
+```html
+<pkt-tabs toggle-panels>
+  <pkt-tab-item index="0" controls="panel-overview" active>Overview</pkt-tab-item>
+  <pkt-tab-item index="1" controls="panel-details">Details</pkt-tab-item>
+</pkt-tabs>
+
+<div id="panel-overview">Overview content</div>
+<div id="panel-details" hidden>Details content</div>
+```
 
 ### React — slot-based (recommended)
 

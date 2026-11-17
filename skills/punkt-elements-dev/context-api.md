@@ -13,6 +13,7 @@ import { createContext } from '@lit/context'
 
 export interface TabsContext {
   useArrowNav: boolean
+  togglePanels: boolean
   registerTab: (element: HTMLElement, index: number) => void
   handleClick: (index: number) => void
   handleKeyUp: (event: KeyboardEvent, index: number) => void
@@ -34,6 +35,7 @@ export class PktTabs extends PktElement<IPktTabs> {
   @state()
   private context: TabsContext = {
     useArrowNav: this.useArrowNav,
+    togglePanels: this.togglePanels,
     registerTab: this.registerTab.bind(this),
     handleClick: this.handleClick.bind(this),
     handleKeyUp: this.handleKeyUp.bind(this),
@@ -41,10 +43,11 @@ export class PktTabs extends PktElement<IPktTabs> {
 
   // Update context when properties change
   updated(changedProperties: PropertyValues) {
-    if (changedProperties.has('arrowNav') || changedProperties.has('disableArrowNav')) {
+    if (changedProperties.has('arrowNav') || changedProperties.has('disableArrowNav') || changedProperties.has('togglePanels')) {
       this.context = {
         ...this.context,
         useArrowNav: this.useArrowNav,
+        togglePanels: this.togglePanels,
       }
     }
   }

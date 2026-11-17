@@ -72,7 +72,7 @@ Rules for writing them:
 - Add the forced selector next to the pseudo one, never in a separate rule, so the two keep the
   same declarations.
 - A negated state keeps its specificity with `:where()`:
-  `&:focus:not(:active), &.pkt-x--focus:not(:active):where(:not(.pkt-x--active))`. A plain
+  `&:focus-visible:not(:active), &.pkt-x--focus:not(:active):where(:not(.pkt-x--active))`. A plain
   `:not(.pkt-x--active)` adds a class to the specificity and can beat later rules.
 - Don't put `:has()` in a selector list together with the pseudo selector. Browsers without
   `:has()` (old iPads) drop the whole list, real state included.
@@ -97,8 +97,9 @@ The standard focus ring uses a **double box-shadow** (inner ring + outer ring):
 }
 ```
 
-Links don't style `:focus:not(:focus-visible)`. A clicked link keeps focus, so an outline there
-stays visible after the click, and it showed up all over the header.
+Links and tabs don't style `:focus:not(:focus-visible)`. A clicked link or tab keeps focus, so an
+outline there stays visible after the click. It showed up all over the header, and on every tab
+selected with the mouse.
 
 ## Disabled state
 
