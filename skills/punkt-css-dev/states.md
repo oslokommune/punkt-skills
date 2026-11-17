@@ -101,6 +101,12 @@ Links and tabs don't style `:focus:not(:focus-visible)`. A clicked link or tab k
 outline there stays visible after the click. It showed up all over the header, and on every tab
 selected with the mouse.
 
+The same goes for a container's focus style. Chrome and Firefox on Windows focus a checkbox on
+mouse click, Safari doesn't, so a `:focus-within` border on a tile stayed after unchecking it in
+Chrome only. Use `:has(:focus-visible)`, and keep `:focus-within` in
+`@supports not selector(:has(*))` so browsers without `:has()` still show keyboard focus (see
+`.pkt-input-check__input--tile`).
+
 ## Disabled state
 
 Always handle all three disabled variants:
