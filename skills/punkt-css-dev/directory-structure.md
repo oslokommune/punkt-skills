@@ -98,7 +98,11 @@ class beat a component style. With utilities last that still works; sorted alpha
 would not, and the breakage would be silent.
 
 `base/_link.scss` holds the whole `.pkt-link` component — `a`, `.pkt-link-button`, their states,
-`.pkt-link__icon`, `--icon-left/--icon-right` and the dark-mode icon filters. It lives in
+`.pkt-link__icon`, `--icon-left/--icon-right` and the dark-mode icon filters. `button.pkt-link`
+shares the `a` rules through `button:where(.pkt-link:not(.pkt-btn))`, which keeps the specificity of
+`a`, and resets the button's font. `.pkt-btn` and `.pkt-link-button` are left out because Helptext
+and the header put `pkt-link` on their own buttons. Normalise's `[type='button']:-moz-focusring`
+outline (0,2,0) beats the shared focus rule, so the button turns it off in its own rule. It lives in
 `base/` rather than `components/` because the `a` element rules must stay ahead of
 `elements/_button.scss`, so `<a class="pkt-btn">` still gets button styling.
 

@@ -74,6 +74,11 @@ Apply `.pkt-link` to a `<button>` element to style it as a text link:
 <button class="pkt-link" onclick="...">Click me</button>
 ```
 
+It gets the link's colour, underline, hover, focus and active states, and inherits font, line
+height and letter spacing from the surrounding text. One difference remains: a button is laid out
+as an inline block, so a long button text moves to its own line instead of wrapping with the text
+around it. Use a real `<a>` when the target is a URL.
+
 ## Forced states
 
 Every interactive component has a modifier class per state, for documentation, demos and

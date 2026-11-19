@@ -164,7 +164,7 @@ Components have no spacing around themselves. Punkt does not know the context a 
 
 `.pkt-hr` is the exception: its `size-8` block margin is part of the design.
 
-Consumers must be able to set margins on the component root. Utilities (`mt-size-*`) use `!important` and always win. A consumer's own class only wins when it loads after Punkt, so never raise the specificity of a root margin above one class. Prefer leaving the root's margin unset. Zeroing a browser default on the root is better done with `:where(.pkt-x) { margin: 0 }`, which beats the browser but loses to any consumer rule.
+Consumers must be able to set margins on the component root. Utilities (`mt-size-*`) use `!important` and always win. A consumer's own class only wins when it loads after Punkt, so never raise the specificity of a root margin above one class. Prefer leaving the root's margin unset. Zeroing a browser default on the root is better done with `:where(.pkt-x) { margin: 0 }`, which beats the browser but loses to any consumer rule. `.pkt-input`, `.pkt-tag`, `.pkt-stepper` and `.pkt-listbox` do this.
 
 ## A root that falls back to another component's markup
 
