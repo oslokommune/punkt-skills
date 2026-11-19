@@ -103,7 +103,7 @@ The catalogue is two levels: namespace → key.
 | `listbox`     | Search field, empty list, add value, max reached             |
 | `combobox`    | Status messages for selection, search and the max limit      |
 | `fileupload`  | Drop zone, queue actions, preview and announcements          |
-| `backlink`    | `label`                                                      |
+| `backlink`    | `label` (also Breadcrumbs with a single item)                |
 | `breadcrumbs` | `ariaLabel`                                                  |
 | `tag`         | `remove`                                                     |
 | `card`        | `tagsLabelOne`, `tagsLabelOther` (label for the tag list)    |

@@ -166,6 +166,10 @@ Components have no spacing around themselves. Punkt does not know the context a 
 
 Consumers must be able to set margins on the component root. Utilities (`mt-size-*`) use `!important` and always win. A consumer's own class only wins when it loads after Punkt, so never raise the specificity of a root margin above one class. Prefer leaving the root's margin unset. Zeroing a browser default on the root is better done with `:where(.pkt-x) { margin: 0 }`, which beats the browser but loses to any consumer rule.
 
+## A root that falls back to another component's markup
+
+When a component renders another component's markup in some state, keep its own root class so consumer rules on that class still apply, and exclude the fallback from the component's own root rules with `:where(:not(...))`. Breadcrumbs with one item renders `nav.pkt-breadcrumbs.pkt-back-link`, and its root rules sit under `.pkt-breadcrumbs:where(:not(.pkt-back-link))`, so the backlink looks exactly like `PktBackLink`. A plain `:not()` would raise the root rule to two classes and beat consumer rules that load after Punkt.
+
 ## Surviving a consumer's CSS reset
 
 Punkt ships normalise, which keeps the browser's default margins. Many consumers also load a reset (minireset, Tailwind preflight) that zeroes margins and padding on `p`, `ul`, `ol`, `hr`, `th` and more. Any spacing Punkt's own markup gets from the browser disappears under such a reset, and any it doesn't want stays without one.

@@ -37,7 +37,7 @@ npm add -D sass
 @use '@oslokommune/punkt-css/dist/scss/pkt';
 ```
 
-The `$font-path` override is required so the font-face declarations resolve to the correct package.
+The `$font-path` override is required so the font-face declarations resolve to the correct package. It must come before anything else loads Punkt: if another file has already loaded `abstracts` or `pkt`, Sass stops with "This module was already loaded, so it can't be configured using "with"".
 
 ## Using CSS `@layer`
 

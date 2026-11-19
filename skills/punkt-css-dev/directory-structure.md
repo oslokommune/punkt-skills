@@ -104,7 +104,7 @@ would not, and the breakage would be silent.
 
 In `--icon-left/--icon-right` the icon sits on the first text line, offset by
 `(1lh - var(--pkt-link-icon-size)) / 2`. A component that resizes `.pkt-link__icon` must set
-`--pkt-link-icon-size` to the same size, as breadcrumbs does, or the icon drifts off the line.
+`--pkt-link-icon-size` to the same size, as breadcrumbs and `.pkt-icon--inherit` do, or the icon drifts off the line.
 
 `base/_spacing-responsive.scss` and `base/_grid-responsive.scss` hold the per-breakpoint variants
 of the spacing and grid utilities — the bulk of the classes in both. They are separate files so

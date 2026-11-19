@@ -1,6 +1,6 @@
 # Icon
 
-Icon displays an SVG icon from the Punkt icon library. Icons are loaded from the Punkt CDN by default and can be sized using CSS classes.
+Icon displays an SVG icon from the Punkt icon library. Icons are loaded from the Punkt CDN by default and can be sized with the `size` prop.
 
 ## Availability
 
@@ -14,13 +14,16 @@ Dark mode: No
 
 ## Sizes
 
-| CSS class          | Size   |
-| ------------------ | ------ |
-| `pkt-icon--small`  | Small  |
-| `pkt-icon--medium` | Medium |
-| `pkt-icon--large`  | Large  |
+| `size`    | Size                         | Class               |
+| --------- | ---------------------------- | ------------------- |
+| `small`   | 16px                         | `pkt-icon--small`   |
+| `medium`  | 24px                         | `pkt-icon--medium`  |
+| `large`   | 64px                         | `pkt-icon--large`   |
+| `inherit` | 1em, follows the text size   | `pkt-icon--inherit` |
 
-Set the size by passing the CSS class via `className` (React) or `class` (Elements).
+Set the size with the `size` prop/attribute; it adds the class `pkt-icon--{size}`. Without `size`, the surrounding styles decide the size. Plain HTML/CSS can use the classes directly.
+
+`inherit` makes the icon as tall as the surrounding text and centres it on the line (`vertical-align: middle`), down to small text sizes; the other sizes never go below 16px. For another size, set the font size on the icon itself, e.g. `size="inherit" class="pkt-txt-24"`. It also works as `.pkt-link__icon` in icon links.
 
 ## Props / Attributes
 
@@ -28,7 +31,7 @@ Set the size by passing the CSS class via `className` (React) or `class` (Elemen
 | ------------ | -------------------- | ------------------------------------------------------------------ | --------------------------------------------------- | ----------------------------- |
 | `name`       | `name`               | string (icon name)                                                 | —                                                   | Name of the icon to display   |
 | `path`       | `path`               | string                                                             | `"https://cdn.ikoner.oslo.kommune.no/icons/"`       | Override the icon source path. Can also be set globally with `window.pktIconPath` |
-| `className`  | `class`              | `"pkt-icon--small"` \| `"pkt-icon--medium"` \| `"pkt-icon--large"` | —                                                   | CSS class for sizing the icon |
+| `size`       | `size`               | `"small"` \| `"medium"` \| `"large"` \| `"inherit"`                | —                                                   | Icon size, adds `pkt-icon--{size}` |
 | `ariaHidden` | `aria-hidden`        | boolean                                                            | —                                                   | Hides the icon from screen readers. When unset, the icon is hidden unless `ariaLabel` is set |
 | `ariaLabel`  | `aria-label`         | string                                                             | —                                                   | Accessible name. When set, the icon is exposed to screen readers with this text |
 
@@ -40,16 +43,18 @@ Set the size by passing the CSS class via `className` (React) or `class` (Elemen
 import { PktIcon } from '@oslokommune/punkt-react'
 
 <PktIcon name="chevron-right" />
-<PktIcon name="download" className="pkt-icon--large" />
-<PktIcon name="user" className="pkt-icon--small" />
+<PktIcon name="download" size="large" />
+<PktIcon name="user" size="small" />
+<p className="pkt-txt-14-light">Next <PktIcon name="arrow-right" size="inherit" /></p>
 ```
 
 ### Elements
 
 ```html
 <pkt-icon name="chevron-right"></pkt-icon>
-<pkt-icon name="download" class="pkt-icon--large"></pkt-icon>
-<pkt-icon name="user" class="pkt-icon--small"></pkt-icon>
+<pkt-icon name="download" size="large"></pkt-icon>
+<pkt-icon name="user" size="small"></pkt-icon>
+<p class="pkt-txt-14-light">Next <pkt-icon name="arrow-right" size="inherit"></pkt-icon></p>
 ```
 
 ## Notes

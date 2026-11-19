@@ -38,9 +38,13 @@ Dark mode: Yes
 
 | Prop (React)     | Attribute (Elements) | Type                                                                                                         | Default        | Description                                                                                                          |
 | ---------------- | -------------------- | ------------------------------------------------------------------------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `breadcrumbs`    | `breadcrumbs`        | `Array<{ text: string, href: string }>`                                                                      | **(required)** | List of breadcrumb items                                                                                             |
+| `breadcrumbs`    | `breadcrumbs`        | `Array<{ text: string, href: string }>`                                                                      | **(required)** | List of breadcrumb items. The last item is the current page. A single item renders as a back link (see below)        |
 | `navigationType` | —                    | `"router"` \| `"anchor"`                                                                                     | `"anchor"`     | React only. Navigation method — `"anchor"` for standard links, `"router"` for client-side routing                    |
 | `renderLink`     | —                    | `(args: { href: string, className: string, children: ReactNode, props: AnchorHTMLAttributes }) => ReactNode` | —              | React only. Custom link component (e.g. Next.js Link). When set, `navigationType` is implicitly `"router"`           |
+
+## Single item
+
+With exactly one item, the component renders Backlink markup linking to that item, at every screen size: `nav.pkt-breadcrumbs.pkt-back-link`, aria-label from the `backlink.label` string. It looks exactly like Backlink; `.pkt-breadcrumbs` stays on the root so your own CSS on that class still applies. The item is treated as the parent page, not the current page. `renderLink`, `navigationType` and the `navigate` event (index `0`) still apply. Override the label with `strings={{ backlink: { label: '…' } }}`.
 
 ## Events
 
@@ -86,7 +90,7 @@ If you don't listen to the `navigate` event, links work as normal `<a>` elements
 - Link text must be clear and describe where the link goes
 - Keyboard: navigate with Tab, activate with Enter. The component has a visible focus indicator
 - Do not use breadcrumbs as the only way to navigate back — it should supplement the main navigation
-- The last item in the trail (current page) is not clickable
+- The last item in the trail (current page) is not clickable, unless it is the only item and renders as a back link
 
 ## Examples
 

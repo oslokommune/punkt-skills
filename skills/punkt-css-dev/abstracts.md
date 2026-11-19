@@ -165,6 +165,15 @@ Two traps when a component is its own container:
 // Outputs: font-size, font-weight, letter-spacing (no line-height)
 ```
 
+### `get-text-size($name)` — Typography (without font-weight)
+
+```scss
+@include typography.get-text-size('pkt-txt-24');
+// Outputs: font-size, line-height, letter-spacing (no font-weight)
+```
+
+Use it to change size at a breakpoint without resetting a weight set elsewhere. Public API for consumers; ODS uses it for every responsive text size.
+
 ### `truncate-text()` — Text overflow
 
 ```scss

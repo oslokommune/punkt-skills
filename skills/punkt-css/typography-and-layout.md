@@ -49,6 +49,13 @@ Apply a weight without changing size:
 - `.pkt-font-medium` (500)
 - `.pkt-font-bold` (700)
 
+A weight class beats the weight in a `.pkt-txt-*` class regardless of class order. Weight classes also come with `--{breakpoint}-up`. A responsive text class resets the weight from its breakpoint, so repeat the weight class with the same suffix for every responsive text class:
+
+```html
+<!-- Bold at every width. Without pkt-font-bold--tablet-up it turns light from tablet up -->
+<p class="pkt-txt-16-light pkt-txt-20-light--tablet-up pkt-font-bold pkt-font-bold--tablet-up">…</p>
+```
+
 ## Responsive typography
 
 Add `--{breakpoint}-up` to apply a typography class at a specific breakpoint and above:
@@ -117,6 +124,18 @@ Requires `display: block` or `display: inline-block` on the element.
 
   @include bp('tablet-up') {
     @include get-text('pkt-txt-54');
+  }
+}
+```
+
+`get-text` also sets the weight. To change size without touching the weight (typically at a breakpoint), use `get-text-size`: it sets `font-size`, `line-height` and `letter-spacing`, not `font-weight`.
+
+```scss
+.lead {
+  @include get-text('pkt-txt-20-light');
+
+  @include bp('tablet-up') {
+    @include get-text-size('pkt-txt-24');
   }
 }
 ```
