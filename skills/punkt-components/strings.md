@@ -105,6 +105,7 @@ The catalogue is two levels: namespace → key.
 | `fileupload`  | Drop zone, queue actions, preview and announcements          |
 | `backlink`    | `label` (also Breadcrumbs with a single item)                |
 | `breadcrumbs` | `ariaLabel`                                                  |
+| `pagination`  | `ariaLabel`, `previous`, `next`, `page`, `currentPage`       |
 | `tag`         | `remove`                                                     |
 | `card`        | `tagsLabelOne`, `tagsLabelOther` (label for the tag list)    |
 | `header`      | Search, menu, logo labels, user menu, menu loading/error     |

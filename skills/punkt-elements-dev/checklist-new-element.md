@@ -1,6 +1,6 @@
 # Checklist: Adding a New Element
 
-1. Read the component spec in `component-specs/{name}.json` for required props, types, and modifiers.
+1. Read the component spec in `component-specs/{name}.spec.ts` (older ones are still `.json`) for required props, types, and modifiers.
 2. Decide the base class:
    - `PktElementWithSlot` for display components that accept children
    - `PktElement` for display components without children

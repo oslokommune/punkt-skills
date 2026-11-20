@@ -150,6 +150,9 @@ Two traps when a component is its own container:
   `::before` outside the container: `display: grid; grid-template-columns: minmax(0, 25rem)`. That
   adds 25rem to the max-content width and nothing to the min-content width, so it never overflows.
   Pair it with `min-width: min(14rem, 100%)`, not a plain length, which overflows narrow columns.
+  Pagination uses the same trick: the list is the container, and `.pkt-pagination::before` asks
+  for `minmax(0, 40rem)`. Don't use `contain-intrinsic-inline-size` instead: it sets the
+  min-content width too, so flex items and `auto` grid columns overflow on phones.
 
 ### `get-text($name)` — Typography (with line-height)
 

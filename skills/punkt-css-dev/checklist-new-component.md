@@ -1,6 +1,6 @@
 # Checklist: Adding Component Styles
 
-1. Read the component spec in `component-specs/{name}.json` for required classes and modifiers.
+1. Read the component spec in `component-specs/{name}.spec.ts` (older ones are still `.json`) for required classes and modifiers.
 2. Decide placement: `src/scss/components/` for UI patterns, `src/scss/elements/` for base HTML controls.
 3. Create the partial: `_component-name.scss` (underscore prefix, kebab-case).
 4. Follow the [component pattern template](component-patterns.md):
