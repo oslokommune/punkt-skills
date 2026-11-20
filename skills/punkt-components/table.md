@@ -25,32 +25,47 @@ Dark mode: Yes
 
 ## CSS classes
 
-| Class                     | Description                                         |
-| ------------------------- | --------------------------------------------------- |
-| `pkt-table`               | Base table class (required)                         |
-| `pkt-table--basic`        | Default skin with bottom borders on rows            |
-| `pkt-table--zebra`        | Alternating gray background on odd rows             |
-| `pkt-table--zebra-blue`   | Deprecated alias for `pkt-table--zebra`             |
-| `pkt-table--compact`      | Reduced padding                                     |
-| `pkt-table--responsive`   | Enables responsive stacking on mobile (≤768px)      |
-| `pkt-table__header`       | Header section (`<thead>`)                          |
-| `pkt-table__header-cell`  | Header cell (`<th>`)                                |
-| `pkt-table__body`         | Body section (`<tbody>`)                            |
-| `pkt-table__row`          | Table row (`<tr>`)                                  |
-| `pkt-table__data-cell`    | Data cell (`<td>`)                                  |
-| `pkt-table__cell-wrapper` | Wrapper for multiple elements in a cell (e.g. tags) |
+| Class                     | Description                                                         |
+| ------------------------- | ------------------------------------------------------------------- |
+| `pkt-table`               | Base table class (required)                                         |
+| `pkt-table--basic`        | Default skin with bottom borders on rows                            |
+| `pkt-table--zebra`        | Alternating gray background on odd rows                             |
+| `pkt-table--zebra-blue`   | Deprecated alias for `pkt-table--zebra`                             |
+| `pkt-table--compact`      | Reduced padding                                                     |
+| `pkt-table--responsive`   | Stacks rows at 768px or narrower (screen or nearest container)      |
+| `pkt-table__caption`      | Table title (`<caption>`), flush left, 16px above the table         |
+| `pkt-table__header`       | Header section (`<thead>`)                                          |
+| `pkt-table__header-cell`  | Header cell (`<th>`)                                                |
+| `pkt-table__body`         | Body section (`<tbody>`)                                            |
+| `pkt-table__row`          | Table row (`<tr>`)                                                  |
+| `pkt-table__data-cell`    | Data cell (`<td>`)                                                  |
+| `pkt-table__cell-wrapper` | Lays out several elements in a cell in a row with a gap (e.g. tags) |
 
 ## Responsive view
 
-When `pkt-table--responsive` is added to the table, cells stack vertically on screens ≤768px. Each cell shows a label from its `data-label` attribute next to the cell content in a two-column grid layout.
+When `pkt-table--responsive` is added to the table, cells stack vertically when the screen is 48rem (768px) or narrower, or when the nearest query container is. A table can't be its own container, so to make it respond to the space it has, give an element around it `container-type: inline-size`. Without a container, only the screen width counts. Each cell shows a label from its `data-label` attribute next to the cell content.
 
 **Requirements for responsive to work:**
 
 1. Add `pkt-table--responsive` class to the `<table>` (or set `responsiveView` prop in React — enabled by default)
 2. Every `<td>` must have a `data-label` attribute matching its column header text
-3. For cells with multiple inline elements (e.g. tags), wrap them in a `<span class="pkt-table__cell-wrapper">`
 
-On mobile, headers are hidden and each row becomes a card-like block with label–value pairs.
+On mobile, `<thead>` is hidden and each row becomes a block of label–value pairs, with the label from `data-label` beside the cell's content. A cell keeps its content together, so a cell with running text, links, tags or block elements needs no wrapper. A `<th>` in a body row (a row header, `scope="row"`) is shown as the block's title. Labels are as wide as the longest label in the block, up to 10rem, and wrap beyond that. `pkt-table--compact` keeps 16px at the sides and has 12px between pairs. `pkt-table--basic` draws a line above the first block and between blocks.
+
+## Title
+
+Give a table a title with `<caption>` as the first child of `<table>`. Inside `.pkt-table` it gets `pkt-txt-20-medium`, starts at the table's left edge and has 16px below it, on all screen sizes. The class `pkt-table__caption` gives the same style. In React, put `<caption>` directly inside `PktTable`. The caption is also the table's accessible name.
+
+```html
+<table class="pkt-table pkt-table--basic pkt-table--responsive">
+  <caption>
+    Participants
+  </caption>
+  <thead class="pkt-table__header">
+    ...
+  </thead>
+</table>
+```
 
 ## Props / Attributes — PktTable (React)
 
@@ -70,9 +85,21 @@ Types `IPktTable`, `IPktTableDataCell` and `TPktTableSkin` are exported from `@o
 | ------------ | ------ | ------- | ----------------------------------------------------------- |
 | `dataLabel`  | string | —       | Label shown on mobile — should match the column header text |
 
+## Props / Attributes — PktTableHeaderCell (React)
+
+Takes all `<th>` attributes. `role` follows `scope`: `scope="row"` or `scope="rowgroup"` gives `role="rowheader"`, anything else `role="columnheader"`. An explicit `role` wins.
+
+```jsx
+<PktTableRow>
+  <PktTableHeaderCell scope="row">Water</PktTableHeaderCell>
+  <PktTableDataCell dataLabel="Price">10 kr</PktTableDataCell>
+</PktTableRow>
+```
+
 ## Accessibility
 
 - Use `<thead>`/`<th>` (or `PktTableHeader`/`PktTableHeaderCell`) for column headings — screen readers use these to announce cell context
+- For a heading at the start of a body row, use `scope="row"` so it is announced as a row header
 - Add `role="table"` on the table and `role="row"` on rows for explicit semantics
 
 ## Examples

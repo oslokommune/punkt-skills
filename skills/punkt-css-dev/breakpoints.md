@@ -150,6 +150,22 @@ Native `@container` is also used directly in newer components:
 }
 ```
 
+### When the component can't be its own container
+
+An element with `display: table` can't be a query container (size containment doesn't apply to it in any engine), and Punkt can't add a wrapper without changing the markup consumers rely on. The responsive table therefore keeps its media query and repeats the same rules in an unnamed `@container` query, which matches the nearest container a consumer has set up. The rules are written once as a mixin in `elements/_table.scss`:
+
+```scss
+@media screen and (max-width: map.get(variables.$breakpoints, 'tablet')) {
+  @include -responsive;
+}
+
+@container (max-width: #{map.get(variables.$breakpoints, 'tablet')}) {
+  @include -responsive;
+}
+```
+
+`cq()` doesn't fit this case: it uses the container query instead of the media query when the browser supports it, so a table with no container around it would never switch.
+
 ## Approach
 
 Mobile-first: write base styles for mobile, then add overrides with `-up` breakpoints.
